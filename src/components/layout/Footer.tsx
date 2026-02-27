@@ -23,7 +23,7 @@ export function Footer() {
             <ul className="space-y-1 text-sm text-muted-foreground">
               <li>
                 <a href="https://narutomythos.com" className="hover:text-primary">
-                  Naruto Mythos Official
+                  {t('officialLink')}
                 </a>
               </li>
             </ul>
@@ -33,8 +33,7 @@ export function Footer() {
           <div>
             <h4 className="mb-2 font-semibold">{t('legal')}</h4>
             <p className="text-xs text-muted-foreground">
-              Naruto Mythos TCG is a trademark of its respective owners.
-              This is a fan-made companion app.
+              {t('legalDisclaimer')}
             </p>
           </div>
         </div>

@@ -53,7 +53,13 @@
     "keywords": "Keywords",
     "effect": "Effect",
     "cardCount": "{count} cards",
-    "noCards": "No cards match your filters"
+    "noCards": "No cards match your filters",
+    "rarityC": "Common (C)",
+    "rarityUC": "Uncommon (UC)",
+    "rarityR": "Rare (R)",
+    "rarityAR": "Art Rare (AR)",
+    "rarityS": "Super Rare (S)",
+    "rarityL": "Legendary (L)"
   },
   "Decks": {
     "title": "Deck Builder",
@@ -75,6 +81,8 @@
     "description": "The ultimate companion app for Naruto Mythos TCG players.",
     "madeWith": "Made with passion for Naruto Mythos TCG",
     "links": "Links",
-    "legal": "Legal"
+    "legal": "Legal",
+    "officialLink": "Naruto Mythos Official",
+    "legalDisclaimer": "Naruto Mythos TCG is a trademark of its respective owners. This is a fan-made companion app."
   }
 }

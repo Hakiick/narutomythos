@@ -3,18 +3,20 @@
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import type { Card } from '@prisma/client';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface CardItemProps {
   card: Card;
 }
 
 const rarityColors: Record<string, string> = {
-  C: 'bg-gray-600',
-  UC: 'bg-green-700',
-  R: 'bg-blue-700',
-  AR: 'bg-purple-700',
-  S: 'bg-yellow-600',
-  L: 'bg-amber-500',
+  C: 'bg-gray-600 hover:bg-gray-600/80',
+  UC: 'bg-green-700 hover:bg-green-700/80',
+  R: 'bg-blue-700 hover:bg-blue-700/80',
+  AR: 'bg-purple-700 hover:bg-purple-700/80',
+  S: 'bg-yellow-600 hover:bg-yellow-600/80',
+  L: 'bg-amber-500 hover:bg-amber-500/80',
 };
 
 export function CardItem({ card }: CardItemProps) {
@@ -27,7 +29,7 @@ export function CardItem({ card }: CardItemProps) {
 
   return (
     <div
-      className="group cursor-pointer rounded-lg border border-border bg-card p-3 transition-all hover:border-primary/50"
+      className="group cursor-pointer rounded-xl border border-border bg-card p-3 shadow-sm transition-all hover:border-primary/50 hover:shadow-md"
       onClick={() => setExpanded(!expanded)}
       role="button"
       tabIndex={0}
@@ -42,15 +44,18 @@ export function CardItem({ card }: CardItemProps) {
       {/* Card header */}
       <div className="mb-2 flex items-start justify-between gap-1">
         <span className="text-xs text-muted-foreground">{card.id}</span>
-        <span
-          className={`rounded px-1.5 py-0.5 text-[10px] font-bold text-white ${rarityColors[card.rarity] || 'bg-gray-600'}`}
+        <Badge
+          className={cn(
+            'border-transparent text-[10px] text-white',
+            rarityColors[card.rarity] || 'bg-gray-600'
+          )}
         >
           {card.rarity}
-        </span>
+        </Badge>
       </div>
 
       {/* Card image placeholder */}
-      <div className="mb-3 flex aspect-[63/88] items-center justify-center rounded bg-secondary text-4xl">
+      <div className="mb-3 flex aspect-[63/88] items-center justify-center rounded-lg bg-secondary text-4xl">
         {card.type === 'CHARACTER' ? '🥷' : card.type === 'MISSION' ? '📜' : '⚡'}
       </div>
 
@@ -90,12 +95,13 @@ export function CardItem({ card }: CardItemProps) {
       {card.keywords.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {card.keywords.map((keyword) => (
-            <span
+            <Badge
               key={keyword}
-              className="rounded bg-secondary px-1.5 py-0.5 text-[10px] text-muted-foreground"
+              variant="secondary"
+              className="text-[10px]"
             >
               {keyword}
-            </span>
+            </Badge>
           ))}
         </div>
       )}
