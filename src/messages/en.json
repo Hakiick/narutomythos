@@ -5,6 +5,7 @@
     "cards": "Cards",
     "decks": "Decks",
     "collection": "Collection",
+    "pricing": "Prices",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "loading": "Loading...",
@@ -32,7 +33,9 @@
       "deckBuilder": "Deck Builder",
       "deckBuilderDesc": "Build, save, and share your 30-card decks with stats and validation",
       "collectionManager": "Collection Manager",
-      "collectionManagerDesc": "Track your owned cards, wishlist, and trades with completion stats"
+      "collectionManagerDesc": "Track your owned cards, wishlist, and trades with completion stats",
+      "pricing": "Market Prices",
+      "pricingDesc": "Track estimated market values from eBay and Cardmarket"
     }
   },
   "Cards": {
@@ -152,6 +155,36 @@
     "completion": "Completion",
     "completionPercent": "{percent}%",
     "cardCount": "{count} cards"
+  },
+  "Pricing": {
+    "title": "Market Prices",
+    "subtitle": "Estimated market values for Konoha Shidō cards",
+    "marketPrice": "Market Price",
+    "noPrice": "No price data",
+    "trendUp": "Trending up",
+    "trendDown": "Trending down",
+    "trendStable": "Stable",
+    "staleWarning": "Price data may be outdated",
+    "confidence": "Confidence",
+    "sampleSize": "Based on {count} sales",
+    "lastUpdated": "Last updated",
+    "source": "Source",
+    "sourceEbay": "eBay",
+    "sourceCardmarket": "Cardmarket",
+    "currency": "Currency",
+    "sortBy": "Sort by",
+    "sortName": "Name",
+    "sortPriceAsc": "Price (low to high)",
+    "sortPriceDesc": "Price (high to low)",
+    "sortRarity": "Rarity",
+    "collectionValue": "Collection Value",
+    "deckValue": "Deck Value",
+    "totalValue": "Total Value",
+    "perCard": "per card",
+    "cardCount": "{count} cards",
+    "searchPlaceholder": "Search cards...",
+    "noPriceData": "No price data available yet",
+    "priceDisclaimer": "Prices are estimates based on recent sales data"
   },
   "Footer": {
     "description": "The ultimate companion app for Naruto Mythos TCG players.",

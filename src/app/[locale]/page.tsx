@@ -30,6 +30,12 @@ export default function HomePage() {
       href: '/collection',
       icon: '📦',
     },
+    {
+      title: t('features.pricing'),
+      description: t('features.pricingDesc'),
+      href: '/pricing',
+      icon: '💰',
+    },
   ] as const;
 
   return (
@@ -57,7 +63,7 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => (
           <Link key={feature.href} href={feature.href} className="group">
             <Card className="h-full transition-colors hover:border-primary/50">

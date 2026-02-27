@@ -15,6 +15,7 @@ export function Navbar() {
     { href: '/cards' as const, label: t('cards') },
     { href: '/decks' as const, label: t('decks') },
     { href: '/collection' as const, label: t('collection') },
+    { href: '/pricing' as const, label: t('pricing') },
   ];
 
   return (

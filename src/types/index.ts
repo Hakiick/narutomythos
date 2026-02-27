@@ -13,3 +13,8 @@ export type { CreateDeckInput, UpdateDeckInput, AddCardInput } from '@/lib/valid
 // Collection types
 export type { CollectionCardWithCard, CollectionStats } from '@/lib/services/collection-service';
 export type { AddToCollectionInput, UpdateCollectionCardInput, CollectionFiltersInput } from '@/lib/validators/collection';
+
+// Pricing types
+export type { PricePoint, PriceTrend, MarketPriceResult } from '@/lib/services/price-utils';
+export type { CardMarketPrice, CollectionValue, DeckValue } from '@/lib/services/price-service';
+export type { PriceQueryInput, CollectionValueQueryInput, DeckValueQueryInput } from '@/lib/validators/price';

@@ -5,6 +5,7 @@
     "cards": "Cartes",
     "decks": "Decks",
     "collection": "Collection",
+    "pricing": "Prix",
     "signIn": "Connexion",
     "signOut": "Déconnexion",
     "loading": "Chargement...",
@@ -32,7 +33,9 @@
       "deckBuilder": "Constructeur de deck",
       "deckBuilderDesc": "Créez, sauvegardez et partagez vos decks de 30 cartes avec stats et validation",
       "collectionManager": "Gestionnaire de collection",
-      "collectionManagerDesc": "Suivez vos cartes possédées, wishlist et échanges avec stats de complétion"
+      "collectionManagerDesc": "Suivez vos cartes possédées, wishlist et échanges avec stats de complétion",
+      "pricing": "Prix du marché",
+      "pricingDesc": "Suivez les valeurs estimées depuis eBay et Cardmarket"
     }
   },
   "Cards": {
@@ -152,6 +155,36 @@
     "completion": "Complétion",
     "completionPercent": "{percent}%",
     "cardCount": "{count} cartes"
+  },
+  "Pricing": {
+    "title": "Prix du marché",
+    "subtitle": "Valeurs estimées des cartes Konoha Shidō",
+    "marketPrice": "Prix du marché",
+    "noPrice": "Aucune donnée de prix",
+    "trendUp": "Tendance à la hausse",
+    "trendDown": "Tendance à la baisse",
+    "trendStable": "Stable",
+    "staleWarning": "Les données de prix peuvent être obsolètes",
+    "confidence": "Fiabilité",
+    "sampleSize": "Basé sur {count} ventes",
+    "lastUpdated": "Dernière mise à jour",
+    "source": "Source",
+    "sourceEbay": "eBay",
+    "sourceCardmarket": "Cardmarket",
+    "currency": "Devise",
+    "sortBy": "Trier par",
+    "sortName": "Nom",
+    "sortPriceAsc": "Prix (croissant)",
+    "sortPriceDesc": "Prix (décroissant)",
+    "sortRarity": "Rareté",
+    "collectionValue": "Valeur de la collection",
+    "deckValue": "Valeur du deck",
+    "totalValue": "Valeur totale",
+    "perCard": "par carte",
+    "cardCount": "{count} cartes",
+    "searchPlaceholder": "Rechercher des cartes...",
+    "noPriceData": "Aucune donnée de prix disponible",
+    "priceDisclaimer": "Les prix sont des estimations basées sur les ventes récentes"
   },
   "Footer": {
     "description": "L'application compagnon ultime pour les joueurs de Naruto Mythos TCG.",
