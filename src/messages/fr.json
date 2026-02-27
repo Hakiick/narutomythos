@@ -1,0 +1,80 @@
+{
+  "Common": {
+    "appName": "Naruto Mythos",
+    "home": "Accueil",
+    "cards": "Cartes",
+    "decks": "Decks",
+    "collection": "Collection",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "noResults": "Aucun résultat trouvé",
+    "search": "Rechercher...",
+    "filters": "Filtres",
+    "clearFilters": "Effacer les filtres",
+    "apply": "Appliquer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  },
+  "Home": {
+    "title": "Naruto Mythos TCG",
+    "subtitle": "Votre compagnon ultime pour le jeu de cartes Naruto Mythos",
+    "exploreCards": "Explorer les cartes",
+    "buildDeck": "Construire un deck",
+    "manageCollection": "Gérer ma collection",
+    "features": {
+      "cardDatabase": "Base de données",
+      "cardDatabaseDesc": "Parcourez les 152 cartes du set Konoha Shidō avec des filtres avancés",
+      "deckBuilder": "Constructeur de deck",
+      "deckBuilderDesc": "Créez, sauvegardez et partagez vos decks de 30 cartes avec stats et validation",
+      "collectionManager": "Gestionnaire de collection",
+      "collectionManagerDesc": "Suivez vos cartes possédées, wishlist et échanges avec stats de complétion"
+    }
+  },
+  "Cards": {
+    "title": "Base de données",
+    "subtitle": "Parcourez toutes les cartes du set Konoha Shidō",
+    "searchPlaceholder": "Rechercher par nom...",
+    "type": "Type",
+    "rarity": "Rareté",
+    "group": "Village",
+    "allTypes": "Tous les types",
+    "allRarities": "Toutes les raretés",
+    "allGroups": "Tous les villages",
+    "character": "Personnage",
+    "mission": "Mission",
+    "jutsu": "Jutsu",
+    "chakra": "Chakra",
+    "power": "Puissance",
+    "keywords": "Mots-clés",
+    "effect": "Effet",
+    "cardCount": "{count} cartes",
+    "noCards": "Aucune carte ne correspond à vos filtres"
+  },
+  "Decks": {
+    "title": "Constructeur de deck",
+    "subtitle": "Créez et gérez vos decks",
+    "newDeck": "Nouveau deck",
+    "myDecks": "Mes decks",
+    "noDecks": "Vous n'avez pas encore de deck"
+  },
+  "Collection": {
+    "title": "Ma collection",
+    "subtitle": "Suivez vos cartes",
+    "owned": "Possédées",
+    "wishlist": "Liste de souhaits",
+    "forTrade": "À échanger",
+    "completion": "Complétion",
+    "noCards": "Aucune carte dans votre collection"
+  },
+  "Footer": {
+    "description": "L'application compagnon ultime pour les joueurs de Naruto Mythos TCG.",
+    "madeWith": "Fait avec passion pour Naruto Mythos TCG",
+    "links": "Liens",
+    "legal": "Légal"
+  }
+}

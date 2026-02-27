@@ -1,0 +1,80 @@
+{
+  "Common": {
+    "appName": "Naruto Mythos",
+    "home": "Home",
+    "cards": "Cards",
+    "decks": "Decks",
+    "collection": "Collection",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "noResults": "No results found",
+    "search": "Search...",
+    "filters": "Filters",
+    "clearFilters": "Clear filters",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "Home": {
+    "title": "Naruto Mythos TCG",
+    "subtitle": "Your ultimate companion for the Naruto Mythos Trading Card Game",
+    "exploreCards": "Explore Cards",
+    "buildDeck": "Build a Deck",
+    "manageCollection": "Manage Collection",
+    "features": {
+      "cardDatabase": "Card Database",
+      "cardDatabaseDesc": "Browse all 152 cards from the Konoha Shidō set with advanced filters",
+      "deckBuilder": "Deck Builder",
+      "deckBuilderDesc": "Build, save, and share your 30-card decks with stats and validation",
+      "collectionManager": "Collection Manager",
+      "collectionManagerDesc": "Track your owned cards, wishlist, and trades with completion stats"
+    }
+  },
+  "Cards": {
+    "title": "Card Database",
+    "subtitle": "Browse all cards from the Konoha Shidō set",
+    "searchPlaceholder": "Search by name...",
+    "type": "Type",
+    "rarity": "Rarity",
+    "group": "Village",
+    "allTypes": "All Types",
+    "allRarities": "All Rarities",
+    "allGroups": "All Villages",
+    "character": "Character",
+    "mission": "Mission",
+    "jutsu": "Jutsu",
+    "chakra": "Chakra",
+    "power": "Power",
+    "keywords": "Keywords",
+    "effect": "Effect",
+    "cardCount": "{count} cards",
+    "noCards": "No cards match your filters"
+  },
+  "Decks": {
+    "title": "Deck Builder",
+    "subtitle": "Create and manage your decks",
+    "newDeck": "New Deck",
+    "myDecks": "My Decks",
+    "noDecks": "You don't have any decks yet"
+  },
+  "Collection": {
+    "title": "My Collection",
+    "subtitle": "Track your cards",
+    "owned": "Owned",
+    "wishlist": "Wishlist",
+    "forTrade": "For Trade",
+    "completion": "Completion",
+    "noCards": "No cards in your collection yet"
+  },
+  "Footer": {
+    "description": "The ultimate companion app for Naruto Mythos TCG players.",
+    "madeWith": "Made with passion for Naruto Mythos TCG",
+    "links": "Links",
+    "legal": "Legal"
+  }
+}
