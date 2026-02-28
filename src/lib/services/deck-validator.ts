@@ -66,18 +66,32 @@ export function calculateStats(cards: Card[]): DeckStats {
   };
 }
 
-export function validateDeck(cards: Card[], missions: Card[]): DeckValidationResult {
+export function validateDeck(allCards: Card[], missions?: Card[]): DeckValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Check deck size
-  if (cards.length !== 30) {
-    errors.push(`Deck must contain exactly 30 cards (has ${cards.length})`);
+  // Separate main deck cards from mission cards
+  let mainDeckCards: Card[];
+  let missionCards: Card[];
+
+  if (missions) {
+    // Explicit split provided (from tests)
+    mainDeckCards = allCards;
+    missionCards = missions;
+  } else {
+    // Auto-split: MISSION type cards go to missions, rest to main deck
+    mainDeckCards = allCards.filter((c) => c.type !== 'MISSION');
+    missionCards = allCards.filter((c) => c.type === 'MISSION');
   }
 
-  // Check copy limits
+  // Check main deck size (30 cards, excluding missions)
+  if (mainDeckCards.length !== 30) {
+    errors.push(`Deck must contain exactly 30 cards (has ${mainDeckCards.length})`);
+  }
+
+  // Check copy limits on all cards
   const cardCounts = new Map<string, number>();
-  for (const card of cards) {
+  for (const card of [...mainDeckCards, ...missionCards]) {
     const count = (cardCounts.get(card.id) || 0) + 1;
     cardCounts.set(card.id, count);
     if (count > 2) {
@@ -85,21 +99,22 @@ export function validateDeck(cards: Card[], missions: Card[]): DeckValidationRes
     }
   }
 
-  // Check missions
-  if (missions.length !== 3) {
-    errors.push(`Must have exactly 3 mission cards (has ${missions.length})`);
+  // Check missions (3 mission cards required, outside the 30-card deck)
+  if (missionCards.length !== 3) {
+    errors.push(`Must have exactly 3 mission cards (has ${missionCards.length})`);
   }
 
   // Validate missions are actually MISSION type
-  for (const mission of missions) {
+  for (const mission of missionCards) {
     if (mission.type !== 'MISSION') {
       errors.push(`Mission card ${mission.id} (${mission.nameEn}) is not a MISSION type`);
     }
   }
 
-  // Warnings for deck quality
-  const stats = calculateStats(cards);
+  // Stats are computed on main deck only
+  const stats = calculateStats(mainDeckCards);
 
+  // Warnings for deck quality
   if (!stats.typeDistribution['CHARACTER'] || stats.typeDistribution['CHARACTER'] < 15) {
     warnings.push('Deck has fewer than 15 CHARACTER cards — consider adding more');
   }

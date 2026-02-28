@@ -28,6 +28,7 @@ export function Navbar() {
     { href: '/pricing' as const, label: t('pricing') },
     { href: '/news' as const, label: t('news') },
     { href: '/events' as const, label: t('events') },
+    { href: '/play' as const, label: t('play') },
     { href: '/rules' as const, label: t('rules') },
   ];
 

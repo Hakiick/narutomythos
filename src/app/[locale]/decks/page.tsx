@@ -80,7 +80,7 @@ export default async function DecksPage() {
                 </CardHeader>
                 <CardContent>
                   <Badge variant="outline" className="text-xs">
-                    {t('deckCardCount', { count: deck._count.cards })}
+                    {t('deckCardCount', { count: deck.totalCardQuantity })}
                   </Badge>
                 </CardContent>
               </Card>

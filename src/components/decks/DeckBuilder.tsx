@@ -59,6 +59,16 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
     [deckCards]
   );
 
+  const mainDeckCount = useMemo(
+    () => deckCards.filter((dc) => dc.card.type !== 'MISSION').reduce((sum, dc) => sum + dc.quantity, 0),
+    [deckCards]
+  );
+
+  const missionCount = useMemo(
+    () => deckCards.filter((dc) => dc.card.type === 'MISSION').reduce((sum, dc) => sum + dc.quantity, 0),
+    [deckCards]
+  );
+
   const cardQuantityMap = useMemo(() => {
     const map = new Map<string, number>();
     for (const dc of deckCards) {
@@ -77,8 +87,9 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
     return cards;
   }, [deckCards]);
 
-  const stats = useMemo(() => calculateStats(expandedCards), [expandedCards]);
-  const validation = useMemo(() => validateDeck(expandedCards, []), [expandedCards]);
+  const mainDeckCards = useMemo(() => expandedCards.filter((c) => c.type !== 'MISSION'), [expandedCards]);
+  const stats = useMemo(() => calculateStats(mainDeckCards), [mainDeckCards]);
+  const validation = useMemo(() => validateDeck(expandedCards), [expandedCards]);
 
   const availableGroups = useMemo(() => {
     const groups = new Set<string>();
@@ -131,7 +142,10 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
 
   const handleAddCard = async (card: Card) => {
     const currentQty = cardQuantityMap.get(card.id) || 0;
-    if (currentQty >= 2 || totalCards >= 30) return;
+    if (currentQty >= 2) return;
+    // Mission cards have a separate cap of 3, main deck cards cap at 30
+    if (card.type === 'MISSION' && missionCount >= 3) return;
+    if (card.type !== 'MISSION' && mainDeckCount >= 30) return;
 
     const newQuantity = currentQty + 1;
 
@@ -183,7 +197,9 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
     if (!currentEntry) return;
 
     const quantityDiff = quantity - currentEntry.quantity;
-    if (totalCards + quantityDiff > 30) return;
+    const isMission = currentEntry.card.type === 'MISSION';
+    if (isMission && missionCount + quantityDiff > 3) return;
+    if (!isMission && mainDeckCount + quantityDiff > 30) return;
 
     try {
       const res = await fetch(`/api/decks/${deck.id}/cards`, {
@@ -392,7 +408,8 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
                 const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
                 const currentQty = cardQuantityMap.get(card.id) || 0;
                 const isMaxed = currentQty >= 2;
-                const isDeckFull = totalCards >= 30;
+                const isMission = card.type === 'MISSION';
+                const isDeckFull = isMission ? missionCount >= 3 : mainDeckCount >= 30;
                 const disabled = isMaxed || isDeckFull;
 
                 return (

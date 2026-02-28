@@ -98,7 +98,7 @@ describe('validateDeck', () => {
     expect(result.isValid).toBe(true);
   });
 
-  it('should reject wrong number of missions', () => {
+  it('should reject wrong number of missions (explicit split)', () => {
     const cards = makeDeck(30);
 
     const result2 = validateDeck(cards, makeMissions(2));
@@ -108,6 +108,23 @@ describe('validateDeck', () => {
     const result4 = validateDeck(cards, makeMissions(4));
     expect(result4.isValid).toBe(false);
     expect(result4.errors).toContain('Must have exactly 3 mission cards (has 4)');
+  });
+
+  it('should auto-split missions from main deck when no explicit missions param', () => {
+    const mainCards = makeDeck(30);
+    const missions = makeMissions(3);
+    const allCards = [...mainCards, ...missions];
+
+    const result = validateDeck(allCards);
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
+  it('should detect missing missions in auto-split mode', () => {
+    const mainCards = makeDeck(30);
+    const result = validateDeck(mainCards);
+    expect(result.isValid).toBe(false);
+    expect(result.errors).toContain('Must have exactly 3 mission cards (has 0)');
   });
 
   it('should reject non-MISSION type cards as missions', () => {

@@ -3,7 +3,7 @@ import type { Deck, DeckCard, Card } from '@prisma/client';
 import type { CreateDeckInput, UpdateDeckInput } from '@/lib/validators/deck';
 
 // Types for expanded deck data
-export type DeckWithCardCount = Deck & { _count: { cards: number } };
+export type DeckWithCardCount = Deck & { _count: { cards: number }; totalCardQuantity: number };
 export type DeckCardWithCard = DeckCard & { card: Card };
 export type DeckWithCards = Deck & { cards: DeckCardWithCard[] };
 
@@ -19,11 +19,19 @@ function generateSlug(name: string): string {
 }
 
 export async function getUserDecks(userId: string): Promise<DeckWithCardCount[]> {
-  return prisma.deck.findMany({
+  const decks = await prisma.deck.findMany({
     where: { userId },
-    include: { _count: { select: { cards: true } } },
+    include: {
+      _count: { select: { cards: true } },
+      cards: { select: { quantity: true } },
+    },
     orderBy: { updatedAt: 'desc' },
   });
+
+  return decks.map(({ cards, ...deck }) => ({
+    ...deck,
+    totalCardQuantity: cards.reduce((sum, dc) => sum + dc.quantity, 0),
+  }));
 }
 
 export async function getDeckBySlug(slug: string): Promise<DeckWithCards | null> {
@@ -109,7 +117,7 @@ export async function addCardToDeck(
 ): Promise<DeckCard> {
   const deck = await prisma.deck.findUnique({
     where: { id: deckId },
-    include: { cards: true },
+    include: { cards: { include: { card: true } } },
   });
   if (!deck) throw new Error('Deck not found');
   if (deck.userId !== userId) throw new Error('Not authorized');
@@ -117,13 +125,25 @@ export async function addCardToDeck(
   const card = await prisma.card.findUnique({ where: { id: cardId } });
   if (!card) throw new Error('Card not found');
 
-  // Check total card count
+  // Check total card count (missions are separate from the 30-card main deck)
   const existingEntry = deck.cards.find((dc) => dc.cardId === cardId);
-  const currentTotal = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
   const addedQuantity = existingEntry ? quantity - existingEntry.quantity : quantity;
+  const isMission = card.type === 'MISSION';
 
-  if (currentTotal + addedQuantity > 30) {
-    throw new Error('Deck is full (30 cards maximum)');
+  if (isMission) {
+    const missionTotal = deck.cards
+      .filter((dc) => dc.card.type === 'MISSION')
+      .reduce((sum, dc) => sum + dc.quantity, 0);
+    if (missionTotal + addedQuantity > 3) {
+      throw new Error('Maximum 3 mission cards');
+    }
+  } else {
+    const mainTotal = deck.cards
+      .filter((dc) => dc.card.type !== 'MISSION')
+      .reduce((sum, dc) => sum + dc.quantity, 0);
+    if (mainTotal + addedQuantity > 30) {
+      throw new Error('Deck is full (30 cards maximum)');
+    }
   }
 
   return prisma.deckCard.upsert({
