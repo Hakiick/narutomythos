@@ -41,7 +41,7 @@ export function AddToCollectionButton({ allCards, onAdd }: AddToCollectionButton
     if (!searchQuery) return allCards.slice(0, 20);
     const q = searchQuery.toLowerCase();
     return allCards.filter((card) => {
-      const name = locale === 'fr' ? card.nameFr : card.nameEn;
+      const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
       return name.toLowerCase().includes(q) || card.id.toLowerCase().includes(q);
     }).slice(0, 20);
   }, [allCards, searchQuery, locale]);
@@ -96,7 +96,7 @@ export function AddToCollectionButton({ allCards, onAdd }: AddToCollectionButton
             />
             <div className="max-h-48 space-y-1 overflow-y-auto">
               {filteredCards.map((card) => {
-                const name = locale === 'fr' ? card.nameFr : card.nameEn;
+                const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
                 return (
                   <button
                     key={card.id}
@@ -124,7 +124,7 @@ export function AddToCollectionButton({ allCards, onAdd }: AddToCollectionButton
             {/* Selected card display */}
             <div className="flex items-center gap-2 rounded-md bg-accent/50 px-3 py-2 text-sm">
               <span className="font-medium">
-                {locale === 'fr' ? selectedCard.nameFr : selectedCard.nameEn}
+                {(locale === 'fr' ? selectedCard.nameFr : selectedCard.nameEn) || selectedCard.nameEn}
               </span>
               <Badge
                 className={cn(

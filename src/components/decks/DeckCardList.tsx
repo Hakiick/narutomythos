@@ -46,7 +46,7 @@ export function DeckCardList({ cards, onRemoveCard, onUpdateQuantity, readonly =
       </div>
       <div className="space-y-2">
         {cards.map((dc) => {
-          const name = locale === 'fr' ? dc.card.nameFr : dc.card.nameEn;
+          const name = (locale === 'fr' ? dc.card.nameFr : dc.card.nameEn) || dc.card.nameEn;
           const typeLabel =
             dc.card.type === 'CHARACTER' ? tCards('character') :
             dc.card.type === 'MISSION' ? tCards('mission') :

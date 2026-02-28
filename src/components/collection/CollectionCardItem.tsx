@@ -35,7 +35,7 @@ export function CollectionCardItem({ entry, onUpdate, onRemove }: CollectionCard
   const tCards = useTranslations('Cards');
   const locale = useLocale();
 
-  const name = locale === 'fr' ? entry.card.nameFr : entry.card.nameEn;
+  const name = (locale === 'fr' ? entry.card.nameFr : entry.card.nameEn) || entry.card.nameEn;
   const typeLabel =
     entry.card.type === 'CHARACTER' ? tCards('character') :
     entry.card.type === 'MISSION' ? tCards('mission') :

@@ -40,7 +40,7 @@ export function PricingGrid({ cards, prices, currency }: PricingGridProps) {
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter((c) => {
-        const name = locale === 'fr' ? c.nameFr : c.nameEn;
+        const name = (locale === 'fr' ? c.nameFr : c.nameEn) || c.nameEn;
         return name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q);
       });
     }
@@ -49,8 +49,8 @@ export function PricingGrid({ cards, prices, currency }: PricingGridProps) {
     return [...result].sort((a, b) => {
       switch (sortBy) {
         case 'name': {
-          const nameA = locale === 'fr' ? a.nameFr : a.nameEn;
-          const nameB = locale === 'fr' ? b.nameFr : b.nameEn;
+          const nameA = (locale === 'fr' ? a.nameFr : a.nameEn) || a.nameEn;
+          const nameB = (locale === 'fr' ? b.nameFr : b.nameEn) || b.nameEn;
           return nameA.localeCompare(nameB);
         }
         case 'priceAsc': {

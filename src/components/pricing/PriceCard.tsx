@@ -27,7 +27,7 @@ export function PriceCard({ cardId, nameEn, nameFr, rarity, marketPrice }: Price
   const t = useTranslations('Pricing');
   const locale = useLocale();
 
-  const name = locale === 'fr' ? nameFr : nameEn;
+  const name = (locale === 'fr' ? nameFr : nameEn) || nameEn;
 
   return (
     <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary/30">

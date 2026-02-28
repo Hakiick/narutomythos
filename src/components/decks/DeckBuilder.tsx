@@ -75,7 +75,7 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
       if (searchRarity && card.rarity !== searchRarity) return false;
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        const name = locale === 'fr' ? card.nameFr : card.nameEn;
+        const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
         if (
           !name.toLowerCase().includes(query) &&
           !card.id.toLowerCase().includes(query)
@@ -220,7 +220,7 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
             {/* Available cards grid */}
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {filteredCards.map((card) => {
-                const name = locale === 'fr' ? card.nameFr : card.nameEn;
+                const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
                 const currentQty = cardQuantityMap.get(card.id) || 0;
                 const isMaxed = currentQty >= 2;
                 const isDeckFull = totalCards >= 30;
