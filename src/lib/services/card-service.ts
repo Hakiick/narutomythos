@@ -6,9 +6,47 @@ export interface CardFilters {
   rarity?: Rarity;
   search?: string;
   group?: string;
+  chakraMin?: number;
+  chakraMax?: number;
+  powerMin?: number;
+  powerMax?: number;
+  keywords?: string[];
+  effectTypes?: string[];
 }
 
 export async function getCards(filters: CardFilters = {}): Promise<Card[]> {
+  const chakraFilter =
+    filters.chakraMin !== undefined || filters.chakraMax !== undefined
+      ? {
+          chakra: {
+            ...(filters.chakraMin !== undefined && { gte: filters.chakraMin }),
+            ...(filters.chakraMax !== undefined && { lte: filters.chakraMax }),
+          },
+        }
+      : {};
+
+  const powerFilter =
+    filters.powerMin !== undefined || filters.powerMax !== undefined
+      ? {
+          power: {
+            ...(filters.powerMin !== undefined && { gte: filters.powerMin }),
+            ...(filters.powerMax !== undefined && { lte: filters.powerMax }),
+          },
+        }
+      : {};
+
+  const effectFilter =
+    filters.effectTypes?.length
+      ? {
+          OR: filters.effectTypes.map((et) => ({
+            OR: [
+              { effectEn: { contains: et, mode: 'insensitive' as const } },
+              { effectFr: { contains: et, mode: 'insensitive' as const } },
+            ],
+          })),
+        }
+      : {};
+
   return prisma.card.findMany({
     where: {
       ...(filters.type && { type: filters.type }),
@@ -21,6 +59,12 @@ export async function getCards(filters: CardFilters = {}): Promise<Card[]> {
           { id: { contains: filters.search, mode: 'insensitive' as const } },
         ],
       }),
+      ...chakraFilter,
+      ...powerFilter,
+      ...(filters.keywords?.length && {
+        keywords: { hasSome: filters.keywords },
+      }),
+      ...effectFilter,
     },
     orderBy: { cardNumber: 'asc' },
   });
@@ -30,6 +74,20 @@ export async function getCardById(id: string): Promise<Card | null> {
   return prisma.card.findUnique({
     where: { id },
   });
+}
+
+export async function getCardKeywords(): Promise<string[]> {
+  const cards = await prisma.card.findMany({
+    where: { keywords: { isEmpty: false } },
+    select: { keywords: true },
+  });
+  const allKeywords = new Set<string>();
+  for (const card of cards) {
+    for (const kw of card.keywords) {
+      allKeywords.add(kw);
+    }
+  }
+  return Array.from(allKeywords).sort();
 }
 
 export async function getCardGroups(): Promise<string[]> {

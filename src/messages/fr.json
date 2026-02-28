@@ -65,7 +65,20 @@
     "rarityR": "Rare (R)",
     "rarityAR": "Art Rare (AR)",
     "rarityS": "Super Rare (S)",
-    "rarityL": "Légendaire (L)"
+    "rarityL": "Légendaire (L)",
+    "advancedFilters": "Filtres avancés",
+    "showAdvancedFilters": "Afficher les filtres avancés",
+    "hideAdvancedFilters": "Masquer les filtres avancés",
+    "chakraRange": "Plage de Chakra",
+    "powerRange": "Plage de Puissance",
+    "keywordsFilter": "Mots-clés",
+    "effectType": "Type d'effet",
+    "effectMain": "Principal",
+    "effectUpgrade": "Amélioration",
+    "effectAmbush": "Embuscade",
+    "effectScore": "Score",
+    "min": "Min",
+    "max": "Max"
   },
   "Decks": {
     "title": "Constructeur de deck",

@@ -65,7 +65,20 @@
     "rarityR": "Rare (R)",
     "rarityAR": "Art Rare (AR)",
     "rarityS": "Super Rare (S)",
-    "rarityL": "Legendary (L)"
+    "rarityL": "Legendary (L)",
+    "advancedFilters": "Advanced Filters",
+    "showAdvancedFilters": "Show advanced filters",
+    "hideAdvancedFilters": "Hide advanced filters",
+    "chakraRange": "Chakra Range",
+    "powerRange": "Power Range",
+    "keywordsFilter": "Keywords",
+    "effectType": "Effect Type",
+    "effectMain": "Main",
+    "effectUpgrade": "Upgrade",
+    "effectAmbush": "Ambush",
+    "effectScore": "Score",
+    "min": "Min",
+    "max": "Max"
   },
   "Decks": {
     "title": "Deck Builder",

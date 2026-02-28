@@ -13,8 +13,11 @@ import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { Plus } from 'lucide-react';
+import { Plus, ChevronDown } from 'lucide-react';
+
+const EFFECT_TYPES = ['MAIN', 'UPGRADE', 'AMBUSH', 'SCORE'] as const;
 
 const rarityColors: Record<string, string> = {
   C: 'bg-gray-600',
@@ -40,6 +43,14 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('');
   const [searchRarity, setSearchRarity] = useState('');
+  const [searchGroup, setSearchGroup] = useState('');
+  const [chakraMin, setChakraMin] = useState<number | undefined>();
+  const [chakraMax, setChakraMax] = useState<number | undefined>();
+  const [powerMin, setPowerMin] = useState<number | undefined>();
+  const [powerMax, setPowerMax] = useState<number | undefined>();
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+  const [selectedEffectTypes, setSelectedEffectTypes] = useState<string[]>([]);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Computed values
   const totalCards = useMemo(
@@ -68,11 +79,30 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
   const stats = useMemo(() => calculateStats(expandedCards), [expandedCards]);
   const validation = useMemo(() => validateDeck(expandedCards, []), [expandedCards]);
 
+  const availableGroups = useMemo(() => {
+    const groups = new Set<string>();
+    for (const card of allCards) {
+      if (card.group) groups.add(card.group);
+    }
+    return Array.from(groups).sort();
+  }, [allCards]);
+
+  const availableKeywords = useMemo(() => {
+    const kws = new Set<string>();
+    for (const card of allCards) {
+      for (const kw of card.keywords) {
+        kws.add(kw);
+      }
+    }
+    return Array.from(kws).sort();
+  }, [allCards]);
+
   // Filtered available cards
   const filteredCards = useMemo(() => {
     return allCards.filter((card) => {
       if (searchType && card.type !== searchType) return false;
       if (searchRarity && card.rarity !== searchRarity) return false;
+      if (searchGroup && card.group !== searchGroup) return false;
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
         const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
@@ -83,9 +113,20 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
           return false;
         }
       }
+      if (chakraMin !== undefined && (card.chakra === null || card.chakra < chakraMin)) return false;
+      if (chakraMax !== undefined && (card.chakra === null || card.chakra > chakraMax)) return false;
+      if (powerMin !== undefined && (card.power === null || card.power < powerMin)) return false;
+      if (powerMax !== undefined && (card.power === null || card.power > powerMax)) return false;
+      if (selectedKeywords.length > 0) {
+        if (!selectedKeywords.some((kw) => card.keywords.includes(kw))) return false;
+      }
+      if (selectedEffectTypes.length > 0) {
+        const effectText = ((locale === 'fr' ? card.effectFr : card.effectEn) || card.effectEn || '');
+        if (!selectedEffectTypes.some((et) => effectText.includes(et))) return false;
+      }
       return true;
     });
-  }, [allCards, searchQuery, searchType, searchRarity, locale]);
+  }, [allCards, searchQuery, searchType, searchRarity, searchGroup, chakraMin, chakraMax, powerMin, powerMax, selectedKeywords, selectedEffectTypes, locale]);
 
   const handleAddCard = async (card: Card) => {
     const currentQty = cardQuantityMap.get(card.id) || 0;
@@ -190,7 +231,7 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Select
                   value={searchType}
                   onChange={(e) => setSearchType(e.target.value)}
@@ -214,7 +255,133 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
                   <option value="S">{tCards('rarityS')}</option>
                   <option value="L">{tCards('rarityL')}</option>
                 </Select>
+                <Select
+                  value={searchGroup}
+                  onChange={(e) => setSearchGroup(e.target.value)}
+                  className="w-auto"
+                >
+                  <option value="">{tCards('allGroups')}</option>
+                  {availableGroups.map((g) => (
+                    <option key={g} value={g}>{g}</option>
+                  ))}
+                </Select>
               </div>
+
+              {/* Advanced Filters Toggle */}
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className={cn(
+                  'flex w-fit items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground',
+                  (selectedKeywords.length > 0 || selectedEffectTypes.length > 0 || chakraMin !== undefined || chakraMax !== undefined || powerMin !== undefined || powerMax !== undefined) && 'text-primary'
+                )}
+              >
+                <ChevronDown className={cn('h-3 w-3 transition-transform', showAdvanced && 'rotate-180')} />
+                {showAdvanced ? tCards('hideAdvancedFilters') : tCards('showAdvancedFilters')}
+              </button>
+
+              {showAdvanced && (
+                <div className="flex flex-col gap-3 rounded-lg border border-border p-3">
+                  {/* Chakra & Power ranges */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="mb-1 text-xs">{tCards('chakraRange')}</Label>
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="number"
+                          min={0}
+                          max={8}
+                          placeholder="0"
+                          className="w-14 text-xs"
+                          value={chakraMin ?? ''}
+                          onChange={(e) => setChakraMin(e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                        <span className="text-xs text-muted-foreground">—</span>
+                        <Input
+                          type="number"
+                          min={0}
+                          max={8}
+                          placeholder="8"
+                          className="w-14 text-xs"
+                          value={chakraMax ?? ''}
+                          onChange={(e) => setChakraMax(e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="mb-1 text-xs">{tCards('powerRange')}</Label>
+                      <div className="flex items-center gap-1">
+                        <Input
+                          type="number"
+                          min={0}
+                          max={9}
+                          placeholder="0"
+                          className="w-14 text-xs"
+                          value={powerMin ?? ''}
+                          onChange={(e) => setPowerMin(e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                        <span className="text-xs text-muted-foreground">—</span>
+                        <Input
+                          type="number"
+                          min={0}
+                          max={9}
+                          placeholder="9"
+                          className="w-14 text-xs"
+                          value={powerMax ?? ''}
+                          onChange={(e) => setPowerMax(e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Keywords badges */}
+                  {availableKeywords.length > 0 && (
+                    <div>
+                      <Label className="mb-1 text-xs">{tCards('keywordsFilter')}</Label>
+                      <div className="flex flex-wrap gap-1">
+                        {availableKeywords.map((kw) => (
+                          <Badge
+                            key={kw}
+                            variant={selectedKeywords.includes(kw) ? 'default' : 'outline'}
+                            className="cursor-pointer text-[10px]"
+                            onClick={() =>
+                              setSelectedKeywords((prev) =>
+                                prev.includes(kw) ? prev.filter((k) => k !== kw) : [...prev, kw]
+                              )
+                            }
+                          >
+                            {kw}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Effect Type badges */}
+                  <div>
+                    <Label className="mb-1 text-xs">{tCards('effectType')}</Label>
+                    <div className="flex flex-wrap gap-1">
+                      {EFFECT_TYPES.map((et) => {
+                        const labelKey = `effect${et.charAt(0) + et.slice(1).toLowerCase()}` as 'effectMain' | 'effectUpgrade' | 'effectAmbush' | 'effectScore';
+                        return (
+                          <Badge
+                            key={et}
+                            variant={selectedEffectTypes.includes(et) ? 'default' : 'outline'}
+                            className="cursor-pointer text-[10px]"
+                            onClick={() =>
+                              setSelectedEffectTypes((prev) =>
+                                prev.includes(et) ? prev.filter((e) => e !== et) : [...prev, et]
+                              )
+                            }
+                          >
+                            {tCards(labelKey)}
+                          </Badge>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Available cards grid */}

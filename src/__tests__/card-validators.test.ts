@@ -81,4 +81,68 @@ describe('cardFiltersSchema', () => {
       expect(result.data).not.toHaveProperty('unknown');
     }
   });
+
+  it('should accept chakra range filters', () => {
+    const result = cardFiltersSchema.safeParse({ chakraMin: 2, chakraMax: 5 });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.chakraMin).toBe(2);
+      expect(result.data.chakraMax).toBe(5);
+    }
+  });
+
+  it('should coerce string numbers for chakra/power', () => {
+    const result = cardFiltersSchema.safeParse({ chakraMin: '3', powerMax: '7' });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.chakraMin).toBe(3);
+      expect(result.data.powerMax).toBe(7);
+    }
+  });
+
+  it('should reject chakra values out of range', () => {
+    expect(cardFiltersSchema.safeParse({ chakraMin: -1 }).success).toBe(false);
+    expect(cardFiltersSchema.safeParse({ chakraMax: 10 }).success).toBe(false);
+  });
+
+  it('should reject power values out of range', () => {
+    expect(cardFiltersSchema.safeParse({ powerMin: -1 }).success).toBe(false);
+    expect(cardFiltersSchema.safeParse({ powerMax: 15 }).success).toBe(false);
+  });
+
+  it('should accept keywords array', () => {
+    const result = cardFiltersSchema.safeParse({ keywords: ['Hokage', 'Team 7'] });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.keywords).toEqual(['Hokage', 'Team 7']);
+    }
+  });
+
+  it('should accept effectTypes array', () => {
+    const result = cardFiltersSchema.safeParse({ effectTypes: ['MAIN', 'AMBUSH'] });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.effectTypes).toEqual(['MAIN', 'AMBUSH']);
+    }
+  });
+
+  it('should reject invalid effectTypes', () => {
+    const result = cardFiltersSchema.safeParse({ effectTypes: ['INVALID'] });
+    expect(result.success).toBe(false);
+  });
+
+  it('should accept combined old and new filters', () => {
+    const result = cardFiltersSchema.safeParse({
+      type: 'CHARACTER',
+      rarity: 'R',
+      search: 'Naruto',
+      group: 'Leaf Village',
+      chakraMin: 2,
+      chakraMax: 5,
+      powerMin: 3,
+      keywords: ['Hokage'],
+      effectTypes: ['MAIN', 'UPGRADE'],
+    });
+    expect(result.success).toBe(true);
+  });
 });

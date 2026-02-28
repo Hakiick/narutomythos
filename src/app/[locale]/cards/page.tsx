@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { getCards, getCardGroups } from '@/lib/services/card-service';
+import { getCards, getCardGroups, getCardKeywords } from '@/lib/services/card-service';
 import type { CardType, Rarity } from '@prisma/client';
 import { CardGrid } from '@/components/cards/CardGrid';
 import { CardFilters } from '@/components/cards/CardFilters';
@@ -10,6 +10,12 @@ interface CardsPageProps {
     rarity?: string;
     search?: string;
     group?: string;
+    chakraMin?: string;
+    chakraMax?: string;
+    powerMin?: string;
+    powerMax?: string;
+    keywords?: string;
+    effectTypes?: string;
   }>;
 }
 
@@ -22,11 +28,18 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
     rarity: sp.rarity as Rarity | undefined,
     search: sp.search,
     group: sp.group,
+    chakraMin: sp.chakraMin ? parseInt(sp.chakraMin, 10) : undefined,
+    chakraMax: sp.chakraMax ? parseInt(sp.chakraMax, 10) : undefined,
+    powerMin: sp.powerMin ? parseInt(sp.powerMin, 10) : undefined,
+    powerMax: sp.powerMax ? parseInt(sp.powerMax, 10) : undefined,
+    keywords: sp.keywords ? sp.keywords.split(',').filter(Boolean) : undefined,
+    effectTypes: sp.effectTypes ? sp.effectTypes.split(',').filter(Boolean) : undefined,
   };
 
-  const [cards, groups] = await Promise.all([
+  const [cards, groups, keywords] = await Promise.all([
     getCards(filters),
     getCardGroups(),
+    getCardKeywords(),
   ]);
 
   return (
@@ -36,7 +49,7 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
         <p className="mt-2 text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <CardFilters groups={groups} />
+      <CardFilters groups={groups} keywords={keywords} />
 
       <div className="mt-2 mb-6 text-sm text-muted-foreground">
         {t('cardCount', { count: cards.length })}
