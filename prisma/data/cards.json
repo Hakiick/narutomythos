@@ -587,6 +587,25 @@
     "cardNumber": 32
   },
   {
+    "id": "KS-033",
+    "nameEn": "Shino Aburame — Insect Wall Barrier",
+    "nameFr": "Shino Aburame — Insect Wall Barrier",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 3,
+    "power": 3,
+    "keywords": [
+      "Team 8",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Place the top card of your deck as a hidden character in this mission.\nUPGRADE ⚡ Look at all hidden characters in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/33_UC_Shino_Insect_Wall-1920w.webp",
+    "set": "KS",
+    "cardNumber": 33
+  },
+  {
     "id": "KS-034",
     "nameEn": "Kurenai Yuhi — Teacher of Team 8",
     "nameFr": "Kurenai Yuhi — Teacher of Team 8",
@@ -788,6 +807,25 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/44_C_Anko_Proctor-1920w.webp",
     "set": "KS",
     "cardNumber": 44
+  },
+  {
+    "id": "KS-045",
+    "nameEn": "Anko Mitarashi — Hidden Shadow Snake Hands",
+    "nameFr": "Anko Mitarashi — Hidden Shadow Snake Hands",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 4,
+    "power": 3,
+    "keywords": [
+      "Special Jonin",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "AMBUSH ⚡ Hide an enemy character with Power 2 or less in this mission.\nUPGRADE ⚡ Defeat a hidden character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/45_UC_Anko_Shadow_Snake-1920w.webp",
+    "set": "KS",
+    "cardNumber": 45
   },
   {
     "id": "KS-046",
@@ -1447,6 +1485,41 @@
     "cardNumber": 81
   },
   {
+    "id": "KS-082",
+    "nameEn": "Baki — Blade of Wind",
+    "nameFr": "Baki — Blade of Wind",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 4,
+    "power": 4,
+    "keywords": [
+      "Team Baki",
+      "Jutsu"
+    ],
+    "group": "Sand Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 2 or less in this mission.\nUPGRADE ⚡ Draw a card if you have the Edge.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/82_UC_Baki_Blade_of_Wind-1920w.webp",
+    "set": "KS",
+    "cardNumber": 82
+  },
+  {
+    "id": "KS-083",
+    "nameEn": "Chiyo — Retired Puppet Master",
+    "nameFr": "Chiyo — Retired Puppet Master",
+    "type": "CHARACTER",
+    "rarity": "C",
+    "chakra": 3,
+    "power": 2,
+    "keywords": [],
+    "group": "Sand Village",
+    "effectEn": "MAIN ⚡ Play a Sand Village character from your discard pile while hidden, paying 1 less.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/83_C_Chiyo_Puppet_Master-1920w.webp",
+    "set": "KS",
+    "cardNumber": 83
+  },
+  {
     "id": "KS-084",
     "nameEn": "Yashamaru — Gaara's Caretaker",
     "nameFr": "Yashamaru — Gaara's Caretaker",
@@ -1461,6 +1534,24 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/84_C_Yashamaru_Careteaker-1920w.webp",
     "set": "KS",
     "cardNumber": 84
+  },
+  {
+    "id": "KS-085",
+    "nameEn": "Yashamaru — Explosive Paper Bomb",
+    "nameFr": "Yashamaru — Explosive Paper Bomb",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 2,
+    "power": 2,
+    "keywords": [
+      "Weapon"
+    ],
+    "group": "Sand Village",
+    "effectEn": "MAIN ✖ When this character is defeated, defeat an enemy character with Power 2 or less in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/85_UC_Yashamaru_Paper_Bomb-1920w.webp",
+    "set": "KS",
+    "cardNumber": 85
   },
   {
     "id": "KS-086",
@@ -1479,6 +1570,25 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/86_C_Zabuza_Kubikiribocho-1920w.webp",
     "set": "KS",
     "cardNumber": 86
+  },
+  {
+    "id": "KS-087",
+    "nameEn": "Zabuza Momochi — Silent Killing",
+    "nameFr": "Zabuza Momochi — Silent Killing",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 5,
+    "power": 6,
+    "keywords": [
+      "Rogue Ninja",
+      "Jutsu"
+    ],
+    "group": "Independent",
+    "effectEn": "AMBUSH ⚡ Look at all hidden characters in this mission. Defeat one hidden enemy character with cost 2 or less.\nUPGRADE ⚡ Powerup 2.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/87_UC_Zabuza_Silent_Killing-1920w.webp",
+    "set": "KS",
+    "cardNumber": 87
   },
   {
     "id": "KS-088",
@@ -1536,6 +1646,25 @@
     "cardNumber": 90
   },
   {
+    "id": "KS-091",
+    "nameEn": "Itachi Uchiha — Tsukuyomi",
+    "nameFr": "Itachi Uchiha — Tsukuyomi",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Rogue Ninja",
+      "Kekkei Genkai"
+    ],
+    "group": "Akatsuki",
+    "effectEn": "MAIN ⚡ Choose an enemy character in this mission. That character has -3 Power until the end of the round.\nUPGRADE ⚡ Hide that character if its Power is 0 or less.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/91_UC_Itachi_Tsukuyomi-1920w.webp",
+    "set": "KS",
+    "cardNumber": 91
+  },
+  {
     "id": "KS-092",
     "nameEn": "Kisame Hoshigaki — The Rogue Ninja of the Hidden Mist",
     "nameFr": "Kisame Hoshigaki — The Rogue Ninja of the Hidden Mist",
@@ -1552,6 +1681,25 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/92_C_Kisame_Rogue_Ninja-1920w.webp",
     "set": "KS",
     "cardNumber": 92
+  },
+  {
+    "id": "KS-093",
+    "nameEn": "Kisame Hoshigaki — Samehada",
+    "nameFr": "Kisame Hoshigaki — Samehada",
+    "type": "CHARACTER",
+    "rarity": "UC",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Rogue Ninja",
+      "Weapon"
+    ],
+    "group": "Akatsuki",
+    "effectEn": "MAIN ⚡ Steal 1 Chakra from the opponent. Powerup 1.\nUPGRADE ⚡ The opponent must discard a card.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/93_UC_Kisame_Samehada-1920w.webp",
+    "set": "KS",
+    "cardNumber": 93
   },
   {
     "id": "KS-094",
@@ -1698,6 +1846,42 @@
     "cardNumber": 101
   },
   {
+    "id": "KS-102",
+    "nameEn": "Manda — Giant Snake",
+    "nameFr": "Manda — Giant Snake",
+    "type": "CHARACTER",
+    "rarity": "C",
+    "chakra": 4,
+    "power": 7,
+    "keywords": [
+      "Summon"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ⚡ If there is a friendly Orochimaru in play, Powerup 1.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/102_C_Manda_Giant_Snake-1920w.webp",
+    "set": "KS",
+    "cardNumber": 102
+  },
+  {
+    "id": "KS-103",
+    "nameEn": "Enma — Monkey King",
+    "nameFr": "Enma — Monkey King",
+    "type": "CHARACTER",
+    "rarity": "C",
+    "chakra": 3,
+    "power": 5,
+    "keywords": [
+      "Summon"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ⚡ If there is a friendly Hiruzen Sarutobi in play, Powerup 2.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/103_C_Enma_Monkey_King-1920w.webp",
+    "set": "KS",
+    "cardNumber": 103
+  },
+  {
     "id": "KS-104",
     "nameEn": "Tsunade — Legendary Sannin",
     "nameFr": "Tsunade — Legendary Sannin",
@@ -1733,6 +1917,44 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/105_R_Jiraiya_Summoning_Jutsu-1920w.webp",
     "set": "KS",
     "cardNumber": 105
+  },
+  {
+    "id": "KS-106",
+    "nameEn": "Orochimaru — Forbidden Jutsu",
+    "nameFr": "Orochimaru — Forbidden Jutsu",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 7,
+    "keywords": [
+      "Sannin",
+      "Jutsu"
+    ],
+    "group": "Sound Village",
+    "effectEn": "MAIN ⚡ Take control of an enemy character with cost 3 or less in this mission.\nUPGRADE ⚡ Instead, the cost limit is 5 or less.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/106_R_Orochimaru_Forbidden_Jutsu-1920w.webp",
+    "set": "KS",
+    "cardNumber": 106
+  },
+  {
+    "id": "KS-107",
+    "nameEn": "Kakashi Hatake — Kamui",
+    "nameFr": "Kakashi Hatake — Kamui",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 6,
+    "keywords": [
+      "Team 7",
+      "Kekkei Genkai"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 4 or less in this mission.\nUPGRADE MAIN effect: Instead, the Power limit is 6 or less.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/107_R_Kakashi_Kamui-1920w.webp",
+    "set": "KS",
+    "cardNumber": 107
   },
   {
     "id": "KS-108",
@@ -1772,6 +1994,25 @@
     "cardNumber": 109
   },
   {
+    "id": "KS-110",
+    "nameEn": "Sasuke Uchiha — Chidori",
+    "nameFr": "Sasuke Uchiha — Chidori",
+    "type": "CHARACTER",
+    "rarity": "S",
+    "chakra": 5,
+    "power": 6,
+    "keywords": [
+      "Team 7",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ Powerup 3. Then, defeat an enemy character with Power equal to or less than this character's current Power tokens.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/110_M_Sasuke_Chidori-1920w.webp",
+    "set": "KS",
+    "cardNumber": 110
+  },
+  {
     "id": "KS-111",
     "nameEn": "Shikamaru Nara — Shadow Strangle Jutsu",
     "nameFr": "Shikamaru Nara — Shadow Strangle Jutsu",
@@ -1791,6 +2032,101 @@
     "cardNumber": 111
   },
   {
+    "id": "KS-112",
+    "nameEn": "Hinata Hyuga — Protective Eight Trigrams",
+    "nameFr": "Hinata Hyuga — Protective Eight Trigrams",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 5,
+    "power": 4,
+    "keywords": [
+      "Team 8",
+      "Kekkei Genkai"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ✖ Friendly characters in this mission cannot be hidden or defeated by enemy effects.\nUPGRADE ⚡ Powerup 2 a friendly Team 8 character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/112_R_Hinata_Protective_Trigrams-1920w.webp",
+    "set": "KS",
+    "cardNumber": 112
+  },
+  {
+    "id": "KS-113",
+    "nameEn": "Neji Hyuga — Eight Trigrams: Sixty-Four Palms",
+    "nameFr": "Neji Hyuga — Eight Trigrams: Sixty-Four Palms",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 6,
+    "keywords": [
+      "Team Guy",
+      "Taijutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Remove all Power tokens from an enemy character in this mission.\nUPGRADE ⚡ In addition, remove all Power tokens from another enemy character in play.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/113_R_Neji_64_Palms-1920w.webp",
+    "set": "KS",
+    "cardNumber": 113
+  },
+  {
+    "id": "KS-114",
+    "nameEn": "Choji Akimichi — Super Expansion Jutsu",
+    "nameFr": "Choji Akimichi — Super Expansion Jutsu",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Team 10",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Powerup 4.\nUPGRADE ⚡ Move an enemy character from this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/114_R_Choji_Super_Expansion-1920w.webp",
+    "set": "KS",
+    "cardNumber": 114
+  },
+  {
+    "id": "KS-115",
+    "nameEn": "Ino Yamanaka — Mind Destruction Jutsu",
+    "nameFr": "Ino Yamanaka — Mind Destruction Jutsu",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 5,
+    "power": 3,
+    "keywords": [
+      "Team 10",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Take control of an enemy character with cost 3 or less in this mission.\nUPGRADE ⚡ Draw 2 cards, then discard 1 card.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/115_R_Ino_Mind_Destruction-1920w.webp",
+    "set": "KS",
+    "cardNumber": 115
+  },
+  {
+    "id": "KS-116",
+    "nameEn": "Might Guy — Dynamic Entry",
+    "nameFr": "Might Guy — Dynamic Entry",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 6,
+    "keywords": [
+      "Team Guy",
+      "Taijutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "AMBUSH ⚡ Powerup 3.\nUPGRADE ⚡ After this character moves to a mission, defeat an enemy character with Power 2 or less in that mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/116_R_MightGuy_Dynamic_Entry-1920w.webp",
+    "set": "KS",
+    "cardNumber": 116
+  },
+  {
     "id": "KS-117",
     "nameEn": "Rock Lee — \"I will make you proud, Sensei.\"",
     "nameFr": "Rock Lee — \"I will make you proud, Sensei.\"",
@@ -1808,6 +2144,25 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/117_R_ART_RockLee_Loopy_Fist-1920w.webp",
     "set": "KS",
     "cardNumber": 117
+  },
+  {
+    "id": "KS-118",
+    "nameEn": "Tenten — Twin Rising Dragons",
+    "nameFr": "Tenten — Twin Rising Dragons",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Team Guy",
+      "Weapon"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Defeat all hidden enemy characters in this mission.\nUPGRADE ⚡ Draw a card for each character defeated by the MAIN effect.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/118_R_Tenten_Twin_Rising_Dragons-1920w.webp",
+    "set": "KS",
+    "cardNumber": 118
   },
   {
     "id": "KS-119",
@@ -1867,6 +2222,176 @@
     "cardNumber": 121
   },
   {
+    "id": "KS-122",
+    "nameEn": "Zabuza Momochi — Demon of the Hidden Mist",
+    "nameFr": "Zabuza Momochi — Demon of the Hidden Mist",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 7,
+    "keywords": [
+      "Rogue Ninja",
+      "Weapon"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ In addition, hide another enemy character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/122_R_Zabuza_Demon_Mist-1920w.webp",
+    "set": "KS",
+    "cardNumber": 122
+  },
+  {
+    "id": "KS-123",
+    "nameEn": "Haku — A Precious Person",
+    "nameFr": "Haku — A Precious Person",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 5,
+    "power": 4,
+    "keywords": [
+      "Rogue Ninja",
+      "Kekkei Genkai"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ⚡ If there is a friendly Zabuza in play, Powerup 3.\nUPGRADE ⚡ Hide an enemy character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/123_R_Haku_Precious_Person-1920w.webp",
+    "set": "KS",
+    "cardNumber": 123
+  },
+  {
+    "id": "KS-124",
+    "nameEn": "Kabuto Yakushi — Sage Mode",
+    "nameFr": "Kabuto Yakushi — Sage Mode",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 6,
+    "keywords": [
+      "Sound Ninja",
+      "Jutsu"
+    ],
+    "group": "Sound Village",
+    "effectEn": "MAIN ⚡ Play the top card of your discard pile anywhere, paying 2 less.\nUPGRADE ⚡ Place the top 2 cards of your deck as hidden characters in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/124_R_Kabuto_Sage_Mode-1920w.webp",
+    "set": "KS",
+    "cardNumber": 124
+  },
+  {
+    "id": "KS-125",
+    "nameEn": "Kimimaro — Dance of the Clematis",
+    "nameFr": "Kimimaro — Dance of the Clematis",
+    "type": "CHARACTER",
+    "rarity": "R",
+    "chakra": 6,
+    "power": 7,
+    "keywords": [
+      "Kekkei Genkai",
+      "Weapon"
+    ],
+    "group": "Sound Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 4 or less in this mission.\nUPGRADE ⚡ Powerup 2. This character cannot be hidden by enemy effects this round.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/125_R_Kimimaro_Clematis-1920w.webp",
+    "set": "KS",
+    "cardNumber": 125
+  },
+  {
+    "id": "KS-126",
+    "nameEn": "Gaara — \"I fight only for myself.\"",
+    "nameFr": "Gaara — \"I fight only for myself.\"",
+    "type": "CHARACTER",
+    "rarity": "AR",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Team Baki",
+      "Tailed Beast"
+    ],
+    "group": "Sand Village",
+    "effectEn": "MAIN ⚡ Hide an enemy character with Power 4 or less in this mission.\nUPGRADE MAIN effect: Instead, defeat that character.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/126_AR_Gaara_Fight_Myself-1920w.webp",
+    "set": "KS",
+    "cardNumber": 126
+  },
+  {
+    "id": "KS-127",
+    "nameEn": "Naruto Uzumaki — Shadow Clone Jutsu",
+    "nameFr": "Naruto Uzumaki — Shadow Clone Jutsu",
+    "type": "CHARACTER",
+    "rarity": "AR",
+    "chakra": 4,
+    "power": 3,
+    "keywords": [
+      "Team 7",
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Place 2 cards from the top of your deck as hidden characters in this mission.\nUPGRADE ⚡ In addition, Powerup 1 for each hidden friendly character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/127_AR_Naruto_Shadow_Clone-1920w.webp",
+    "set": "KS",
+    "cardNumber": 127
+  },
+  {
+    "id": "KS-128",
+    "nameEn": "Sasuke Uchiha — \"I will kill a certain man.\"",
+    "nameFr": "Sasuke Uchiha — \"I will kill a certain man.\"",
+    "type": "CHARACTER",
+    "rarity": "AR",
+    "chakra": 5,
+    "power": 6,
+    "keywords": [
+      "Team 7",
+      "Kekkei Genkai"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ Gain 1 Chakra for each character you defeat.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/128_AR_Sasuke_Avenger-1920w.webp",
+    "set": "KS",
+    "cardNumber": 128
+  },
+  {
+    "id": "KS-129",
+    "nameEn": "Kakashi Hatake — \"Those who break the rules are trash...\"",
+    "nameFr": "Kakashi Hatake — \"Those who break the rules are trash...\"",
+    "type": "CHARACTER",
+    "rarity": "AR",
+    "chakra": 6,
+    "power": 5,
+    "keywords": [
+      "Team 7"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ✖ Other friendly Team 7 characters in play have +1 Power.\nUPGRADE ⚡ Move a friendly Team 7 character from another mission to this mission. Powerup 2 that character.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/129_AR_Kakashi_Rules-1920w.webp",
+    "set": "KS",
+    "cardNumber": 129
+  },
+  {
+    "id": "KS-130",
+    "nameEn": "Orochimaru — \"I want to obtain all jutsu.\"",
+    "nameFr": "Orochimaru — \"I want to obtain all jutsu.\"",
+    "type": "CHARACTER",
+    "rarity": "AR",
+    "chakra": 6,
+    "power": 7,
+    "keywords": [
+      "Sannin",
+      "Jutsu"
+    ],
+    "group": "Sound Village",
+    "effectEn": "MAIN ⚡ Copy any non-upgrade effect of a character in play.\nUPGRADE ⚡ Take control of a hidden enemy character in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/130_AR_Orochimaru_All_Jutsu-1920w.webp",
+    "set": "KS",
+    "cardNumber": 130
+  },
+  {
     "id": "KS-131",
     "nameEn": "Tsunade — Fifth Hokage",
     "nameFr": "Tsunade — Fifth Hokage",
@@ -1922,6 +2447,25 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/133_SecretV_GOLD_Naruto_Rasengan-1920w.webp",
     "set": "KS",
     "cardNumber": 133
+  },
+  {
+    "id": "KS-134",
+    "nameEn": "Naruto Uzumaki — Nine-Tails Cloak",
+    "nameFr": "Naruto Uzumaki — Nine-Tails Cloak",
+    "type": "CHARACTER",
+    "rarity": "L",
+    "chakra": 7,
+    "power": 8,
+    "keywords": [
+      "Team 7",
+      "Tailed Beast"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ✖ You can play this character as an upgrade over Naruto Uzumaki.\nUPGRADE ⚡ Defeat an enemy character with Power 5 or less in this mission. If you do, this character has -2 Power.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/134_SecretV_GOLD_Naruto_Nine_Tails_Cloak-1920w.webp",
+    "set": "KS",
+    "cardNumber": 134
   },
   {
     "id": "KS-135",
@@ -1999,6 +2543,82 @@
     "cardNumber": 138
   },
   {
+    "id": "KS-139",
+    "nameEn": "Gaara — One-Tail Awakening",
+    "nameFr": "Gaara — One-Tail Awakening",
+    "type": "CHARACTER",
+    "rarity": "S",
+    "chakra": 7,
+    "power": 8,
+    "keywords": [
+      "Team Baki",
+      "Tailed Beast"
+    ],
+    "group": "Sand Village",
+    "effectEn": "MAIN ✖ You can play this character as an upgrade over Gaara.\nUPGRADE ⚡ Defeat all enemy characters with Power 3 or less in this mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/139_M_Gaara_One_Tail_Awakening-1920w.webp",
+    "set": "KS",
+    "cardNumber": 139
+  },
+  {
+    "id": "KS-140",
+    "nameEn": "Zabuza Momochi — \"I'll see you in hell.\"",
+    "nameFr": "Zabuza Momochi — \"I'll see you in hell.\"",
+    "type": "CHARACTER",
+    "rarity": "S",
+    "chakra": 6,
+    "power": 7,
+    "keywords": [
+      "Rogue Ninja",
+      "Weapon"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ✖ When this character is defeated, defeat all enemy characters with Power 4 or less in this mission.\nUPGRADE ⚡ Powerup 3.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/140_M_Zabuza_See_You_Hell-1920w.webp",
+    "set": "KS",
+    "cardNumber": 140
+  },
+  {
+    "id": "KS-141",
+    "nameEn": "Haku — \"Is there someone precious to you?\"",
+    "nameFr": "Haku — \"Is there someone precious to you?\"",
+    "type": "CHARACTER",
+    "rarity": "S",
+    "chakra": 5,
+    "power": 5,
+    "keywords": [
+      "Rogue Ninja",
+      "Kekkei Genkai"
+    ],
+    "group": "Independent",
+    "effectEn": "MAIN ⚡ Discard the top 3 cards of the opponent's deck. Powerup X where X is the number of characters discarded.\nUPGRADE ⚡ If there is a friendly Zabuza in play, draw 2 cards.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/141_M_Haku_Precious_Person-1920w.webp",
+    "set": "KS",
+    "cardNumber": 141
+  },
+  {
+    "id": "KS-142",
+    "nameEn": "Kabuto Yakushi — True Allegiance",
+    "nameFr": "Kabuto Yakushi — True Allegiance",
+    "type": "CHARACTER",
+    "rarity": "S",
+    "chakra": 6,
+    "power": 6,
+    "keywords": [
+      "Sound Ninja",
+      "Jutsu"
+    ],
+    "group": "Sound Village",
+    "effectEn": "MAIN ⚡ Play the character at the top of your discard pile anywhere paying 4 less.\nUPGRADE ⚡ Gain 2 Chakra. Draw a card.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/142_M_Kabuto_True_Allegiance-1920w.webp",
+    "set": "KS",
+    "cardNumber": 142
+  },
+  {
     "id": "KS-143",
     "nameEn": "Itachi Uchiha — Hunting Naruto",
     "nameFr": "Itachi Uchiha — Hunting Naruto",
@@ -2033,6 +2653,153 @@
     "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/144_M_Special_Kisame_Chakra_absorb-1920w.webp",
     "set": "KS",
     "cardNumber": 144
+  },
+  {
+    "id": "KS-145",
+    "nameEn": "Rasengan",
+    "nameFr": "Rasengan",
+    "type": "JUTSU",
+    "rarity": "R",
+    "chakra": 4,
+    "power": null,
+    "keywords": [
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Target a friendly Naruto Uzumaki in play. Powerup 4 that character.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/145_R_Rasengan-1920w.webp",
+    "set": "KS",
+    "cardNumber": 145
+  },
+  {
+    "id": "KS-146",
+    "nameEn": "Chidori",
+    "nameFr": "Chidori",
+    "type": "JUTSU",
+    "rarity": "R",
+    "chakra": 4,
+    "power": null,
+    "keywords": [
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Target a friendly Sasuke Uchiha or Kakashi Hatake in play. Defeat an enemy character with Power 3 or less in that mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/146_R_Chidori-1920w.webp",
+    "set": "KS",
+    "cardNumber": 146
+  },
+  {
+    "id": "KS-147",
+    "nameEn": "Summoning Jutsu",
+    "nameFr": "Summoning Jutsu",
+    "type": "JUTSU",
+    "rarity": "UC",
+    "chakra": 3,
+    "power": null,
+    "keywords": [
+      "Jutsu"
+    ],
+    "group": null,
+    "effectEn": "MAIN ⚡ Play a Summon character from your hand anywhere, paying 2 less.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/147_UC_Summoning_Jutsu-1920w.webp",
+    "set": "KS",
+    "cardNumber": 147
+  },
+  {
+    "id": "KS-148",
+    "nameEn": "Shadow Clone Jutsu",
+    "nameFr": "Shadow Clone Jutsu",
+    "type": "JUTSU",
+    "rarity": "C",
+    "chakra": 2,
+    "power": null,
+    "keywords": [
+      "Jutsu"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Place 2 cards from the top of your deck as hidden characters in any mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/148_C_Shadow_Clone_Jutsu-1920w.webp",
+    "set": "KS",
+    "cardNumber": 148
+  },
+  {
+    "id": "KS-149",
+    "nameEn": "Sand Burial",
+    "nameFr": "Sand Burial",
+    "type": "JUTSU",
+    "rarity": "R",
+    "chakra": 5,
+    "power": null,
+    "keywords": [
+      "Jutsu"
+    ],
+    "group": "Sand Village",
+    "effectEn": "MAIN ⚡ Target a friendly Gaara in play. Defeat an enemy character with Power 4 or less in that mission.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/149_R_Sand_Burial-1920w.webp",
+    "set": "KS",
+    "cardNumber": 149
+  },
+  {
+    "id": "KS-150",
+    "nameEn": "Naruto Uzumaki — Mythos: Sage of Six Paths",
+    "nameFr": "Naruto Uzumaki — Mythos: Sage of Six Paths",
+    "type": "CHARACTER",
+    "rarity": "L",
+    "chakra": 8,
+    "power": 9,
+    "keywords": [
+      "Team 7",
+      "Tailed Beast"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Defeat an enemy character with Power 6 or less in this mission.\nUPGRADE ⚡ Powerup 2 every friendly character in play. Draw 2 cards.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/150_SecretV_GOLD_Naruto_Sage_Six_Paths-1920w.webp",
+    "set": "KS",
+    "cardNumber": 150
+  },
+  {
+    "id": "KS-151",
+    "nameEn": "Sasuke Uchiha — Mythos: Eternal Mangekyou",
+    "nameFr": "Sasuke Uchiha — Mythos: Eternal Mangekyou",
+    "type": "CHARACTER",
+    "rarity": "L",
+    "chakra": 8,
+    "power": 9,
+    "keywords": [
+      "Team 7",
+      "Kekkei Genkai"
+    ],
+    "group": "Leaf Village",
+    "effectEn": "MAIN ⚡ Choose an enemy character in this mission. Set that character's Power to 0.\nUPGRADE ⚡ Defeat that character. Gain 1 Chakra.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/151_SecretV_GOLD_Sasuke_Eternal_Mangekyou-1920w.webp",
+    "set": "KS",
+    "cardNumber": 151
+  },
+  {
+    "id": "KS-152",
+    "nameEn": "Madara Uchiha — Mythos: The Ghost of the Uchiha",
+    "nameFr": "Madara Uchiha — Mythos: The Ghost of the Uchiha",
+    "type": "CHARACTER",
+    "rarity": "L",
+    "chakra": 8,
+    "power": 9,
+    "keywords": [
+      "Rogue Ninja",
+      "Kekkei Genkai"
+    ],
+    "group": "Akatsuki",
+    "effectEn": "MAIN ✖ Can't be hidden or defeated by enemy effects.\nUPGRADE ⚡ Defeat all enemy characters with Power 4 or less in this mission. Gain 2 Chakra.",
+    "effectFr": null,
+    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/152_SecretV_GOLD_Madara_Ghost_Uchiha-1920w.webp",
+    "set": "KS",
+    "cardNumber": 152
   },
   {
     "id": "KS-M01",

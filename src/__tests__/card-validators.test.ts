@@ -28,7 +28,7 @@ describe('cardFiltersSchema', () => {
   });
 
   it('should accept all valid rarity values', () => {
-    for (const rarity of ['C', 'UC', 'R', 'AR', 'S', 'L']) {
+    for (const rarity of ['C', 'UC', 'R', 'AR', 'S', 'L', 'MYTHOS']) {
       const result = cardFiltersSchema.safeParse({ rarity });
       expect(result.success).toBe(true);
     }

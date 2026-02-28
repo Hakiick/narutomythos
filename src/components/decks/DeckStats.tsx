@@ -24,6 +24,7 @@ const rarityBarColors: Record<string, string> = {
   AR: 'bg-purple-600',
   S: 'bg-yellow-500',
   L: 'bg-amber-500',
+  MYTHOS: 'bg-rose-600',
 };
 
 const villageColors: Record<string, string> = {
@@ -50,7 +51,7 @@ export function DeckStats({ stats }: DeckStatsProps) {
     .filter((e) => e.count > 0);
   const typeTotal = typeEntries.reduce((s, e) => s + e.count, 0);
 
-  const rarityEntries = (['C', 'UC', 'R', 'AR', 'S', 'L'] as const)
+  const rarityEntries = (['C', 'UC', 'R', 'AR', 'S', 'L', 'MYTHOS'] as const)
     .map((rarity) => ({ rarity, count: stats.rarityDistribution[rarity] || 0 }))
     .filter((e) => e.count > 0);
   const rarityTotal = rarityEntries.reduce((s, e) => s + e.count, 0);

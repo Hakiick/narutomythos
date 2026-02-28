@@ -19,6 +19,7 @@ export const rarityColors: Record<string, string> = {
   AR: 'bg-purple-700 hover:bg-purple-700/80',
   S: 'bg-yellow-600 hover:bg-yellow-600/80',
   L: 'bg-amber-500 hover:bg-amber-500/80',
+  MYTHOS: 'bg-rose-600 hover:bg-rose-600/80',
 };
 
 export function CardItem({ card }: CardItemProps) {

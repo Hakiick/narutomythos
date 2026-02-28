@@ -127,6 +127,7 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
           <option value="AR">{t('rarityAR')}</option>
           <option value="S">{t('rarityS')}</option>
           <option value="L">{t('rarityL')}</option>
+          <option value="MYTHOS">{t('rarityMYTHOS')}</option>
         </Select>
 
         {/* Group filter */}

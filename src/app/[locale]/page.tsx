@@ -36,6 +36,24 @@ export default function HomePage() {
       href: '/pricing',
       icon: '💰',
     },
+    {
+      title: t('features.news'),
+      description: t('features.newsDesc'),
+      href: '/news',
+      icon: '📰',
+    },
+    {
+      title: t('features.organizedPlay'),
+      description: t('features.organizedPlayDesc'),
+      href: '/events',
+      icon: '🏆',
+    },
+    {
+      title: t('features.rulebook'),
+      description: t('features.rulebookDesc'),
+      href: '/rules',
+      icon: '📖',
+    },
   ] as const;
 
   return (

@@ -26,6 +26,7 @@ const rarityColors: Record<string, string> = {
   AR: 'bg-purple-700',
   S: 'bg-yellow-600',
   L: 'bg-amber-500',
+  MYTHOS: 'bg-rose-600',
 };
 
 interface DeckBuilderProps {
@@ -254,6 +255,7 @@ export function DeckBuilder({ deck, allCards, isOwner }: DeckBuilderProps) {
                   <option value="AR">{tCards('rarityAR')}</option>
                   <option value="S">{tCards('rarityS')}</option>
                   <option value="L">{tCards('rarityL')}</option>
+                  <option value="MYTHOS">{tCards('rarityMYTHOS')}</option>
                 </Select>
                 <Select
                   value={searchGroup}
