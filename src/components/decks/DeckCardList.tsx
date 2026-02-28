@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import type { DeckCardWithCard } from '@/lib/services/deck-service';
 import { Badge } from '@/components/ui/badge';
@@ -56,6 +57,19 @@ export function DeckCardList({ cards, onRemoveCard, onUpdateQuantity, readonly =
               key={dc.cardId}
               className="flex items-center gap-2 rounded-lg border border-border bg-card p-2 text-sm"
             >
+              {/* Card thumbnail */}
+              {dc.card.imageUrl && (
+                <div className="relative h-10 w-7 shrink-0 overflow-hidden rounded">
+                  <Image
+                    src={dc.card.imageUrl}
+                    alt={name}
+                    fill
+                    sizes="28px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
               {/* Card info */}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">

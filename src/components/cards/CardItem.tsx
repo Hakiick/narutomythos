@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import type { Card } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
@@ -54,9 +55,24 @@ export function CardItem({ card }: CardItemProps) {
         </Badge>
       </div>
 
-      {/* Card image placeholder */}
-      <div className="mb-3 flex aspect-[63/88] items-center justify-center rounded-lg bg-secondary text-4xl">
-        {card.type === 'CHARACTER' ? '🥷' : card.type === 'MISSION' ? '📜' : '⚡'}
+      {/* Card image */}
+      <div className={cn(
+        'relative mb-3 overflow-hidden rounded-lg bg-secondary',
+        card.type === 'MISSION' ? 'aspect-[88/63]' : 'aspect-[63/88]'
+      )}>
+        {card.imageUrl ? (
+          <Image
+            src={card.imageUrl}
+            alt={name}
+            fill
+            sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 22vw, 16vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-4xl">
+            {card.type === 'CHARACTER' ? '\u{1F977}' : card.type === 'MISSION' ? '\u{1F4DC}' : '\u26A1'}
+          </div>
+        )}
       </div>
 
       {/* Card name */}

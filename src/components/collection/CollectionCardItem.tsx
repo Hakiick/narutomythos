@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import type { CollectionCardWithCard } from '@/lib/services/collection-service';
 import { Badge } from '@/components/ui/badge';
@@ -42,6 +43,19 @@ export function CollectionCardItem({ entry, onUpdate, onRemove }: CollectionCard
 
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-3 sm:flex-row sm:items-center">
+      {/* Card thumbnail */}
+      {entry.card.imageUrl && (
+        <div className="relative hidden h-12 w-9 shrink-0 overflow-hidden rounded sm:block">
+          <Image
+            src={entry.card.imageUrl}
+            alt={name}
+            fill
+            sizes="36px"
+            className="object-cover"
+          />
+        </div>
+      )}
+
       {/* Card info */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">

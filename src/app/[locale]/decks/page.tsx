@@ -29,7 +29,7 @@ export default async function DecksPage() {
         <div className="flex flex-col items-center gap-4 py-12">
           <p className="text-muted-foreground">{t('signInPrompt')}</p>
           <Button asChild>
-            <Link href="/api/auth/signin">
+            <Link href="/auth/signin">
               <LogIn className="h-4 w-4" />
               {t('signInButton')}
             </Link>
