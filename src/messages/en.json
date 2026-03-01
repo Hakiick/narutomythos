@@ -183,7 +183,21 @@
     "uniqueOwned": "Unique Cards",
     "completion": "Completion",
     "completionPercent": "{percent}%",
-    "cardCount": "{count} cards"
+    "cardCount": "{count} cards",
+    "viewGallery": "Gallery View",
+    "viewList": "List View",
+    "setSelector": "Select a Set",
+    "allSets": "All Sets",
+    "setKS": "Konoha Shidō",
+    "setKSDesc": "First Set — 162 cards",
+    "setCompletion": "{owned}/{total} cards",
+    "setCompletionPercent": "{percent}% complete",
+    "collectionValue": "Collection Value",
+    "setValue": "Set Value",
+    "pricePerCard": "{price} €",
+    "noPrice": "No price data",
+    "quickAdd": "Add to collection",
+    "notOwned": "Not owned"
   },
   "Pricing": {
     "title": "Market Prices",
@@ -258,7 +272,8 @@
     "publishedOn": "Published on {date}",
     "noArticles": "No articles published yet",
     "backToNews": "Back to News",
-    "articleNotFound": "Article not found"
+    "articleNotFound": "Article not found",
+    "officialSite": "Official Website"
   },
   "Events": {
     "title": "Organized Play",
@@ -282,7 +297,8 @@
     "formatPRERELEASE": "Pre-Release",
     "formatCASUAL": "Casual",
     "findOnTopdeck": "Find events on TopDeck.gg",
-    "hostEvents": "Host events (Store owners)"
+    "hostEvents": "Host events (Store owners)",
+    "officialSite": "Official Website"
   },
   "Rules": {
     "title": "Rulebook",

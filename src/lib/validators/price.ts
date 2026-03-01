@@ -10,6 +10,7 @@ export type PriceQueryInput = z.infer<typeof priceQuerySchema>;
 
 export const collectionValueQuerySchema = z.object({
   currency: z.enum(['EUR', 'USD', 'GBP']).optional().default('EUR'),
+  set: z.string().min(1).optional(),
 });
 
 export type CollectionValueQueryInput = z.infer<typeof collectionValueQuerySchema>;

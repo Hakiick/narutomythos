@@ -31,6 +31,12 @@ export default async function EventsPage() {
               {t('hostEvents')}
             </a>
           </Button>
+          <Button asChild variant="outline" size="sm">
+            <a href="https://narutotcgmythos.com" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="h-4 w-4" />
+              {t('officialSite')}
+            </a>
+          </Button>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { addToCollectionSchema, collectionFiltersSchema } from '@/lib/validators/collection';
-import { getUserCollection, getCollectionStats, addToCollection } from '@/lib/services/collection-service';
+import { getUserCollection, getCollectionStats, addToCollection, getOwnedCardIdsForSet } from '@/lib/services/collection-service';
 import type { ApiResponse } from '@/types';
 import type { CollectionCard } from '@prisma/client';
 import type { CollectionCardWithCard, CollectionStats } from '@/lib/services/collection-service';
@@ -16,6 +16,27 @@ export async function GET(request: NextRequest) {
   }
 
   const { searchParams } = new URL(request.url);
+
+  // If ?set= is provided, return owned quantities for that set
+  const setCode = searchParams.get('set');
+  if (setCode) {
+    try {
+      const owned = await getOwnedCardIdsForSet(session.user.id, setCode);
+      const ownedQuantities: Record<string, number> = {};
+      for (const [cardId, qty] of owned) {
+        ownedQuantities[cardId] = qty;
+      }
+      return NextResponse.json<ApiResponse<{ ownedQuantities: Record<string, number> }>>({
+        data: { ownedQuantities },
+      });
+    } catch {
+      return NextResponse.json<ApiResponse<never>>(
+        { error: 'Failed to fetch owned cards' },
+        { status: 500 }
+      );
+    }
+  }
+
   const parsed = collectionFiltersSchema.safeParse({
     status: searchParams.get('status') || undefined,
     search: searchParams.get('search') || undefined,

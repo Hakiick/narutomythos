@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/lib/auth';
-import { getUserCollection, getCollectionStats } from '@/lib/services/collection-service';
-import { getCards } from '@/lib/services/card-service';
+import { getUserCollection, getCollectionStats, getOwnedCardIdsForSet } from '@/lib/services/collection-service';
+import { getCards, getCardSets, getCardsBySet } from '@/lib/services/card-service';
+import { getSetMarketPrices } from '@/lib/services/price-service';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { CollectionManager } from '@/components/collection/CollectionManager';
@@ -32,11 +33,23 @@ export default async function CollectionPage() {
     );
   }
 
-  const [cards, stats, allCards] = await Promise.all([
+  const sets = await getCardSets();
+  const defaultSet = sets[0]?.code ?? 'KS';
+
+  const [cards, stats, allCards, setCards, prices, ownedMap] = await Promise.all([
     getUserCollection(session.user.id),
     getCollectionStats(session.user.id),
     getCards(),
+    getCardsBySet(defaultSet),
+    getSetMarketPrices(defaultSet),
+    getOwnedCardIdsForSet(session.user.id, defaultSet),
   ]);
+
+  // Serialize Map to Record for client
+  const ownedQuantities: Record<string, number> = {};
+  for (const [cardId, qty] of ownedMap) {
+    ownedQuantities[cardId] = qty;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -49,6 +62,10 @@ export default async function CollectionPage() {
         initialCards={cards}
         initialStats={stats}
         allCards={allCards}
+        sets={sets}
+        initialSetCards={setCards}
+        initialPrices={prices}
+        initialOwnedQuantities={ownedQuantities}
       />
     </div>
   );

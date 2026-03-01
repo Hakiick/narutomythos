@@ -5,9 +5,10 @@ import type { CollectionStats } from '@/lib/services/collection-service';
 
 interface CollectionStatsPanelProps {
   stats: CollectionStats;
+  collectionValue?: number;
 }
 
-export function CollectionStatsPanel({ stats }: CollectionStatsPanelProps) {
+export function CollectionStatsPanel({ stats, collectionValue }: CollectionStatsPanelProps) {
   const t = useTranslations('Collection');
 
   return (
@@ -32,18 +33,25 @@ export function CollectionStatsPanel({ stats }: CollectionStatsPanelProps) {
         <p className="text-xs text-muted-foreground">{t('completion')}</p>
         <p className="text-2xl font-bold">{t('completionPercent', { percent: stats.completionPercent })}</p>
       </div>
-      <div className="rounded-lg border border-border bg-card p-3">
-        <p className="text-xs text-muted-foreground">{t('completion')}</p>
-        <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full rounded-full bg-green-500 transition-all"
-            style={{ width: `${stats.completionPercent}%` }}
-          />
+      {collectionValue !== undefined ? (
+        <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-3">
+          <p className="text-xs text-emerald-400">{t('collectionValue')}</p>
+          <p className="text-2xl font-bold text-emerald-500">{collectionValue.toFixed(2)} €</p>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {stats.uniqueOwned}/{stats.totalCards}
-        </p>
-      </div>
+      ) : (
+        <div className="rounded-lg border border-border bg-card p-3">
+          <p className="text-xs text-muted-foreground">{t('completion')}</p>
+          <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-secondary">
+            <div
+              className="h-full rounded-full bg-green-500 transition-all"
+              style={{ width: `${stats.completionPercent}%` }}
+            />
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {stats.uniqueOwned}/{stats.totalCards}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -183,7 +183,21 @@
     "uniqueOwned": "Cartes uniques",
     "completion": "Complétion",
     "completionPercent": "{percent}%",
-    "cardCount": "{count} cartes"
+    "cardCount": "{count} cartes",
+    "viewGallery": "Vue Galerie",
+    "viewList": "Vue Liste",
+    "setSelector": "Choisir un set",
+    "allSets": "Tous les sets",
+    "setKS": "Konoha Shidō",
+    "setKSDesc": "Premier Set — 162 cartes",
+    "setCompletion": "{owned}/{total} cartes",
+    "setCompletionPercent": "{percent}% complété",
+    "collectionValue": "Valeur de la collection",
+    "setValue": "Valeur du set",
+    "pricePerCard": "{price} €",
+    "noPrice": "Aucune donnée de prix",
+    "quickAdd": "Ajouter à la collection",
+    "notOwned": "Non possédée"
   },
   "Pricing": {
     "title": "Prix du marché",
@@ -258,7 +272,8 @@
     "publishedOn": "Publié le {date}",
     "noArticles": "Aucun article publié pour le moment",
     "backToNews": "Retour aux actualités",
-    "articleNotFound": "Article introuvable"
+    "articleNotFound": "Article introuvable",
+    "officialSite": "Site Officiel"
   },
   "Events": {
     "title": "Jeu organisé",
@@ -282,7 +297,8 @@
     "formatPRERELEASE": "Pré-Release",
     "formatCASUAL": "Casual",
     "findOnTopdeck": "Trouver des événements sur TopDeck.gg",
-    "hostEvents": "Organiser des événements (Boutiques)"
+    "hostEvents": "Organiser des événements (Boutiques)",
+    "officialSite": "Site Officiel"
   },
   "Rules": {
     "title": "Règles du jeu",

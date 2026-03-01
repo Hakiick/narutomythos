@@ -130,3 +130,23 @@ export async function removeFromCollection(
 
   await prisma.collectionCard.delete({ where: { id } });
 }
+
+export async function getOwnedCardIdsForSet(
+  userId: string,
+  setCode: string
+): Promise<Map<string, number>> {
+  const entries = await prisma.collectionCard.findMany({
+    where: {
+      userId,
+      status: 'OWNED',
+      card: { set: setCode },
+    },
+    select: { cardId: true, quantity: true },
+  });
+
+  const result = new Map<string, number>();
+  for (const e of entries) {
+    result.set(e.cardId, (result.get(e.cardId) ?? 0) + e.quantity);
+  }
+  return result;
+}

@@ -241,6 +241,26 @@ export async function getCollectionValue(
   };
 }
 
+export async function getSetMarketPrices(
+  setCode: string,
+  currency: Currency = 'EUR'
+): Promise<Record<string, number>> {
+  const cards = await prisma.card.findMany({
+    where: { set: setCode },
+    select: { id: true },
+  });
+  const cardIds = cards.map((c) => c.id);
+  const priceMap = await getAllMarketPrices(cardIds, currency);
+
+  const result: Record<string, number> = {};
+  for (const [cardId, mp] of priceMap) {
+    if (mp.marketPrice > 0) {
+      result[cardId] = mp.marketPrice;
+    }
+  }
+  return result;
+}
+
 export async function getDeckValue(
   deckId: string,
   currency: Currency = 'EUR'

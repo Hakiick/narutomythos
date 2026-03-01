@@ -6,6 +6,7 @@ export interface CardFilters {
   rarity?: Rarity;
   search?: string;
   group?: string;
+  set?: string;
   chakraMin?: number;
   chakraMax?: number;
   powerMin?: number;
@@ -52,6 +53,7 @@ export async function getCards(filters: CardFilters = {}): Promise<Card[]> {
       ...(filters.type && { type: filters.type }),
       ...(filters.rarity && { rarity: filters.rarity }),
       ...(filters.group && { group: filters.group }),
+      ...(filters.set && { set: filters.set }),
       ...(filters.search && {
         OR: [
           { nameEn: { contains: filters.search, mode: 'insensitive' as const } },
@@ -98,4 +100,25 @@ export async function getCardGroups(): Promise<string[]> {
     orderBy: { group: 'asc' },
   });
   return cards.map((c) => c.group).filter((g): g is string => g !== null);
+}
+
+export interface CardSet {
+  code: string;
+  cardCount: number;
+}
+
+export async function getCardSets(): Promise<CardSet[]> {
+  const groups = await prisma.card.groupBy({
+    by: ['set'],
+    _count: { id: true },
+    orderBy: { set: 'asc' },
+  });
+  return groups.map((g) => ({ code: g.set, cardCount: g._count.id }));
+}
+
+export async function getCardsBySet(setCode: string): Promise<Card[]> {
+  return prisma.card.findMany({
+    where: { set: setCode },
+    orderBy: { cardNumber: 'asc' },
+  });
 }

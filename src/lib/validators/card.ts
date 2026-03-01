@@ -5,6 +5,7 @@ export const cardFiltersSchema = z.object({
   rarity: z.enum(['C', 'UC', 'R', 'AR', 'S', 'L', 'MYTHOS']).optional(),
   search: z.string().optional(),
   group: z.string().optional(),
+  set: z.string().min(1).optional(),
   chakraMin: z.coerce.number().int().min(0).max(8).optional(),
   chakraMax: z.coerce.number().int().min(0).max(8).optional(),
   powerMin: z.coerce.number().int().min(0).max(9).optional(),
