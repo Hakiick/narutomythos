@@ -1,16 +1,21 @@
 import { getTranslations } from 'next-intl/server';
 import { ScannerClient } from '@/components/scanner/ScannerClient';
+import { PageHeroBg } from '@/components/layout/PageHeroBg';
+
+const heroCards = [
+  { id: 'KS-014', alt: 'Sasuke Uchiha — Sharingan' },
+  { id: 'KS-136', alt: 'Sasuke Uchiha — Heaven Curse Mark' },
+];
 
 export default async function ScannerPage() {
   const t = await getTranslations('Scanner');
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold md:text-4xl">{t('title')}</h1>
-        <p className="mt-2 text-muted-foreground">{t('subtitle')}</p>
+    <div>
+      <PageHeroBg title={t('title')} subtitle={t('subtitle')} cards={heroCards} />
+      <div className="container mx-auto px-4 py-8">
+        <ScannerClient />
       </div>
-      <ScannerClient />
     </div>
   );
 }

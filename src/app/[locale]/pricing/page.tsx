@@ -2,7 +2,13 @@ import { getTranslations } from 'next-intl/server';
 import { getCards } from '@/lib/services/card-service';
 import { getAllMarketPrices } from '@/lib/services/price-service';
 import { PricingGrid } from '@/components/pricing/PricingGrid';
+import { PageHeroBg } from '@/components/layout/PageHeroBg';
 import type { MarketPriceResult } from '@/lib/services/price-utils';
+
+const heroCards = [
+  { id: 'KS-131', alt: 'Tsunade — Fifth Hokage' },
+  { id: 'KS-003', alt: 'Tsunade — Master Medical Ninja' },
+];
 
 export default async function PricingPage() {
   const t = await getTranslations('Pricing');
@@ -18,13 +24,11 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold md:text-4xl">{t('title')}</h1>
-        <p className="mt-2 text-muted-foreground">{t('subtitle')}</p>
+    <div>
+      <PageHeroBg title={t('title')} subtitle={t('subtitle')} cards={heroCards} />
+      <div className="container mx-auto px-4 py-8">
+        <PricingGrid cards={cards} prices={prices} currency="EUR" />
       </div>
-
-      <PricingGrid cards={cards} prices={prices} currency="EUR" />
     </div>
   );
 }
