@@ -9,7 +9,7 @@ export default defineConfig({
   timeout: 240_000,
 
   use: {
-    baseURL: 'http://localhost:3333',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3333',
     // Record video of every test
     video: 'on',
     // Viewport matching mobile-first design
@@ -28,11 +28,13 @@ export default defineConfig({
     },
   ],
 
-  // Start dev server before running tests
-  webServer: {
-    command: 'pnpm dev --port 3333',
-    url: 'http://localhost:3333',
-    reuseExistingServer: true,
-    timeout: 60_000,
-  },
+  // Start dev server before running tests (skipped if PLAYWRIGHT_BASE_URL is set)
+  ...(!process.env.PLAYWRIGHT_BASE_URL && {
+    webServer: {
+      command: 'pnpm dev --port 3333',
+      url: 'http://localhost:3333',
+      reuseExistingServer: true,
+      timeout: 60_000,
+    },
+  }),
 });

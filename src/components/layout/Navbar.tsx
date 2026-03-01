@@ -25,6 +25,7 @@ export function Navbar() {
     { href: '/cards' as const, label: t('cards') },
     { href: '/decks' as const, label: t('decks') },
     { href: '/collection' as const, label: t('collection') },
+    { href: '/scanner' as const, label: t('scanner') },
     { href: '/pricing' as const, label: t('pricing') },
     { href: '/news' as const, label: t('news') },
     { href: '/events' as const, label: t('events') },

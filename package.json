@@ -18,10 +18,14 @@
     "db:studio": "prisma studio",
     "db:seed-prices": "tsx prisma/seed-prices.ts",
     "db:generate": "prisma generate",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && bash scripts/copy_wasm.sh 2>/dev/null || true",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
-    "e2e:show-report": "playwright show-report"
+    "e2e:show-report": "playwright show-report",
+    "ml:wasm": "bash scripts/copy_wasm.sh",
+    "ml:embeddings": ".venv/bin/python scripts/generate_embeddings.py",
+    "ml:export": ".venv/bin/python scripts/export_onnx.py",
+    "ml:setup": "bash scripts/setup_ml.sh"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -50,6 +54,7 @@
     "react-dom": "^19.2.4",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.1",
+    "onnxruntime-web": "^1.20.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

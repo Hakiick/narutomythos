@@ -40,3 +40,13 @@ yarn-error.log*
 next-env.d.ts
 
 # prisma
+
+# ML artifacts (generated, too large for git)
+public/ml/*.onnx
+public/ml/*.json
+public/ml/wasm/
+
+# Python
+.venv/
+.cache/card-images/
+__pycache__/
