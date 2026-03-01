@@ -448,6 +448,60 @@ export function decideAITarget(
       return targets[0].instanceId;
     }
 
+    case 'TAKE_CONTROL': {
+      // Take the most powerful enemy character
+      let bestTarget = targets[0];
+      let highestPower = -Infinity;
+      for (const target of targets) {
+        const power = findCharCardPower(state, target.instanceId);
+        if (power > highestPower) {
+          highestPower = power;
+          bestTarget = target;
+        }
+      }
+      return bestTarget.instanceId;
+    }
+
+    case 'PLAY_CHARACTER': {
+      if (pendingEffect.step === 'SELECT_CHARACTER') {
+        // Pick the best character from hand (highest power)
+        const ps = getPlayerState(state, side);
+        let bestTarget = targets[0];
+        let highestPower = -Infinity;
+        for (const target of targets) {
+          const card = ps.hand.find((h) => h.instanceId === target.instanceId);
+          if (card && card.card.power > highestPower) {
+            highestPower = card.card.power;
+            bestTarget = target;
+          }
+        }
+        return bestTarget.instanceId;
+      }
+      if (pendingEffect.step === 'SELECT_MISSION') {
+        // Pick the current round's mission if available, otherwise first valid
+        const currentRoundRank = getMissionRankForRound(state.round);
+        const currentMissionTarget = targets.find(
+          (t) => state.missions[t.missionIndex]?.rank === currentRoundRank
+        );
+        return (currentMissionTarget ?? targets[0]).instanceId;
+      }
+      return targets[0].instanceId;
+    }
+
+    case 'COPY_EFFECT': {
+      // Pick the enemy character with the most impactful effect (highest power as proxy)
+      let bestTarget = targets[0];
+      let highestPower = -Infinity;
+      for (const target of targets) {
+        const power = findCharCardPower(state, target.instanceId);
+        if (power > highestPower) {
+          highestPower = power;
+          bestTarget = target;
+        }
+      }
+      return bestTarget.instanceId;
+    }
+
     default:
       return targets[0].instanceId;
   }

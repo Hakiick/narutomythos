@@ -49,7 +49,7 @@ function createPlayerState(
   const instances = toGameCardInstances(shuffledDeck);
 
   // Select first 2 missions
-  const selectedMissions = missions.slice(0, Math.min(2, missions.length));
+  const selectedMissions = missions.slice(0, Math.min(3, missions.length));
 
   return {
     hand: [],
@@ -130,6 +130,8 @@ export function initializeGame(
     winner: null,
     consecutivePasses: 0,
     pendingEffect: null,
+    effectLog: [],
+    revealedInfo: null,
   };
 
   return state;
@@ -544,13 +546,74 @@ export function executePlayerAction(
       return state;
   }
 
+  // Expire revealedInfo after actions
+  if (newState.revealedInfo) {
+    const remaining = newState.revealedInfo.expiresAfterActions - 1;
+    if (remaining <= 0) {
+      newState = { ...newState, revealedInfo: null };
+    } else {
+      newState = {
+        ...newState,
+        revealedInfo: { ...newState.revealedInfo, expiresAfterActions: remaining },
+      };
+    }
+  }
+
+  // Enrich description with card name and mission info
+  const enrichedAction = enrichActionDescription(state, action);
+
   // Add to action history
   newState = {
     ...newState,
-    actionHistory: [...newState.actionHistory, action],
+    actionHistory: [...newState.actionHistory, enrichedAction],
   };
 
   return newState;
+}
+
+/** Add card name and mission rank to action description for better logging. */
+function enrichActionDescription(state: GameState, action: GameAction): GameAction {
+  const ps = getPlayerState(state, action.side);
+  const cardInstanceId = action.data?.cardInstanceId;
+  const missionIndex = action.data?.missionIndex;
+
+  if (!cardInstanceId) return action;
+
+  // Find card in hand or on field
+  const handCard = ps.hand.find((c) => c.instanceId === cardInstanceId);
+  const cardName = handCard?.card.nameEn.split(' \u2014 ')[0];
+
+  if (!cardName) return action;
+
+  const missionRank = missionIndex !== undefined
+    ? state.missions[missionIndex]?.rank ?? '?'
+    : '';
+
+  let description = action.data?.description;
+  switch (action.type) {
+    case GameActionType.PLAY_CHARACTER:
+      description = `Play ${cardName} at Mission ${missionRank}`;
+      break;
+    case GameActionType.PLAY_HIDDEN:
+      description = `Play ${cardName} hidden at Mission ${missionRank}`;
+      break;
+    case GameActionType.REVEAL:
+      description = `Reveal ${cardName} at Mission ${missionRank}`;
+      break;
+    case GameActionType.UPGRADE:
+      description = `Upgrade to ${cardName} at Mission ${missionRank}`;
+      break;
+    case GameActionType.PLAY_JUTSU:
+      description = `Jutsu: ${cardName} at Mission ${missionRank}`;
+      break;
+  }
+
+  if (!description) return action;
+
+  return {
+    ...action,
+    data: { ...action.data, description },
+  };
 }
 
 /** Play a character face-up at a mission. */
@@ -809,9 +872,12 @@ function switchTurn(state: GameState): GameState {
 export function executeMissionEvaluation(state: GameState): GameState {
   let newState = { ...state, phase: GamePhase.MISSION_EVALUATION };
 
-  const newMissions = newState.missions.map((mission, missionIndex) => {
+  // Process missions sequentially (not .map()) so SCORE effects propagate correctly
+  for (let missionIndex = 0; missionIndex < newState.missions.length; missionIndex++) {
+    const mission = newState.missions[missionIndex];
+
     // Only evaluate missions that have been revealed and not yet resolved
-    if (!mission.missionCard || mission.resolved) return mission;
+    if (!mission.missionCard || mission.resolved) continue;
 
     const playerPower = calculateMissionPower(mission.playerCharacters, mission.missionCard);
     const opponentPower = calculateMissionPower(mission.opponentCharacters, mission.missionCard);
@@ -832,7 +898,7 @@ export function executeMissionEvaluation(state: GameState): GameState {
 
     // Apply SCORE effects for winning side
     if (winner === 'player' || winner === 'opponent') {
-      const winnerChars = getMissionCharacters(mission, winner);
+      const winnerChars = getMissionCharacters(newState.missions[missionIndex], winner);
       for (const char of winnerChars) {
         if (!char.hidden) {
           const effects = parseEffects(char.card.effectEn);
@@ -855,14 +921,16 @@ export function executeMissionEvaluation(state: GameState): GameState {
       });
     }
 
-    return {
-      ...mission,
-      resolved: true,
-      winner,
+    // Mark mission as resolved with winner and power snapshot (using latest state)
+    newState = {
+      ...newState,
+      missions: newState.missions.map((m, idx) =>
+        idx === missionIndex
+          ? { ...m, resolved: true, winner, playerPowerAtEval: playerPower, opponentPowerAtEval: opponentPower }
+          : m
+      ),
     };
-  });
-
-  newState = { ...newState, missions: newMissions };
+  }
 
   return executeEndPhase(newState);
 }
@@ -875,20 +943,56 @@ export function executeMissionEvaluation(state: GameState): GameState {
 export function executeEndPhase(state: GameState): GameState {
   let newState = { ...state, phase: GamePhase.END };
 
+  // Return characters with RETURN_TO_HAND continuous effect to owner's hand
+  for (const side of ['player', 'opponent'] as PlayerSide[]) {
+    for (let mIdx = 0; mIdx < newState.missions.length; mIdx++) {
+      const mission = newState.missions[mIdx];
+      const characters = getMissionCharacters(mission, side);
+      const toReturn = characters.filter((c) =>
+        c.continuousEffects.some((ce) => ce.type === 'RETURN_TO_HAND')
+      );
+
+      if (toReturn.length > 0) {
+        const remaining = characters.filter(
+          (c) => !c.continuousEffects.some((ce) => ce.type === 'RETURN_TO_HAND')
+        );
+        const newMission = updateMissionCharacters(mission, side, remaining);
+        newState = {
+          ...newState,
+          missions: newState.missions.map((m, idx) =>
+            idx === mIdx ? newMission : m
+          ),
+        };
+
+        // Add returned characters back to hand
+        const ps = getPlayerState(newState, side);
+        const returnedInstances = toReturn.map((c) => ({
+          instanceId: c.instanceId,
+          card: c.card,
+        }));
+        newState = updatePlayerState(newState, side, {
+          hand: [...ps.hand, ...returnedInstances],
+        });
+      }
+    }
+  }
+
   // Reset chakra to 0
   newState = updatePlayerState(newState, 'player', { chakra: 0 });
   newState = updatePlayerState(newState, 'opponent', { chakra: 0 });
 
-  // Remove power tokens from all characters
+  // Remove power tokens and continuous effects from all characters
   const clearedMissions = newState.missions.map((mission) => ({
     ...mission,
     playerCharacters: mission.playerCharacters.map((c) => ({
       ...c,
       powerTokens: 0,
+      continuousEffects: [],
     })),
     opponentCharacters: mission.opponentCharacters.map((c) => ({
       ...c,
       powerTokens: 0,
+      continuousEffects: [],
     })),
   }));
   newState = { ...newState, missions: clearedMissions };

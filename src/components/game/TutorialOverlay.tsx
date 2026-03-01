@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { ChevronRight, X, GraduationCap } from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   TUTORIAL_STEPS,
@@ -106,39 +106,44 @@ export function TutorialOverlay({
         <div className="pointer-events-auto absolute inset-0 bg-black/40" />
       )}
 
-      {/* Highlight cutout */}
+      {/* Highlight cutout — orange-accented ring */}
       {highlightRect && currentStep.highlight !== 'none' && (
         <div
-          className="absolute rounded-lg ring-4 ring-primary ring-offset-2 ring-offset-transparent"
+          className="absolute rounded-lg ring-2 ring-orange-500/70 ring-offset-2 ring-offset-transparent"
           style={{
             left: highlightRect.left - 4,
             top: highlightRect.top - 4,
             width: highlightRect.width + 8,
             height: highlightRect.height + 8,
             zIndex: 51,
+            boxShadow: '0 0 16px 4px rgba(249, 115, 22, 0.2)',
           }}
         />
       )}
 
-      {/* Tutorial card */}
+      {/* Tutorial card — Naruto-themed */}
       <div className="pointer-events-auto absolute bottom-4 left-4 right-4 z-[52] mx-auto max-w-md">
-        <div className="rounded-xl border border-border bg-background p-4 shadow-2xl">
-          {/* Progress bar */}
-          <div className="mb-3 h-1 w-full overflow-hidden rounded-full bg-muted">
+        <div className="relative overflow-hidden rounded-xl border border-orange-500/25 bg-gradient-to-b from-zinc-900 to-zinc-950 p-4 shadow-[0_0_20px_rgba(249,115,22,0.1)]">
+          {/* Top decorative line */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
+
+          {/* Progress bar — orange gradient */}
+          <div className="mb-3 h-1 w-full overflow-hidden rounded-full bg-zinc-800">
             <div
-              className="h-full rounded-full bg-primary transition-all duration-300"
+              className="h-full rounded-full bg-gradient-to-r from-orange-600 to-orange-400 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
 
           {/* Step content */}
           <div className="mb-4 flex items-start gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <GraduationCap className="h-4 w-4 text-primary" />
+            {/* Step indicator — themed circle with step number */}
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-orange-500/30 bg-gradient-to-br from-orange-500/20 to-orange-600/10">
+              <span className="text-xs font-bold text-orange-400">{stepIndex + 1}</span>
             </div>
             <div>
-              <h3 className="text-sm font-semibold">{t(currentStep.titleKey)}</h3>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <h3 className="text-sm font-semibold text-zinc-100">{t(currentStep.titleKey)}</h3>
+              <p className="mt-1 text-xs text-zinc-400">
                 {t(currentStep.descKey)}
               </p>
             </div>
@@ -149,13 +154,17 @@ export function TutorialOverlay({
             <button
               type="button"
               onClick={handleSkip}
-              className="text-xs text-muted-foreground hover:text-foreground"
+              className="text-xs text-zinc-500 hover:text-orange-400 transition-colors"
             >
               {t('tutorial.skip')}
             </button>
 
             {!currentStep.waitForAction && (
-              <Button size="sm" onClick={handleNext}>
+              <Button
+                size="sm"
+                onClick={handleNext}
+                className="border-orange-500/40 bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-500 hover:to-orange-400"
+              >
                 {isLastStep ? (
                   t('tutorial.startPlaying')
                 ) : (
@@ -168,24 +177,27 @@ export function TutorialOverlay({
             )}
 
             {currentStep.waitForAction && (
-              <span className="text-xs text-muted-foreground animate-pulse">
+              <span className="text-xs text-orange-400/60 animate-pulse">
                 {t('tutorial.next')}...
               </span>
             )}
           </div>
 
           {/* Step counter */}
-          <div className="mt-2 text-center text-[10px] text-muted-foreground">
+          <div className="mt-2 text-center text-[10px] text-zinc-500">
             {stepIndex + 1} / {TUTORIAL_STEPS.length}
           </div>
+
+          {/* Bottom decorative line */}
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
       </div>
 
-      {/* Skip button (top right) */}
+      {/* Skip button (top right) — themed */}
       <button
         type="button"
         onClick={handleSkip}
-        className="pointer-events-auto absolute right-4 top-4 z-[52] flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground hover:text-foreground"
+        className="pointer-events-auto absolute right-4 top-4 z-[52] flex h-8 w-8 items-center justify-center rounded-full border border-orange-500/20 bg-zinc-900/80 text-zinc-400 transition-colors hover:border-orange-500/40 hover:text-orange-400"
         aria-label={t('tutorial.skip')}
       >
         <X className="h-4 w-4" />

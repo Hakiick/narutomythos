@@ -2,6 +2,8 @@
 // Game State Types for Naruto Mythos TCG Engine
 // =============================================
 
+import type { EffectEvent } from './effects/types';
+
 export enum GamePhase {
   MULLIGAN = 'MULLIGAN',
   START = 'START',
@@ -80,6 +82,9 @@ export interface MissionSlot {
   opponentCharacters: DeployedCharacter[];
   resolved: boolean;
   winner: PlayerSide | 'tie' | null;
+  /** Power snapshot captured at evaluation time (before end-of-round token reset) */
+  playerPowerAtEval?: number;
+  opponentPowerAtEval?: number;
 }
 
 /** Player's state */
@@ -110,6 +115,8 @@ export interface GameState {
   winner: PlayerSide | 'draw' | null;
   consecutivePasses: number;
   pendingEffect: PendingEffect | null;
+  effectLog: EffectEvent[];
+  revealedInfo: RevealedInfo | null;
 }
 
 /** Action taken by a player */
@@ -136,6 +143,13 @@ export interface AvailableAction {
   description?: string;
 }
 
+/** Information revealed by LOOK_AT effects */
+export interface RevealedInfo {
+  type: 'hand' | 'hidden';
+  cards: GameCard[];
+  expiresAfterActions: number;
+}
+
 /** Pending effect requiring player choice */
 export interface PendingEffect {
   effectType: string;
@@ -144,6 +158,7 @@ export interface PendingEffect {
   validTargets: { instanceId: string; missionIndex: number }[];
   description: string;
   value: number;
-  step?: 'SELECT_CHARACTER' | 'SELECT_DESTINATION';
+  step?: 'SELECT_CHARACTER' | 'SELECT_DESTINATION' | 'SELECT_MISSION';
   moveData?: { characterInstanceId: string; fromMissionIndex: number };
+  playCharacterData?: { cardInstanceId: string; costReduction: number };
 }

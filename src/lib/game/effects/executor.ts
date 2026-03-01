@@ -21,9 +21,53 @@ import {
   EffectActionType,
   EffectTarget,
   EffectTiming,
-  type EffectTrigger,
+  EffectTrigger,
+  type EffectEvent,
   type ParsedEffect,
 } from './types';
+import { parseEffects } from './parser';
+
+let effectEventCounter = 0;
+
+/** Append an effect event to the state's effectLog. */
+function appendEffectEvent(
+  state: GameState,
+  action: EffectActionType,
+  value: number,
+  sourceCard: { nameEn: string; nameFr: string },
+  side: 'player' | 'opponent',
+  missionIndex: number,
+  targetCard?: { nameEn: string; nameFr: string } | null
+): GameState {
+  const event: EffectEvent = {
+    id: `eff-${Date.now()}-${++effectEventCounter}`,
+    timestamp: Date.now(),
+    action,
+    value,
+    sourceCardNameEn: sourceCard.nameEn,
+    sourceCardNameFr: sourceCard.nameFr,
+    targetCardNameEn: targetCard?.nameEn,
+    targetCardNameFr: targetCard?.nameFr,
+    side,
+    missionIndex,
+  };
+  return { ...state, effectLog: [...state.effectLog, event] };
+}
+
+/** Find a character's card data by instance ID across all missions. */
+function findCardByInstanceId(
+  state: GameState,
+  instanceId: string
+): { nameEn: string; nameFr: string } | null {
+  for (const mission of state.missions) {
+    for (const char of [...mission.playerCharacters, ...mission.opponentCharacters]) {
+      if (char.instanceId === instanceId) {
+        return { nameEn: char.card.nameEn, nameFr: char.card.nameFr };
+      }
+    }
+  }
+  return null;
+}
 
 /** Get valid targets for an effect based on its target type and filters. */
 export function getValidTargets(
@@ -83,6 +127,8 @@ export function getValidTargets(
           c.card.power + c.powerTokens > filter.powerMax
         )
           return false;
+        if (filter.costMax !== undefined && c.card.chakra > filter.costMax)
+          return false;
         return true;
       });
     }
@@ -129,6 +175,8 @@ export function applyEffects(
   let currentState = state;
 
   const matchingEffects = effects.filter((e) => e.trigger === trigger);
+  const sourceCard = findCardByInstanceId(currentState, sourceInstanceId);
+  const srcInfo = sourceCard ?? { nameEn: 'Unknown', nameFr: 'Inconnu' };
 
   for (const effect of matchingEffects) {
     if (effect.action === EffectActionType.UNRESOLVED) {
@@ -151,23 +199,28 @@ export function applyEffects(
             sourceInstanceId,
             effect.value
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, srcInfo);
         } else if (
           effect.target === EffectTarget.ALL_FRIENDLY ||
           effect.target === EffectTarget.ALL_ENEMY
         ) {
           for (const target of validTargets) {
+            const tgt = findCardByInstanceId(currentState, target.instanceId);
             currentState = applyPowerup(
               currentState,
               target.instanceId,
               effect.value
             );
+            currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
           }
         } else if (validTargets.length === 1) {
+          const tgt = findCardByInstanceId(currentState, validTargets[0].instanceId);
           currentState = applyPowerup(
             currentState,
             validTargets[0].instanceId,
             effect.value
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
         } else if (validTargets.length > 1) {
           // Need player choice
           currentState = {
@@ -192,13 +245,16 @@ export function applyEffects(
             sourceInstanceId,
             effect.value
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, srcInfo);
         } else {
           for (const target of validTargets) {
+            const tgt = findCardByInstanceId(currentState, target.instanceId);
             currentState = applyPowerup(
               currentState,
               target.instanceId,
               effect.value
             );
+            currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
           }
         }
         break;
@@ -209,6 +265,7 @@ export function applyEffects(
         currentState = updatePlayerState(currentState, side, {
           chakra: playerState.chakra + effect.value,
         });
+        currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex);
         break;
       }
 
@@ -216,17 +273,20 @@ export function applyEffects(
         const ps = getPlayerState(currentState, side);
         const { hand, deck } = drawCards(ps, effect.value);
         currentState = updatePlayerState(currentState, side, { hand, deck });
+        currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex);
         break;
       }
 
       case EffectActionType.DEFEAT: {
         if (validTargets.length === 1) {
+          const tgt = findCardByInstanceId(currentState, validTargets[0].instanceId);
           currentState = defeatCharacter(
             currentState,
             validTargets[0].instanceId,
             validTargets[0].missionIndex,
             side === 'player' ? 'opponent' : 'player'
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
         } else if (validTargets.length > 1) {
           currentState = {
             ...currentState,
@@ -245,10 +305,12 @@ export function applyEffects(
 
       case EffectActionType.HIDE: {
         if (validTargets.length === 1) {
+          const tgt = findCardByInstanceId(currentState, validTargets[0].instanceId);
           currentState = hideCharacter(
             currentState,
             validTargets[0].instanceId
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
         } else if (validTargets.length > 1) {
           currentState = {
             ...currentState,
@@ -267,11 +329,13 @@ export function applyEffects(
 
       case EffectActionType.REMOVE_POWER: {
         if (validTargets.length === 1) {
+          const tgt = findCardByInstanceId(currentState, validTargets[0].instanceId);
           currentState = removePowerTokens(
             currentState,
             validTargets[0].instanceId,
             effect.value
           );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
         } else if (validTargets.length > 1) {
           currentState = {
             ...currentState,
@@ -297,6 +361,7 @@ export function applyEffects(
             discardPile: [...ps2.discardPile, ...ps2.hand],
             hand: [],
           });
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex);
         } else {
           // Need player choice - set pending
           currentState = {
@@ -346,6 +411,7 @@ export function applyEffects(
         currentState = updatePlayerState(currentState, oppSide, {
           chakra: oppPs.chakra - stealAmount,
         });
+        currentState = appendEffectEvent(currentState, effect.action, stealAmount, srcInfo, side, missionIndex);
         break;
       }
 
@@ -384,7 +450,220 @@ export function applyEffects(
       }
 
       case EffectActionType.PLAY_CHARACTER: {
-        // Complex effect, mark as unresolved for now
+        // 2-step pending: choose character from hand, then choose mission
+        const ps = getPlayerState(currentState, side);
+        const playableChars = ps.hand.filter(
+          (inst) => inst.card.type === 'CHARACTER'
+        );
+        if (playableChars.length > 0) {
+          currentState = {
+            ...currentState,
+            pendingEffect: {
+              effectType: 'PLAY_CHARACTER',
+              sourceInstanceId,
+              side,
+              validTargets: playableChars.map((inst) => ({
+                instanceId: inst.instanceId,
+                missionIndex: -1,
+              })),
+              description: `Choose a character to play${effect.value > 0 ? ` (paying ${effect.value} less)` : ''}`,
+              value: effect.value,
+              step: 'SELECT_CHARACTER',
+              playCharacterData: {
+                cardInstanceId: '',
+                costReduction: effect.value,
+              },
+            },
+          };
+        }
+        break;
+      }
+
+      case EffectActionType.TAKE_CONTROL: {
+        if (validTargets.length === 1) {
+          const tgt = findCardByInstanceId(currentState, validTargets[0].instanceId);
+          currentState = takeControlOfCharacter(
+            currentState,
+            validTargets[0].instanceId,
+            validTargets[0].missionIndex,
+            side
+          );
+          currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex, tgt);
+        } else if (validTargets.length > 1) {
+          currentState = {
+            ...currentState,
+            pendingEffect: {
+              effectType: 'TAKE_CONTROL',
+              sourceInstanceId,
+              side,
+              validTargets,
+              description: 'Choose an enemy character to take control of',
+              value: effect.value,
+            },
+          };
+        }
+        break;
+      }
+
+      case EffectActionType.LOOK_AT: {
+        const oppSide: PlayerSide = side === 'player' ? 'opponent' : 'player';
+        const lower = effect.rawText.toLowerCase();
+        if (lower.includes('hand')) {
+          const oppPs = getPlayerState(currentState, oppSide);
+          currentState = {
+            ...currentState,
+            revealedInfo: {
+              type: 'hand',
+              cards: oppPs.hand.map((inst) => inst.card),
+              expiresAfterActions: 2,
+            },
+          };
+        } else if (lower.includes('hidden')) {
+          const hiddenCards: import('../types').GameCard[] = [];
+          for (const mission of currentState.missions) {
+            const chars = getMissionCharacters(mission, oppSide);
+            for (const c of chars) {
+              if (c.hidden) hiddenCards.push(c.card);
+            }
+          }
+          currentState = {
+            ...currentState,
+            revealedInfo: {
+              type: 'hidden',
+              cards: hiddenCards,
+              expiresAfterActions: 2,
+            },
+          };
+        }
+        currentState = appendEffectEvent(currentState, effect.action, effect.value, srcInfo, side, missionIndex);
+        break;
+      }
+
+      case EffectActionType.PLACE_FROM_DECK: {
+        const ps = getPlayerState(currentState, side);
+        const cardsToPlace = ps.deck.slice(0, effect.value);
+        const remainingDeck = ps.deck.slice(effect.value);
+        currentState = updatePlayerState(currentState, side, {
+          deck: remainingDeck,
+        });
+
+        // Deploy as hidden characters at the current mission
+        const deployed: DeployedCharacter[] = cardsToPlace
+          .filter((inst) => inst.card.type === 'CHARACTER')
+          .map((inst) => ({
+            instanceId: inst.instanceId,
+            card: inst.card,
+            hidden: true,
+            powerTokens: 0,
+            continuousEffects: [],
+          }));
+
+        if (deployed.length > 0) {
+          const mission = currentState.missions[missionIndex];
+          const currentChars = getMissionCharacters(mission, side);
+          const newMission = updateMissionCharacters(mission, side, [
+            ...currentChars,
+            ...deployed,
+          ]);
+          const newMissions = currentState.missions.map((m, idx) =>
+            idx === missionIndex ? newMission : m
+          );
+          currentState = { ...currentState, missions: newMissions };
+        }
+
+        // Non-character cards go to discard
+        const nonChars = cardsToPlace.filter(
+          (inst) => inst.card.type !== 'CHARACTER'
+        );
+        if (nonChars.length > 0) {
+          const psUpdated = getPlayerState(currentState, side);
+          currentState = updatePlayerState(currentState, side, {
+            discardPile: [...psUpdated.discardPile, ...nonChars],
+          });
+        }
+
+        currentState = appendEffectEvent(currentState, effect.action, deployed.length, srcInfo, side, missionIndex);
+        break;
+      }
+
+      case EffectActionType.RETURN_TO_HAND: {
+        if (effect.timing === EffectTiming.CONTINUOUS) {
+          // Attach as continuous effect — will be resolved in executeEndPhase
+          const effectId = generateInstanceId();
+          const newMissions = currentState.missions.map((mission) => {
+            const updateChars = (chars: DeployedCharacter[]) =>
+              chars.map((c) =>
+                c.instanceId === sourceInstanceId
+                  ? {
+                      ...c,
+                      continuousEffects: [
+                        ...c.continuousEffects,
+                        {
+                          effectId,
+                          sourceInstanceId,
+                          type: 'RETURN_TO_HAND',
+                          value: 1,
+                        },
+                      ],
+                    }
+                  : c
+              );
+            return {
+              ...mission,
+              playerCharacters: updateChars(mission.playerCharacters),
+              opponentCharacters: updateChars(mission.opponentCharacters),
+            };
+          });
+          currentState = { ...currentState, missions: newMissions };
+        }
+        break;
+      }
+
+      case EffectActionType.COPY_EFFECT: {
+        // Pending effect: choose an enemy character to copy from
+        const oppSide2: PlayerSide = side === 'player' ? 'opponent' : 'player';
+        const copyTargets: { instanceId: string; missionIndex: number }[] = [];
+        for (let mIdx = 0; mIdx < currentState.missions.length; mIdx++) {
+          const mission = currentState.missions[mIdx];
+          const chars = getMissionCharacters(mission, oppSide2);
+          for (const c of chars) {
+            if (!c.hidden && c.card.effectEn) {
+              const parsed = parseEffects(c.card.effectEn);
+              const hasInstantNonUpgrade = parsed.some(
+                (pe) =>
+                  pe.timing === EffectTiming.INSTANT &&
+                  pe.trigger !== EffectTrigger.UPGRADE &&
+                  pe.action !== EffectActionType.UNRESOLVED
+              );
+              if (hasInstantNonUpgrade) {
+                copyTargets.push({ instanceId: c.instanceId, missionIndex: mIdx });
+              }
+            }
+          }
+        }
+
+        if (copyTargets.length === 1) {
+          currentState = executeCopyEffect(
+            currentState,
+            copyTargets[0].instanceId,
+            sourceInstanceId,
+            side,
+            missionIndex,
+            srcInfo
+          );
+        } else if (copyTargets.length > 1) {
+          currentState = {
+            ...currentState,
+            pendingEffect: {
+              effectType: 'COPY_EFFECT',
+              sourceInstanceId,
+              side,
+              validTargets: copyTargets,
+              description: 'Choose an enemy character to copy an effect from',
+              value: effect.value,
+            },
+          };
+        }
         break;
       }
     }
@@ -473,6 +752,78 @@ function removePowerTokens(
   return { ...state, missions: newMissions };
 }
 
+/** Transfer an enemy character to the current player's side at the same mission. */
+function takeControlOfCharacter(
+  state: GameState,
+  targetInstanceId: string,
+  missionIndex: number,
+  newOwnerSide: PlayerSide
+): GameState {
+  const oppSide: PlayerSide = newOwnerSide === 'player' ? 'opponent' : 'player';
+  const mission = state.missions[missionIndex];
+  const oppChars = getMissionCharacters(mission, oppSide);
+  const target = oppChars.find((c) => c.instanceId === targetInstanceId);
+  if (!target) return state;
+
+  const remainingOpp = oppChars.filter((c) => c.instanceId !== targetInstanceId);
+  const myChars = getMissionCharacters(mission, newOwnerSide);
+
+  let newMission = updateMissionCharacters(mission, oppSide, remainingOpp);
+  newMission = updateMissionCharacters(newMission, newOwnerSide, [
+    ...myChars,
+    { ...target, continuousEffects: [] },
+  ]);
+
+  const newMissions = state.missions.map((m, idx) =>
+    idx === missionIndex ? newMission : m
+  );
+  return { ...state, missions: newMissions };
+}
+
+/** Copy the first instant non-upgrade effect from a target character. */
+function executeCopyEffect(
+  state: GameState,
+  copyFromInstanceId: string,
+  sourceInstanceId: string,
+  side: PlayerSide,
+  missionIndex: number,
+  srcInfo: { nameEn: string; nameFr: string }
+): GameState {
+  const copyFrom = findCharacterInState(state, copyFromInstanceId);
+  if (!copyFrom || !copyFrom.card.effectEn) return state;
+
+  const parsed = parseEffects(copyFrom.card.effectEn);
+  const instantEffect = parsed.find(
+    (pe) =>
+      pe.timing === EffectTiming.INSTANT &&
+      pe.trigger !== EffectTrigger.UPGRADE &&
+      pe.action !== EffectActionType.UNRESOLVED
+  );
+  if (!instantEffect) return state;
+
+  let newState = appendEffectEvent(
+    state,
+    EffectActionType.COPY_EFFECT,
+    1,
+    srcInfo,
+    side,
+    missionIndex,
+    { nameEn: copyFrom.card.nameEn, nameFr: copyFrom.card.nameFr }
+  );
+
+  // Apply the copied effect
+  newState = applyEffects(
+    newState,
+    [instantEffect],
+    instantEffect.trigger,
+    sourceInstanceId,
+    side,
+    missionIndex
+  );
+
+  return newState;
+}
+
 /** Resolve a pending effect by applying the chosen target. */
 export function resolvePendingEffect(
   state: GameState,
@@ -483,15 +834,22 @@ export function resolvePendingEffect(
 
   let newState: GameState = { ...state, pendingEffect: null as PendingEffect | null };
 
+  const srcCard = findCardByInstanceId(newState, pending.sourceInstanceId);
+  const srcInfo = srcCard ?? { nameEn: 'Unknown', nameFr: 'Inconnu' };
+
   switch (pending.effectType) {
-    case 'POWERUP':
+    case 'POWERUP': {
+      const tgt = findCardByInstanceId(newState, chosenTargetInstanceId);
       newState = applyPowerup(newState, chosenTargetInstanceId, pending.value);
+      newState = appendEffectEvent(newState, EffectActionType.POWERUP, pending.value, srcInfo, pending.side, 0, tgt);
       break;
+    }
     case 'DEFEAT': {
       const targetInfo = pending.validTargets.find(
         (t) => t.instanceId === chosenTargetInstanceId
       );
       if (targetInfo) {
+        const tgt = findCardByInstanceId(newState, chosenTargetInstanceId);
         const oppositeSide: PlayerSide =
           pending.side === 'player' ? 'opponent' : 'player';
         newState = defeatCharacter(
@@ -500,15 +858,22 @@ export function resolvePendingEffect(
           targetInfo.missionIndex,
           oppositeSide
         );
+        newState = appendEffectEvent(newState, EffectActionType.DEFEAT, pending.value, srcInfo, pending.side, targetInfo.missionIndex, tgt);
       }
       break;
     }
-    case 'HIDE':
+    case 'HIDE': {
+      const tgt = findCardByInstanceId(newState, chosenTargetInstanceId);
       newState = hideCharacter(newState, chosenTargetInstanceId);
+      newState = appendEffectEvent(newState, EffectActionType.HIDE, pending.value, srcInfo, pending.side, 0, tgt);
       break;
-    case 'REMOVE_POWER':
+    }
+    case 'REMOVE_POWER': {
+      const tgt = findCardByInstanceId(newState, chosenTargetInstanceId);
       newState = removePowerTokens(newState, chosenTargetInstanceId, pending.value);
+      newState = appendEffectEvent(newState, EffectActionType.REMOVE_POWER, pending.value, srcInfo, pending.side, 0, tgt);
       break;
+    }
     case 'DISCARD': {
       const ps = getPlayerState(newState, pending.side);
       const card = ps.hand.find(
@@ -521,6 +886,7 @@ export function resolvePendingEffect(
           ),
           discardPile: [...ps.discardPile, card],
         });
+        newState = appendEffectEvent(newState, EffectActionType.DISCARD, pending.value, srcInfo, pending.side, -1);
       }
       break;
     }
@@ -562,12 +928,14 @@ export function resolvePendingEffect(
           break;
         } else if (destTargets.length === 1) {
           // Auto-resolve to the only destination
+          const moveTgt = findCardByInstanceId(newState, chosenTargetInstanceId);
           newState = moveCharacter(
             newState,
             chosenTargetInstanceId,
             fromMissionIndex,
             destTargets[0].missionIndex
           );
+          newState = appendEffectEvent(newState, EffectActionType.MOVE, 1, srcInfo, pending.side, destTargets[0].missionIndex, moveTgt);
         } else {
           // Need step 2: choose destination
           newState = {
@@ -593,17 +961,169 @@ export function resolvePendingEffect(
           (t) => t.instanceId === chosenTargetInstanceId
         );
         if (targetInfo) {
+          const moveTgt = findCardByInstanceId(newState, pending.moveData.characterInstanceId);
           newState = moveCharacter(
             newState,
             pending.moveData.characterInstanceId,
             pending.moveData.fromMissionIndex,
             targetInfo.missionIndex
           );
+          newState = appendEffectEvent(newState, EffectActionType.MOVE, 1, srcInfo, pending.side, targetInfo.missionIndex, moveTgt);
         }
       }
       break;
     }
+    case 'TAKE_CONTROL': {
+      const targetInfo = pending.validTargets.find(
+        (t) => t.instanceId === chosenTargetInstanceId
+      );
+      if (targetInfo) {
+        const tgt = findCardByInstanceId(newState, chosenTargetInstanceId);
+        newState = takeControlOfCharacter(
+          newState,
+          chosenTargetInstanceId,
+          targetInfo.missionIndex,
+          pending.side
+        );
+        newState = appendEffectEvent(newState, EffectActionType.TAKE_CONTROL, pending.value, srcInfo, pending.side, targetInfo.missionIndex, tgt);
+      }
+      break;
+    }
+    case 'PLAY_CHARACTER': {
+      if (pending.step === 'SELECT_CHARACTER') {
+        // Step 1: Player chose a character from hand. Now choose mission.
+        const ps = getPlayerState(newState, pending.side);
+        const cardInstance = ps.hand.find(
+          (c) => c.instanceId === chosenTargetInstanceId
+        );
+        if (!cardInstance) break;
+
+        const baseName = getCharacterBaseName(cardInstance.card);
+        const validMissions: { instanceId: string; missionIndex: number }[] = [];
+        for (let i = 0; i < newState.missions.length; i++) {
+          const mission = newState.missions[i];
+          if (!mission.missionCard) continue;
+          const chars = pending.side === 'player'
+            ? mission.playerCharacters
+            : mission.opponentCharacters;
+          const hasSameName = chars.some(
+            (c) => getCharacterBaseName(c.card) === baseName
+          );
+          if (!hasSameName) {
+            validMissions.push({ instanceId: `mission_${i}`, missionIndex: i });
+          }
+        }
+
+        if (validMissions.length === 0) break;
+
+        if (validMissions.length === 1) {
+          // Auto-resolve: deploy at the only valid mission
+          newState = deployCharacterFromEffect(
+            newState,
+            pending.side,
+            chosenTargetInstanceId,
+            validMissions[0].missionIndex,
+            pending.playCharacterData?.costReduction ?? 0,
+            srcInfo
+          );
+        } else {
+          // Step 2: choose mission
+          newState = {
+            ...newState,
+            pendingEffect: {
+              effectType: 'PLAY_CHARACTER',
+              sourceInstanceId: pending.sourceInstanceId,
+              side: pending.side,
+              validTargets: validMissions,
+              description: 'Choose a mission to deploy the character',
+              value: pending.value,
+              step: 'SELECT_MISSION',
+              playCharacterData: {
+                cardInstanceId: chosenTargetInstanceId,
+                costReduction: pending.playCharacterData?.costReduction ?? 0,
+              },
+            },
+          };
+        }
+      } else if (pending.step === 'SELECT_MISSION' && pending.playCharacterData) {
+        // Step 2: Player chose a mission
+        const targetInfo = pending.validTargets.find(
+          (t) => t.instanceId === chosenTargetInstanceId
+        );
+        if (targetInfo) {
+          newState = deployCharacterFromEffect(
+            newState,
+            pending.side,
+            pending.playCharacterData.cardInstanceId,
+            targetInfo.missionIndex,
+            pending.playCharacterData.costReduction,
+            srcInfo
+          );
+        }
+      }
+      break;
+    }
+    case 'COPY_EFFECT': {
+      newState = executeCopyEffect(
+        newState,
+        chosenTargetInstanceId,
+        pending.sourceInstanceId,
+        pending.side,
+        0,
+        srcInfo
+      );
+      break;
+    }
   }
+
+  return newState;
+}
+
+/** Deploy a character from hand via effect (PLAY_CHARACTER). */
+function deployCharacterFromEffect(
+  state: GameState,
+  side: PlayerSide,
+  cardInstanceId: string,
+  missionIndex: number,
+  costReduction: number,
+  srcInfo: { nameEn: string; nameFr: string }
+): GameState {
+  const ps = getPlayerState(state, side);
+  const cardInstance = ps.hand.find((c) => c.instanceId === cardInstanceId);
+  if (!cardInstance) return state;
+
+  const actualCost = Math.max(0, cardInstance.card.chakra - costReduction);
+  if (ps.chakra < actualCost) return state;
+
+  // Remove from hand, deduct chakra
+  let newState = updatePlayerState(state, side, {
+    hand: ps.hand.filter((c) => c.instanceId !== cardInstanceId),
+    chakra: ps.chakra - actualCost,
+  });
+
+  // Deploy at mission
+  const deployed: DeployedCharacter = {
+    instanceId: cardInstance.instanceId,
+    card: cardInstance.card,
+    hidden: false,
+    powerTokens: 0,
+    continuousEffects: [],
+  };
+
+  const mission = newState.missions[missionIndex];
+  const currentChars = getMissionCharacters(mission, side);
+  const newMission = updateMissionCharacters(mission, side, [
+    ...currentChars,
+    deployed,
+  ]);
+  const newMissions = newState.missions.map((m, idx) =>
+    idx === missionIndex ? newMission : m
+  );
+  newState = { ...newState, missions: newMissions };
+  newState = appendEffectEvent(newState, EffectActionType.PLAY_CHARACTER, 1, srcInfo, side, missionIndex, {
+    nameEn: cardInstance.card.nameEn,
+    nameFr: cardInstance.card.nameFr,
+  });
 
   return newState;
 }

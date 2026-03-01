@@ -138,6 +138,9 @@ Use the appropriate subagent for specialized tasks:
 - `data-specialist` → Card data, seed JSON, imports
 - `deck-validator` → Deck validation logic, stats, game rules
 - `pricing-agent` → Price scraping, LLM extraction, normalization
+- `naruto-creative-designer` → Visual design, themes, animations, Naruto-universe atmosphere, CSS effects
+- `game-rules-expert` → Game engine logic, rules enforcement, phase flow, edge cases, AI behavior
+- `card-effects-expert` → All 162 cards, effect parsing/execution, card balance, synergy patterns
 
 ## Commit Convention
 

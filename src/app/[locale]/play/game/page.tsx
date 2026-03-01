@@ -12,6 +12,7 @@ import { GameOverScreen } from '@/components/game/GameOverScreen';
 import { MissionEvaluation } from '@/components/game/MissionEvaluation';
 import { TutorialOverlay } from '@/components/game/TutorialOverlay';
 import { useGameState } from '@/hooks/useGameState';
+import { GameThemeProvider } from '@/hooks/useGameTheme';
 import { GamePhase, type GameCard } from '@/lib/game/types';
 import { toGameCards } from '@/lib/game/utils';
 import { PREBUILT_DECKS } from '@/lib/game/ai/prebuilt-decks';
@@ -39,6 +40,14 @@ interface RawCard {
 }
 
 export default function GamePage() {
+  return (
+    <GameThemeProvider>
+      <GamePageInner />
+    </GameThemeProvider>
+  );
+}
+
+function GamePageInner() {
   const t = useTranslations('Play');
   const router = useRouter();
 
@@ -289,7 +298,7 @@ export default function GamePage() {
 
   // Main Game (ACTION, MISSION_EVALUATION, END, START phases)
   return (
-    <div className="container mx-auto px-2 py-2 sm:px-4 sm:py-4">
+    <div className="h-dvh overflow-hidden px-2 py-1 sm:px-4 sm:py-2">
       <GameBoard
         gameState={gameState}
         availableActions={availableActions}

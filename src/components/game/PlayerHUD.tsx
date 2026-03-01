@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Flame, Star, Layers, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { PlayerState, PlayerSide } from '@/lib/game/types';
+import { useGameTheme, type GameTheme } from '@/hooks/useGameTheme';
 import { cn } from '@/lib/utils';
 
 interface PlayerHUDProps {
@@ -25,8 +26,17 @@ function DeltaIndicator({ delta, color }: { delta: number; color: string }) {
   );
 }
 
+function themeHudClass(theme: GameTheme): string {
+  switch (theme) {
+    case 'scroll': return 'theme-scroll-hud-active';
+    case 'chakra': return 'theme-chakra-hud-active';
+    case 'konoha': return 'theme-konoha-hud-active';
+  }
+}
+
 export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUDProps) {
   const t = useTranslations('Play');
+  const { theme } = useGameTheme();
 
   // Track deltas for chakra and mission points
   const [chakraDelta, setChakraDelta] = useState(0);
@@ -66,9 +76,9 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUD
   return (
     <div
       className={cn(
-        'flex items-center justify-between rounded-lg border px-3 py-2 transition-all',
+        'flex items-center justify-between rounded-lg border px-3 py-1 transition-all',
         isCurrentTurn
-          ? 'border-primary/50 bg-primary/5 shadow-sm'
+          ? cn('border-orange-500/50 bg-orange-500/5 naruto-glow', themeHudClass(theme))
           : 'border-border bg-muted/30'
       )}
     >
@@ -86,11 +96,11 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUD
       <div className="flex items-center gap-3">
         {/* Chakra */}
         <div className="relative flex items-center gap-1" title={t('game.chakra')}>
-          <Flame className="h-4 w-4 text-blue-500" />
-          <span className="text-sm font-medium text-blue-500">
+          <Flame className="h-4 w-4 text-orange-500" />
+          <span className="text-sm font-medium text-orange-500">
             {playerState.chakra}
           </span>
-          <DeltaIndicator delta={chakraDelta} color="text-blue-400" />
+          <DeltaIndicator delta={chakraDelta} color="text-orange-400" />
         </div>
 
         {/* Mission Points */}

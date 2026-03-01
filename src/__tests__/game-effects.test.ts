@@ -7,6 +7,7 @@ import {
   EffectTrigger,
 } from '@/lib/game/effects/types';
 import { applyEffects } from '@/lib/game/effects/executor';
+import { executeEndPhase, initializeGame } from '@/lib/game/engine';
 import {
   GamePhase,
   MissionRank,
@@ -146,6 +147,8 @@ function createBaseGameState(): GameState {
     winner: null,
     consecutivePasses: 0,
     pendingEffect: null,
+    effectLog: [],
+    revealedInfo: null,
   };
 }
 
@@ -272,9 +275,18 @@ describe('parseEffects', () => {
     expect(effects[0].target).toBe(EffectTarget.SELF);
   });
 
-  it('should return UNRESOLVED for unknown text', () => {
+  it('should parse COPY_EFFECT', () => {
     const effects = parseEffects(
       'MAIN \u26A1 Copy a non-upgrade instant effect.'
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.COPY_EFFECT);
+  });
+
+  it('should return UNRESOLVED for unknown text', () => {
+    const effects = parseEffects(
+      'MAIN \u26A1 Something completely unknown happens.'
     );
 
     expect(effects).toHaveLength(1);
@@ -456,5 +468,274 @@ describe('applyEffects', () => {
     // Should have a pending effect since there are 2 valid targets
     expect(newState.pendingEffect).not.toBeNull();
     expect(newState.pendingEffect?.effectType).toBe('POWERUP');
+  });
+});
+
+// =============================================
+// New Effect Parser Tests
+// =============================================
+
+describe('parseEffects — new patterns', () => {
+  it('should parse TAKE_CONTROL', () => {
+    const effects = parseEffects(
+      'MAIN \u26A1 Take control of an enemy character with cost 3 or less.'
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.TAKE_CONTROL);
+    expect(effects[0].target).toBe(EffectTarget.ENEMY);
+    expect(effects[0].targetFilter?.costMax).toBe(3);
+  });
+
+  it('should parse LOOK_AT hand', () => {
+    const effects = parseEffects(
+      "MAIN \u26A1 Look at the opponent's hand."
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.LOOK_AT);
+  });
+
+  it('should parse PLACE_FROM_DECK', () => {
+    const effects = parseEffects(
+      'MAIN \u26A1 Place the top 1 card of your deck as a hidden character.'
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.PLACE_FROM_DECK);
+    expect(effects[0].value).toBe(1);
+  });
+
+  it('should parse RETURN_TO_HAND continuous', () => {
+    const effects = parseEffects(
+      'MAIN \u2716 At the end of the round, return this character to your hand.'
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.RETURN_TO_HAND);
+    expect(effects[0].timing).toBe(EffectTiming.CONTINUOUS);
+  });
+
+  it('should parse PLAY_CHARACTER with cost reduction', () => {
+    const effects = parseEffects(
+      'MAIN \u26A1 Play a Leaf Village character anywhere paying 1 less.'
+    );
+
+    expect(effects).toHaveLength(1);
+    expect(effects[0].action).toBe(EffectActionType.PLAY_CHARACTER);
+    expect(effects[0].value).toBe(1);
+    expect(effects[0].targetFilter?.group).toBe('Leaf Village');
+  });
+});
+
+// =============================================
+// New Executor Tests
+// =============================================
+
+describe('applyEffects — new effects', () => {
+  it('should attach RETURN_TO_HAND continuous effect', () => {
+    const state = createBaseGameState();
+    const effects = parseEffects(
+      'MAIN \u2716 At the end of the round, return this character to your hand.'
+    );
+
+    const newState = applyEffects(
+      state,
+      effects,
+      EffectTrigger.MAIN,
+      'player-char-1',
+      'player',
+      0
+    );
+
+    const char = newState.missions[0].playerCharacters.find(
+      (c) => c.instanceId === 'player-char-1'
+    );
+    expect(char?.continuousEffects).toHaveLength(1);
+    expect(char?.continuousEffects[0].type).toBe('RETURN_TO_HAND');
+  });
+
+  it('should place cards from deck as hidden with PLACE_FROM_DECK', () => {
+    const state = createBaseGameState();
+    // Give player deck cards
+    const stateWithDeck = {
+      ...state,
+      player: {
+        ...state.player,
+        deck: [
+          { instanceId: 'deck-1', card: createTestCharacter({ nameEn: 'Clone A' }) },
+          { instanceId: 'deck-2', card: createTestCharacter({ nameEn: 'Clone B' }) },
+        ],
+      },
+    };
+
+    const effects = parseEffects(
+      'MAIN \u26A1 Place the top 2 cards of your deck as hidden characters.'
+    );
+
+    const newState = applyEffects(
+      stateWithDeck,
+      effects,
+      EffectTrigger.MAIN,
+      'player-char-1',
+      'player',
+      0
+    );
+
+    // 2 original + 2 placed = 4 player characters at mission 0
+    expect(newState.missions[0].playerCharacters).toHaveLength(4);
+    // Placed characters should be hidden
+    const placed = newState.missions[0].playerCharacters.filter((c) => c.hidden);
+    expect(placed).toHaveLength(2);
+    // Deck should be empty
+    expect(newState.player.deck).toHaveLength(0);
+  });
+
+  it('should reveal opponent hand with LOOK_AT', () => {
+    const state = createBaseGameState();
+    const stateWithOppHand = {
+      ...state,
+      opponent: {
+        ...state.opponent,
+        hand: [
+          { instanceId: 'opp-hand-1', card: createTestCharacter({ nameEn: 'Secret Card' }) },
+        ],
+      },
+    };
+
+    const effects = parseEffects("MAIN \u26A1 Look at the opponent's hand.");
+
+    const newState = applyEffects(
+      stateWithOppHand,
+      effects,
+      EffectTrigger.MAIN,
+      'player-char-1',
+      'player',
+      0
+    );
+
+    expect(newState.revealedInfo).not.toBeNull();
+    expect(newState.revealedInfo?.type).toBe('hand');
+    expect(newState.revealedInfo?.cards).toHaveLength(1);
+    expect(newState.revealedInfo?.cards[0].nameEn).toBe('Secret Card');
+  });
+
+  it('should set pending effect for TAKE_CONTROL with multiple targets', () => {
+    const state = createBaseGameState();
+    // Add a second opponent character
+    const stateWith2Opp = {
+      ...state,
+      missions: state.missions.map((m, idx) =>
+        idx === 0
+          ? {
+              ...m,
+              opponentCharacters: [
+                ...m.opponentCharacters,
+                {
+                  instanceId: 'opponent-char-2',
+                  card: createTestCharacter({
+                    nameEn: 'Haku — Ice Mirror',
+                    chakra: 2,
+                    power: 2,
+                  }),
+                  hidden: false,
+                  powerTokens: 0,
+                  continuousEffects: [],
+                },
+              ],
+            }
+          : m
+      ),
+    };
+
+    const effects = parseEffects(
+      'MAIN \u26A1 Take control of an enemy character with cost 3 or less.'
+    );
+
+    const newState = applyEffects(
+      stateWith2Opp,
+      effects,
+      EffectTrigger.MAIN,
+      'player-char-1',
+      'player',
+      0
+    );
+
+    expect(newState.pendingEffect).not.toBeNull();
+    expect(newState.pendingEffect?.effectType).toBe('TAKE_CONTROL');
+  });
+});
+
+// =============================================
+// Engine Tests
+// =============================================
+
+describe('engine', () => {
+  it('should return characters with RETURN_TO_HAND to hand at end of round', () => {
+    const state = createBaseGameState();
+    // Attach RETURN_TO_HAND to player-char-1
+    const stateWithReturn = {
+      ...state,
+      phase: GamePhase.END as GamePhase,
+      missions: state.missions.map((m, idx) =>
+        idx === 0
+          ? {
+              ...m,
+              playerCharacters: m.playerCharacters.map((c) =>
+                c.instanceId === 'player-char-1'
+                  ? {
+                      ...c,
+                      continuousEffects: [
+                        {
+                          effectId: 'ce-1',
+                          sourceInstanceId: 'player-char-1',
+                          type: 'RETURN_TO_HAND',
+                          value: 1,
+                        },
+                      ],
+                    }
+                  : c
+              ),
+            }
+          : m
+      ),
+    };
+
+    const newState = executeEndPhase(stateWithReturn);
+
+    // player-char-1 should be removed from mission
+    const missionChars = newState.missions[0].playerCharacters;
+    expect(missionChars.find((c) => c.instanceId === 'player-char-1')).toBeUndefined();
+    // player-char-2 should still be on mission
+    expect(missionChars.find((c) => c.instanceId === 'player-char-2')).toBeDefined();
+    // player-char-1 should be back in hand
+    expect(newState.player.hand.find((c) => c.instanceId === 'player-char-1')).toBeDefined();
+  });
+
+  it('should select 3 missions per player', () => {
+    const playerDeck = Array.from({ length: 30 }, (_, i) =>
+      createTestCharacter({ id: `P-${i}`, nameEn: `Player Card ${i}`, cardNumber: i })
+    );
+    const opponentDeck = Array.from({ length: 30 }, (_, i) =>
+      createTestCharacter({ id: `O-${i}`, nameEn: `Opponent Card ${i}`, cardNumber: i + 100 })
+    );
+    const playerMissions = [
+      createTestCharacter({ id: 'M-1', type: 'MISSION', nameEn: 'Mission P1' }),
+      createTestCharacter({ id: 'M-2', type: 'MISSION', nameEn: 'Mission P2' }),
+      createTestCharacter({ id: 'M-3', type: 'MISSION', nameEn: 'Mission P3' }),
+    ];
+    const opponentMissions = [
+      createTestCharacter({ id: 'M-4', type: 'MISSION', nameEn: 'Mission O1' }),
+      createTestCharacter({ id: 'M-5', type: 'MISSION', nameEn: 'Mission O2' }),
+      createTestCharacter({ id: 'M-6', type: 'MISSION', nameEn: 'Mission O3' }),
+    ];
+
+    const gameState = initializeGame(playerDeck, playerMissions, opponentDeck, opponentMissions);
+
+    // Each player should have 3 selected missions
+    expect(gameState.player.selectedMissions).toHaveLength(3);
+    expect(gameState.opponent.selectedMissions).toHaveLength(3);
+    // Total mission deck should be 6 (3+3 shuffled together)
+    expect(gameState.missionDeck).toHaveLength(6);
   });
 });

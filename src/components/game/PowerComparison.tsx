@@ -14,11 +14,41 @@ interface PowerComparisonProps {
   animate?: boolean;
 }
 
-const missionRankConfig: Record<MissionRank, { color: string; points: number; label: string }> = {
-  [MissionRank.D]: { color: 'bg-gray-500', points: 1, label: 'game.missionD' },
-  [MissionRank.C]: { color: 'bg-blue-500', points: 2, label: 'game.missionC' },
-  [MissionRank.B]: { color: 'bg-purple-500', points: 3, label: 'game.missionB' },
-  [MissionRank.A]: { color: 'bg-amber-500', points: 4, label: 'game.missionA' },
+const missionRankConfig: Record<MissionRank, {
+  color: string;
+  gradient: string;
+  glowColor: string;
+  points: number;
+  label: string;
+}> = {
+  [MissionRank.D]: {
+    color: 'bg-gray-500',
+    gradient: 'from-gray-600 to-gray-500',
+    glowColor: 'rgba(107, 114, 128, 0.3)',
+    points: 1,
+    label: 'game.missionD',
+  },
+  [MissionRank.C]: {
+    color: 'bg-blue-500',
+    gradient: 'from-blue-600 to-blue-400',
+    glowColor: 'rgba(59, 130, 246, 0.3)',
+    points: 2,
+    label: 'game.missionC',
+  },
+  [MissionRank.B]: {
+    color: 'bg-purple-500',
+    gradient: 'from-purple-600 to-purple-400',
+    glowColor: 'rgba(147, 51, 234, 0.3)',
+    points: 3,
+    label: 'game.missionB',
+  },
+  [MissionRank.A]: {
+    color: 'bg-amber-500',
+    gradient: 'from-amber-600 to-amber-400',
+    glowColor: 'rgba(245, 158, 11, 0.3)',
+    points: 4,
+    label: 'game.missionA',
+  },
 };
 
 function useCountUp(targetValue: number, animate: boolean, duration = 800): number {
@@ -56,8 +86,9 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
   const playerChars = getMissionCharacters(mission, 'player');
   const opponentChars = getMissionCharacters(mission, 'opponent');
 
-  const playerPower = calculateMissionPower(playerChars);
-  const opponentPower = calculateMissionPower(opponentChars);
+  // Use evaluation-time snapshot if available, otherwise recalculate
+  const playerPower = mission.playerPowerAtEval ?? calculateMissionPower(playerChars);
+  const opponentPower = mission.opponentPowerAtEval ?? calculateMissionPower(opponentChars);
 
   const displayPlayerPower = useCountUp(playerPower, animate);
   const displayOpponentPower = useCountUp(opponentPower, animate);
@@ -82,32 +113,48 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
     [locale]
   );
 
-  const winnerBg =
-    mission.winner === 'player'
-      ? 'border-green-500/30 bg-green-500/10'
-      : mission.winner === 'opponent'
-        ? 'border-red-500/30 bg-red-500/10'
-        : 'border-muted bg-muted/50';
+  const playerWins = mission.winner === 'player';
+  const opponentWins = mission.winner === 'opponent';
+  const isDraw = mission.winner === 'tie';
 
-  const winnerText =
-    mission.winner === 'player'
-      ? 'text-green-500'
-      : mission.winner === 'opponent'
-        ? 'text-red-500'
-        : 'text-muted-foreground';
+  const totalPower = playerPower + opponentPower;
+  const playerPercent = totalPower > 0 ? (playerPower / totalPower) * 100 : 50;
 
   return (
-    <div className="w-full rounded-xl border border-border bg-card shadow-lg">
-      {/* Mission rank header */}
-      <div className="flex items-center justify-center gap-2 border-b border-border p-3">
-        <Badge className={cn('border-transparent text-white', config.color)}>
+    <div
+      className="w-full rounded-xl border border-border bg-card shadow-lg overflow-hidden"
+      style={
+        mission.winner !== null && showResult
+          ? {
+              boxShadow: playerWins
+                ? '0 0 20px 4px rgba(249, 115, 22, 0.2), 0 0 8px 2px rgba(251, 191, 36, 0.15)'
+                : opponentWins
+                  ? '0 0 20px 4px rgba(239, 68, 68, 0.2)'
+                  : undefined,
+            }
+          : undefined
+      }
+    >
+      {/* Mission rank header with gradient */}
+      <div className={cn(
+        'flex items-center justify-center gap-2 border-b border-border p-3 bg-gradient-to-r',
+        config.gradient
+      )}>
+        <Badge className="border-transparent bg-black/30 text-white backdrop-blur-sm">
           {t(config.label)}
         </Badge>
+        <span className="text-xs font-medium text-white/80">
+          ({config.points} {t('game.missionPoints').toLowerCase()})
+        </span>
       </div>
 
-      {/* Player side */}
-      <div className="border-b border-border p-4">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      {/* Player side — orange theme */}
+      <div className={cn(
+        'border-b border-border p-4 transition-colors',
+        showResult && playerWins && 'bg-orange-500/5'
+      )}>
+        <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-orange-400">
+          <span className="inline-block h-2 w-2 rounded-full bg-orange-500" />
           {t('game.player')}
         </p>
         <div className="space-y-1">
@@ -121,7 +168,7 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
                     ? 'Hidden'
                     : getCharacterName(char.card)}
                 </span>
-                <span className="font-mono font-medium">
+                <span className="font-mono font-medium text-orange-300">
                   {char.hidden
                     ? '(0)'
                     : char.powerTokens > 0
@@ -132,24 +179,40 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
             ))
           )}
         </div>
-        <div className="mt-2 flex items-center justify-between border-t border-border pt-2">
+        <div className="mt-2 flex items-center justify-between border-t border-orange-500/20 pt-2">
           <span className="text-xs font-medium text-muted-foreground">
             {t('game.power')}
           </span>
-          <span className="text-lg font-bold">{displayPlayerPower}</span>
+          <span className={cn(
+            'text-xl font-black tabular-nums',
+            showResult && playerWins && 'text-orange-400 animate-power-pop'
+          )}>
+            {displayPlayerPower}
+          </span>
         </div>
       </div>
 
-      {/* VS divider */}
-      <div className="flex items-center justify-center py-1">
-        <span className="text-xs font-bold uppercase text-muted-foreground">
+      {/* VS divider — chakra-style bar */}
+      <div className="relative flex items-center justify-center py-2">
+        {/* Power ratio bar */}
+        <div className="absolute inset-x-4 h-1 overflow-hidden rounded-full bg-muted/40">
+          <div
+            className="h-full bg-gradient-to-r from-orange-500 to-orange-400 transition-all duration-700"
+            style={{ width: `${playerPercent}%` }}
+          />
+        </div>
+        <span className="relative z-10 rounded-full bg-card px-2 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
           {t('game.vs')}
         </span>
       </div>
 
-      {/* Opponent side */}
-      <div className="border-b border-border p-4">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      {/* Opponent side — red theme */}
+      <div className={cn(
+        'border-b border-border p-4 transition-colors',
+        showResult && opponentWins && 'bg-red-500/5'
+      )}>
+        <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-red-400">
+          <span className="inline-block h-2 w-2 rounded-full bg-red-500" />
           {t('game.opponent')}
         </p>
         <div className="space-y-1">
@@ -163,7 +226,7 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
                     ? 'Hidden'
                     : getCharacterName(char.card)}
                 </span>
-                <span className="font-mono font-medium">
+                <span className="font-mono font-medium text-red-300">
                   {char.hidden
                     ? '(0)'
                     : char.powerTokens > 0
@@ -174,33 +237,48 @@ export function PowerComparison({ mission, playerHasEdge, animate = true }: Powe
             ))
           )}
         </div>
-        <div className="mt-2 flex items-center justify-between border-t border-border pt-2">
+        <div className="mt-2 flex items-center justify-between border-t border-red-500/20 pt-2">
           <span className="text-xs font-medium text-muted-foreground">
             {t('game.power')}
           </span>
-          <span className="text-lg font-bold">{displayOpponentPower}</span>
+          <span className={cn(
+            'text-xl font-black tabular-nums',
+            showResult && opponentWins && 'text-red-400 animate-power-pop'
+          )}>
+            {displayOpponentPower}
+          </span>
         </div>
       </div>
 
       {/* Result banner */}
       {showResult && mission.winner !== null && (
-        <div className={cn('flex flex-col items-center gap-1 rounded-b-xl border-t p-4', winnerBg)}>
-          <p className={cn('text-sm font-bold', winnerText)}>
-            {mission.winner === 'player'
+        <div className={cn(
+          'flex flex-col items-center gap-2 rounded-b-xl border-t p-4',
+          playerWins && 'border-orange-500/30 bg-gradient-to-b from-orange-500/10 to-amber-500/5',
+          opponentWins && 'border-red-500/30 bg-gradient-to-b from-red-500/10 to-red-900/5',
+          isDraw && 'border-muted bg-muted/30'
+        )}>
+          <p className={cn(
+            'text-base font-black uppercase tracking-wider',
+            playerWins && 'text-orange-400',
+            opponentWins && 'text-red-400',
+            isDraw && 'text-muted-foreground'
+          )}>
+            {playerWins
               ? t('game.victory')
-              : mission.winner === 'opponent'
+              : opponentWins
                 ? t('game.defeat')
                 : t('game.draw')}
           </p>
-          {mission.winner === 'tie' && playerHasEdge && (
+          {isDraw && playerHasEdge && (
             <p className="text-xs text-muted-foreground">
               {t('game.edge')}
             </p>
           )}
-          {mission.winner !== 'tie' && (
+          {!isDraw && (
             <ScoreAnimation
               points={config.points}
-              winner={mission.winner}
+              winner={mission.winner as 'player' | 'opponent'}
               missionRank={mission.rank}
             />
           )}
