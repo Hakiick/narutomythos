@@ -2,7 +2,8 @@
 
 import { useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Zap, Shield, Sparkles, Sword, Scroll, Star, RotateCcw, BoltIcon, ArrowUpCircle, Eye, Trophy } from 'lucide-react';
+import { Sparkles, Sword, Scroll, Star, RotateCcw, BoltIcon, ArrowUpCircle, Eye, Trophy } from 'lucide-react';
+import { ChakraIcon, PowerIcon } from './icons';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -127,13 +128,13 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
                 </p>
                 <div className="mt-1 flex items-center gap-2">
                   <div className="flex items-center gap-0.5">
-                    <Zap className="h-3 w-3 text-blue-400" />
+                    <ChakraIcon className="h-3 w-3 text-blue-400" />
                     <span className="text-[10px] font-bold text-blue-400">{card.chakra}</span>
                   </div>
                   {card.type === 'CHARACTER' && (
                     <div className="flex items-center gap-0.5">
-                      <Shield className="h-3 w-3 text-amber-400" />
-                      <span className="text-[10px] font-bold text-amber-400">{card.power}</span>
+                      <PowerIcon className="h-3 w-3 text-red-400" />
+                      <span className="text-[10px] font-bold text-red-400">{card.power}</span>
                     </div>
                   )}
                 </div>
@@ -171,15 +172,15 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
             {/* Stats in bordered boxes */}
             <div className="flex items-center justify-center gap-3">
               <div className="flex items-center gap-1.5 rounded-md border border-blue-500/30 bg-blue-500/10 px-2.5 py-1">
-                <Zap className="h-4 w-4 text-blue-400" />
+                <ChakraIcon className="h-4 w-4 text-blue-400" />
                 <span className="text-sm font-bold text-blue-400">{card.chakra}</span>
               </div>
               {card.type === 'CHARACTER' && (
-                <div className="flex items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-1">
-                  <Shield className="h-4 w-4 text-amber-400" />
+                <div className="flex items-center gap-1.5 rounded-md border border-red-500/30 bg-red-500/10 px-2.5 py-1">
+                  <PowerIcon className="h-4 w-4 text-red-400" />
                   <span className={cn(
                     'text-sm font-bold',
-                    deployed && deployed.powerTokens > 0 ? 'text-green-400' : 'text-amber-400'
+                    deployed && deployed.powerTokens > 0 ? 'text-green-400' : 'text-red-400'
                   )}>
                     {totalPower}
                     {deployed && deployed.powerTokens > 0 && (

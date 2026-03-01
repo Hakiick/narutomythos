@@ -1,9 +1,10 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { Lock, Shield } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { CharacterSlot } from './CharacterSlot';
+import { PowerIcon } from './icons';
 import { rankLabels, rankPoints, rankTheme } from './mission-constants';
 import { calculateMissionPower } from '@/lib/game/utils';
 import { useGameTheme, themeLaneClass } from '@/hooks/useGameTheme';
@@ -84,9 +85,7 @@ export function MissionColumn({
       onClick={() => onMissionClick(missionIndex)}
       className={cn(
         'flex flex-1 flex-col rounded-lg border-2 transition-all',
-        // Highlighted state
         isHighlighted && 'border-primary bg-primary/5 ring-2 ring-primary/30 animate-column-highlight cursor-pointer',
-        // Active rank
         isActive && !isHighlighted && [
           theme.activeBorder,
           theme.activeBg,
@@ -95,9 +94,7 @@ export function MissionColumn({
           theme.activeGlow,
           themeLaneClass(gameTheme, true),
         ],
-        // Resolved
         mission.resolved && 'opacity-60',
-        // Idle
         !isHighlighted && !isActive && !mission.resolved && [
           theme.border,
           theme.bg,
@@ -108,15 +105,15 @@ export function MissionColumn({
     >
       {/* Opponent power badge */}
       <div className="flex items-center justify-center py-0.5">
-        <div className="flex items-center gap-0.5 rounded-full bg-red-500/10 px-1.5 py-0">
-          <Shield className="h-2.5 w-2.5 text-red-400" />
-          <span className="text-[9px] font-bold text-red-400">{opponentPower}</span>
+        <div className="flex items-center gap-0.5 rounded-full bg-red-500/15 px-2 py-0.5">
+          <PowerIcon className="h-3 w-3 text-red-400" />
+          <span className="text-[10px] font-bold text-red-400">{opponentPower}</span>
         </div>
       </div>
 
-      {/* Opponent characters — 3 per row */}
-      <div className="px-1">
-        {mission.opponentCharacters.length > 0 ? (
+      {/* Opponent characters — 3 per row, tight spacing */}
+      <div className="min-h-[20px] px-0.5">
+        {mission.opponentCharacters.length > 0 && (
           <div className="flex flex-wrap justify-center gap-0.5">
             {mission.opponentCharacters.map((char) => (
               <CharacterSlot
@@ -128,18 +125,16 @@ export function MissionColumn({
               />
             ))}
           </div>
-        ) : (
-          <div className="h-4" />
         )}
       </div>
 
-      {/* Mission card — center (compact), long-press to inspect */}
+      {/* Mission card — center, taller for better visibility */}
       <div
         {...(mission.missionCard ? missionLongPressHandlers : {})}
         role={mission.missionCard ? 'button' : undefined}
         tabIndex={mission.missionCard ? 0 : undefined}
         className={cn(
-          'mx-1 my-1',
+          'mx-0.5 my-1',
           mission.missionCard && onInspectMission && 'cursor-pointer',
           isMissionPressing && 'scale-[0.97] opacity-85 transition-transform duration-150'
         )}
@@ -148,15 +143,14 @@ export function MissionColumn({
         <div className={cn(
           'relative overflow-hidden rounded-md border',
           isActive ? cn(theme.badgeBorder, 'bg-gradient-to-b from-black/60 to-black/80') : 'border-border/30 bg-black/40',
-          'h-[48px] sm:h-[56px]'
+          'h-[54px] sm:h-[64px]'
         )}>
-          {/* Mission image if available */}
           {mission.missionCard?.imageUrl && (
             <Image
               src={getImageUrl(mission.missionCard.imageUrl) ?? ''}
               alt={missionName ?? ''}
               fill
-              sizes="120px"
+              sizes="140px"
               className="object-cover opacity-40"
             />
           )}
@@ -164,7 +158,7 @@ export function MissionColumn({
           <Badge
             variant="outline"
             className={cn(
-              'absolute left-1 top-1 text-[8px] px-1 py-0 border',
+              'absolute left-0.5 top-0.5 text-[8px] px-1 py-0 border font-bold',
               theme.badgeBorder, theme.badgeText
             )}
           >
@@ -172,14 +166,14 @@ export function MissionColumn({
           </Badge>
           {/* Points badge top-right */}
           <span className={cn(
-            'absolute right-1 top-1 text-[9px] font-bold',
+            'absolute right-0.5 top-0.5 text-[9px] font-bold',
             theme.badgeText
           )}>
-            {points} {t('game.missionPts')}
+            {points}pt
           </span>
           {/* Mission name */}
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-1 pb-0.5 pt-2">
-            <p className="truncate text-center text-[8px] font-medium text-white/80">
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-1 pb-0.5 pt-3">
+            <p className="truncate text-center text-[8px] font-medium text-white/90 sm:text-[9px]">
               {missionName ?? t(`game.${labelKey}`)}
             </p>
           </div>
@@ -200,9 +194,9 @@ export function MissionColumn({
         </div>
       </div>
 
-      {/* Player characters — 3 per row */}
-      <div className="px-1">
-        {mission.playerCharacters.length > 0 ? (
+      {/* Player characters — 3 per row, tight spacing */}
+      <div className="min-h-[20px] px-0.5">
+        {mission.playerCharacters.length > 0 && (
           <div className="flex flex-wrap justify-center gap-0.5">
             {mission.playerCharacters.map((char) => {
               const canReveal = char.hidden && revealableInstanceIds?.has(char.instanceId);
@@ -220,16 +214,14 @@ export function MissionColumn({
               );
             })}
           </div>
-        ) : (
-          <div className="h-4" />
         )}
       </div>
 
       {/* Player power badge */}
       <div className="flex items-center justify-center py-0.5">
-        <div className="flex items-center gap-0.5 rounded-full bg-orange-500/10 px-1.5 py-0">
-          <Shield className="h-2.5 w-2.5 text-orange-400" />
-          <span className="text-[9px] font-bold text-orange-400">{playerPower}</span>
+        <div className="flex items-center gap-0.5 rounded-full bg-orange-500/15 px-2 py-0.5">
+          <PowerIcon className="h-3 w-3 text-orange-400" />
+          <span className="text-[10px] font-bold text-orange-400">{playerPower}</span>
         </div>
       </div>
     </button>

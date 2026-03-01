@@ -2,13 +2,14 @@
 
 import { useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Zap, Shield, Sword, Scroll, Star, Info } from 'lucide-react';
+import { Sword, Scroll, Star, Info } from 'lucide-react';
 import Image from 'next/image';
 import { GameActionType, type AvailableAction, type GameCard, type GameCardInstance, type GameState } from '@/lib/game/types';
 import { getCharacterBaseName, hasCharacterWithName } from '@/lib/game/utils';
 import { parseEffects } from '@/lib/game/effects/parser';
 import { EffectTrigger } from '@/lib/game/effects/types';
 import { useLongPress } from '@/hooks/useLongPress';
+import { ChakraIcon, PowerIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { getImageUrl } from '@/lib/storage';
 
@@ -306,13 +307,13 @@ function HandCard({
           {/* Stats at bottom */}
           <div className="mt-auto flex items-center gap-2">
             <div className="flex items-center gap-0.5">
-              <Zap className="h-3 w-3 text-blue-400" />
+              <ChakraIcon className="h-3 w-3 text-blue-400" />
               <span className="text-[10px] font-bold text-blue-400">{inst.card.chakra}</span>
             </div>
             {isCharacter && (
               <div className="flex items-center gap-0.5">
-                <Shield className="h-3 w-3 text-amber-400" />
-                <span className="text-[10px] font-bold text-amber-400">{inst.card.power}</span>
+                <PowerIcon className="h-3 w-3 text-red-400" />
+                <span className="text-[10px] font-bold text-red-400">{inst.card.power}</span>
               </div>
             )}
           </div>
@@ -375,15 +376,15 @@ function HandCard({
           {/* Stats row */}
           <div className="mt-0.5 flex items-center gap-2">
             <div className="flex items-center gap-0.5">
-              <Zap className="h-3 w-3 text-blue-400 drop-shadow-[0_0_2px_rgba(59,130,246,0.5)]" />
+              <ChakraIcon className="h-3 w-3 text-blue-400 drop-shadow-[0_0_2px_rgba(59,130,246,0.5)]" />
               <span className="text-[10px] font-bold text-blue-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                 {inst.card.chakra}
               </span>
             </div>
             {isCharacter && (
               <div className="flex items-center gap-0.5">
-                <Shield className="h-3 w-3 text-amber-400 drop-shadow-[0_0_2px_rgba(245,158,11,0.5)]" />
-                <span className="text-[10px] font-bold text-amber-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                <PowerIcon className="h-3 w-3 text-red-400 drop-shadow-[0_0_2px_rgba(239,68,68,0.5)]" />
+                <span className="text-[10px] font-bold text-red-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                   {inst.card.power}
                 </span>
               </div>

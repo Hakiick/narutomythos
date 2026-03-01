@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Flame, Star, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
+import { ChakraIcon, MissionPointsIcon } from './icons';
 import { Badge } from '@/components/ui/badge';
 import type { PlayerState, PlayerSide } from '@/lib/game/types';
 import { useGameTheme, type GameTheme } from '@/hooks/useGameTheme';
@@ -119,11 +120,11 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label, variant = '
       <div className="flex items-center gap-3">
         {/* Chakra */}
         <div className="relative flex items-center gap-1" title={t('game.chakra')}>
-          <Flame className="h-4 w-4 text-orange-500" />
-          <span className="text-sm font-medium text-orange-500">
+          <ChakraIcon className="h-4 w-4 text-blue-400" />
+          <span className="text-sm font-medium text-blue-400">
             {playerState.chakra}
           </span>
-          <DeltaIndicator delta={chakraDelta} color="text-orange-400" />
+          <DeltaIndicator delta={chakraDelta} color="text-blue-400" />
         </div>
 
         {/* Mission Points */}
@@ -132,7 +133,7 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label, variant = '
           title={t('game.missionPoints')}
           data-tutorial={side === 'player' ? 'score' : undefined}
         >
-          <Star className="h-4 w-4 text-yellow-500" />
+          <MissionPointsIcon className="h-4 w-4 text-yellow-500" />
           <span className="text-sm font-medium text-yellow-500">
             {playerState.missionPoints}
           </span>

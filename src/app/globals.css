@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Ninja Naruto display font — caps only, hero titles */
+@font-face {
+  font-family: 'Ninja Naruto';
+  src: url('/fonts/ninja-naruto.woff2') format('woff2'),
+       url('/fonts/ninja-naruto.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-background: #0a0a0a;
   --color-foreground: #ededed;
@@ -16,7 +26,8 @@
   --color-accent-foreground: #ffffff;
   --color-destructive: #ef4444;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-dela-gothic), ui-sans-serif, system-ui, sans-serif;
+  --font-naruto: 'Ninja Naruto', 'Impact', sans-serif;
 }
 
 body {
@@ -1089,6 +1100,49 @@ body {
 .animate-log-slide-in {
   animation: log-slide-in 0.3s ease-out;
 }
+
+/* =============================================
+   Naruto-themed page background — subtle atmosphere
+   for content pages (not game/play)
+   ============================================= */
+.naruto-page-bg {
+  position: relative;
+  min-height: 100%;
+}
+.naruto-page-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* Moon glow — top right */
+    radial-gradient(circle 50px at 88% 8%, rgba(255, 255, 240, 0.04) 0%, transparent 100%),
+    radial-gradient(circle 120px at 88% 8%, rgba(200, 210, 255, 0.015) 0%, transparent 100%),
+    /* Stars scattered */
+    radial-gradient(1px 1px at 10% 12%, rgba(255, 255, 255, 0.25) 50%, transparent 100%),
+    radial-gradient(1px 1px at 25% 6%, rgba(255, 255, 255, 0.2) 50%, transparent 100%),
+    radial-gradient(1px 1px at 45% 15%, rgba(255, 255, 255, 0.18) 50%, transparent 100%),
+    radial-gradient(1px 1px at 62% 4%, rgba(255, 255, 255, 0.22) 50%, transparent 100%),
+    radial-gradient(1px 1px at 78% 18%, rgba(255, 255, 255, 0.2) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 35% 22%, rgba(255, 255, 255, 0.12) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 55% 9%, rgba(255, 255, 255, 0.12) 50%, transparent 100%),
+    /* Warm orange bottom glow — Konoha village warmth */
+    radial-gradient(ellipse 80% 30% at 50% 100%, rgba(249, 115, 22, 0.03) 0%, transparent 100%),
+    /* Subtle dark blue gradient base */
+    linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 15, 25, 0.5) 100%);
+}
+.naruto-page-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Homepage — Uzumaki spiral slow rotation */
+@keyframes uzumaki-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-uzumaki-spin { animation: uzumaki-spin 60s linear infinite; }
 
 .theme-preview-konoha {
   background:

@@ -5,6 +5,18 @@ import { useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { Menu, X, LogIn, LogOut, User } from 'lucide-react';
+import {
+  KonohaIcon,
+  ScrollIcon,
+  DeckIcon,
+  CollectionIcon,
+  SharinganIcon,
+  RyoIcon,
+  NewsScrollIcon,
+  HeadbandIcon,
+  HandSealIcon,
+  JutsuBookIcon,
+} from '@/components/game/icons';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -22,37 +34,39 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/cards' as const, label: t('cards') },
-    { href: '/decks' as const, label: t('decks') },
-    { href: '/collection' as const, label: t('collection') },
-    { href: '/scanner' as const, label: t('scanner') },
-    { href: '/pricing' as const, label: t('pricing') },
-    { href: '/news' as const, label: t('news') },
-    { href: '/events' as const, label: t('events') },
-    { href: '/play' as const, label: t('play') },
-    { href: '/rules' as const, label: t('rules') },
+    { href: '/cards' as const, label: t('cards'), Icon: ScrollIcon },
+    { href: '/decks' as const, label: t('decks'), Icon: DeckIcon },
+    { href: '/collection' as const, label: t('collection'), Icon: CollectionIcon },
+    { href: '/scanner' as const, label: t('scanner'), Icon: SharinganIcon },
+    { href: '/pricing' as const, label: t('pricing'), Icon: RyoIcon },
+    { href: '/news' as const, label: t('news'), Icon: NewsScrollIcon },
+    { href: '/events' as const, label: t('events'), Icon: HeadbandIcon },
+    { href: '/play' as const, label: t('play'), Icon: HandSealIcon },
+    { href: '/rules' as const, label: t('rules'), Icon: JutsuBookIcon },
   ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
-      <nav className="container mx-auto flex items-center justify-between px-4 py-3">
+      <nav className="mx-auto flex items-center gap-4 px-4 py-2">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-primary">
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-xl font-bold text-primary">
+          <KonohaIcon className="h-8 w-8" />
           {t('appName')}
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden flex-1 items-center justify-end gap-3 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`flex items-center gap-1 whitespace-nowrap text-xs font-medium transition-colors hover:text-primary ${
                 pathname === link.href
                   ? 'text-primary'
                   : 'text-muted-foreground'
               }`}
             >
+              <link.Icon className="h-3.5 w-3.5" />
               {link.label}
             </Link>
           ))}
@@ -118,7 +132,7 @@ export function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="ml-auto lg:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
           aria-expanded={mobileMenuOpen}
@@ -129,19 +143,20 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-border px-4 py-4 md:hidden">
+        <div className="border-t border-border px-4 py-4 lg:hidden">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium ${
+                className={`flex items-center gap-2 text-sm font-medium ${
                   pathname === link.href
                     ? 'text-primary'
                     : 'text-muted-foreground'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
+                <link.Icon className="h-4 w-4" />
                 {link.label}
               </Link>
             ))}

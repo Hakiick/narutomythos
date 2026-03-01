@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Star, Trophy } from 'lucide-react';
+import { Trophy } from 'lucide-react';
+import { MissionPointsIcon } from './icons';
 import type { PlayerState } from '@/lib/game/types';
 import { cn } from '@/lib/utils';
 
@@ -77,7 +78,7 @@ export function Scoreboard({ player, opponent, round }: ScoreboardProps) {
           {winning === 'player' && (
             <Trophy className="h-3 w-3 text-yellow-500" />
           )}
-          <Star className="h-3.5 w-3.5 text-yellow-500" />
+          <MissionPointsIcon className="h-3.5 w-3.5 text-yellow-500" />
           <span className={cn(
             'text-base font-bold tabular-nums',
             winning === 'player' ? 'text-yellow-400' : 'text-yellow-500/80'
@@ -104,7 +105,7 @@ export function Scoreboard({ player, opponent, round }: ScoreboardProps) {
             ? 'border-red-500/50 bg-red-500/10'
             : 'border-border bg-muted/30'
         )}>
-          <Star className="h-3.5 w-3.5 text-red-400" />
+          <MissionPointsIcon className="h-3.5 w-3.5 text-red-400" />
           <span className={cn(
             'text-base font-bold tabular-nums',
             winning === 'opponent' ? 'text-red-400' : 'text-red-500/80'

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Dela_Gothic_One } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -7,6 +8,13 @@ import { SessionProvider } from '@/components/providers/session-provider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import '@/app/globals.css';
+
+const delaGothic = Dela_Gothic_One({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dela-gothic',
+});
 
 type Locale = (typeof routing.locales)[number];
 
@@ -44,12 +52,12 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className={`${delaGothic.variable} min-h-screen bg-background font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <SessionProvider>
             <div className="flex min-h-screen flex-col">
               <Navbar />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 naruto-page-bg">{children}</main>
               <Footer />
             </div>
           </SessionProvider>

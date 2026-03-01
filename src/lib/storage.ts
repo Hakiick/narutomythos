@@ -1,5 +1,5 @@
 /**
- * Resolve a relative storage path to a full URL.
+ * Resolve a relative storage path to a URL via the Next.js /storage/ proxy.
  *
  * If the path is already an absolute URL (http/https), it is returned as-is
  * for backward compatibility during migration.
@@ -11,11 +11,7 @@ export function getImageUrl(path: string | null | undefined): string | null {
     return path;
   }
 
-  const base = process.env.NEXT_PUBLIC_STORAGE_URL;
-  if (!base) return null;
-
-  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
 
-  return `${cleanBase}/${cleanPath}`;
+  return `/storage/${cleanPath}`;
 }

@@ -29,6 +29,7 @@
   "Home": {
     "title": "Naruto Mythos TCG",
     "subtitle": "Votre compagnon ultime pour le jeu de cartes Naruto Mythos",
+    "heroTagline": "Compagnon du Jeu de Cartes à Collectionner",
     "exploreCards": "Explorer les cartes",
     "buildDeck": "Construire un deck",
     "manageCollection": "Gérer ma collection",
@@ -46,7 +47,11 @@
       "organizedPlay": "Jeu organisé",
       "organizedPlayDesc": "Trouvez les tournois, Pré-Releases et événements compétitifs à venir",
       "rulebook": "Règles du jeu",
-      "rulebookDesc": "Apprenez les règles, mécaniques et interactions du jeu"
+      "rulebookDesc": "Apprenez les règles, mécaniques et interactions du jeu",
+      "scanner": "Scanner de cartes",
+      "scannerDesc": "Identifiez vos cartes instantanément avec votre caméra",
+      "play": "Jouer contre l'IA",
+      "playDesc": "Affrontez l'IA dans des combats de cartes stratégiques"
     }
   },
   "Cards": {
