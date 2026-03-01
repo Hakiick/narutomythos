@@ -27,6 +27,11 @@ export enum EffectActionType {
   PAYING_LESS = 'PAYING_LESS',
   DISCARD = 'DISCARD',
   PLAY_CHARACTER = 'PLAY_CHARACTER',
+  TAKE_CONTROL = 'TAKE_CONTROL',
+  LOOK_AT = 'LOOK_AT',
+  PLACE_FROM_DECK = 'PLACE_FROM_DECK',
+  RETURN_TO_HAND = 'RETURN_TO_HAND',
+  COPY_EFFECT = 'COPY_EFFECT',
   UNRESOLVED = 'UNRESOLVED',
 }
 
@@ -39,6 +44,19 @@ export enum EffectTarget {
   ANY = 'ANY',
 }
 
+export interface EffectEvent {
+  id: string;
+  timestamp: number;
+  action: EffectActionType;
+  value: number;
+  sourceCardNameEn: string;
+  sourceCardNameFr: string;
+  targetCardNameEn?: string;
+  targetCardNameFr?: string;
+  side: 'player' | 'opponent';
+  missionIndex: number;
+}
+
 export interface ParsedEffect {
   trigger: EffectTrigger;
   timing: EffectTiming;
@@ -49,6 +67,7 @@ export interface ParsedEffect {
     group?: string;
     keyword?: string;
     powerMax?: number;
+    costMax?: number;
     atMission?: boolean;
   };
   rawText: string;

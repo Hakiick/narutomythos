@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
-import { Swords, Check, X, LogIn, GraduationCap } from 'lucide-react';
+import { Swords, Check, X, LogIn, GraduationCap, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/navigation';
+import { useGameTheme, type GameTheme } from '@/hooks/useGameTheme';
 
 interface UserDeck {
   id: string;
@@ -42,10 +43,35 @@ const prebuiltDecks = [
   },
 ];
 
+const themeOptions: { id: GameTheme; nameKey: string; descKey: string; previewClass: string; accentColor: string }[] = [
+  {
+    id: 'scroll',
+    nameKey: 'themeScrollName',
+    descKey: 'themeScrollDesc',
+    previewClass: 'theme-preview-scroll',
+    accentColor: 'border-yellow-700/60 text-yellow-500',
+  },
+  {
+    id: 'chakra',
+    nameKey: 'themeChakraName',
+    descKey: 'themeChakraDesc',
+    previewClass: 'theme-preview-chakra',
+    accentColor: 'border-cyan-500/60 text-cyan-400',
+  },
+  {
+    id: 'konoha',
+    nameKey: 'themeKonohaName',
+    descKey: 'themeKonohaDesc',
+    previewClass: 'theme-preview-konoha',
+    accentColor: 'border-green-500/60 text-green-400',
+  },
+];
+
 export function GameLobby() {
   const t = useTranslations('Play');
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { theme: currentTheme, setTheme } = useGameTheme();
   const [userDecks, setUserDecks] = useState<UserDeck[]>([]);
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
   const [selectedDeckType, setSelectedDeckType] = useState<'user' | 'prebuilt' | null>(null);
@@ -231,6 +257,47 @@ export function GameLobby() {
           </div>
         </section>
 
+        {/* Theme Selector */}
+        <section>
+          <div className="mb-4 flex items-center gap-2">
+            <Palette className="h-5 w-5 text-primary" />
+            <h2 className="text-lg font-semibold">{t('themeTitle')}</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {themeOptions.map((opt) => {
+              const selected = currentTheme === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setTheme(opt.id)}
+                  className={`relative flex flex-col overflow-hidden rounded-xl border transition-all ${
+                    selected
+                      ? `${opt.accentColor} ring-2 ring-primary/30`
+                      : 'border-border hover:border-primary/50'
+                  }`}
+                >
+                  {/* Live mini-background preview */}
+                  <div className={`h-20 w-full ${opt.previewClass}`} />
+                  <div className="p-3 text-left">
+                    <span className={`text-sm font-semibold ${selected ? opt.accentColor.split(' ')[1] : 'text-foreground'}`}>
+                      {t(opt.nameKey as 'themeScrollName' | 'themeChakraName' | 'themeKonohaName')}
+                    </span>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {t(opt.descKey as 'themeScrollDesc' | 'themeChakraDesc' | 'themeKonohaDesc')}
+                    </p>
+                  </div>
+                  {selected && (
+                    <div className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary">
+                      <Check className="h-3 w-3 text-primary-foreground" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Tutorial */}
         <section>
           <button
@@ -240,8 +307,8 @@ export function GameLobby() {
           >
             <GraduationCap className="h-5 w-5 text-primary" />
             <div>
-              <span className="text-sm font-medium">{t('tutorial')}</span>
-              <p className="text-xs text-muted-foreground">{t('tutorialDesc')}</p>
+              <span className="text-sm font-medium">{t('tutorialTitle')}</span>
+              <p className="text-xs text-muted-foreground">{t('tutorialSubtitle')}</p>
             </div>
           </button>
         </section>

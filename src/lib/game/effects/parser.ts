@@ -115,6 +115,13 @@ function parseTargetFilter(text: string): ParsedEffect['targetFilter'] {
     filter.powerMax = parseInt(powerMaxMatch[1], 10);
   }
 
+  const costMaxMatch = text.match(
+    /(?:with\s+)?(?:cost|costing)\s+(\d+)\s+or\s+less/i
+  );
+  if (costMaxMatch) {
+    filter.costMax = parseInt(costMaxMatch[1], 10);
+  }
+
   if (text.toLowerCase().includes('in this mission') || text.toLowerCase().includes('at this mission')) {
     filter.atMission = true;
   }
@@ -204,6 +211,13 @@ function parseAction(
     return { action: EffectActionType.REMOVE_POWER, value: val };
   }
 
+  // Play a character (extract cost reduction if present) — must be before PAYING_LESS
+  if (/[Pp]lay\s+.*character/i.test(text)) {
+    const costRedMatch = text.match(/[Pp]aying\s+(\d+)\s+less/);
+    const value = costRedMatch ? parseInt(costRedMatch[1], 10) : 0;
+    return { action: EffectActionType.PLAY_CHARACTER, value };
+  }
+
   // Paying N less
   const payingLessMatch = text.match(/[Pp]aying\s+(\d+)\s+less/);
   if (payingLessMatch) {
@@ -220,9 +234,35 @@ function parseAction(
     return { action: EffectActionType.DISCARD, value: val };
   }
 
-  // Play a character
-  if (/[Pp]lay\s+.*character/i.test(text)) {
-    return { action: EffectActionType.PLAY_CHARACTER, value: 1 };
+  // Take control of an enemy character
+  if (/[Tt]ake\s+control/i.test(text)) {
+    return { action: EffectActionType.TAKE_CONTROL, value: 1 };
+  }
+
+  // Look at opponent's hand or hidden characters
+  if (/[Ll]ook\s+at/i.test(text)) {
+    return { action: EffectActionType.LOOK_AT, value: 1 };
+  }
+
+  // Place from deck as hidden character
+  const placeFromDeckMatch = text.match(
+    /[Pp]lace\s+the\s+top\s+(\d+)\s+card/i
+  );
+  if (placeFromDeckMatch) {
+    return {
+      action: EffectActionType.PLACE_FROM_DECK,
+      value: parseInt(placeFromDeckMatch[1], 10),
+    };
+  }
+
+  // Return to hand at end of round
+  if (/[Rr]eturn\s+.*(?:to\s+(?:your|its\s+owner'?s?)\s+hand|hand)/i.test(text)) {
+    return { action: EffectActionType.RETURN_TO_HAND, value: 1 };
+  }
+
+  // Copy effect
+  if (/[Cc]opy\s+.*effect/i.test(text)) {
+    return { action: EffectActionType.COPY_EFFECT, value: 1 };
   }
 
   return { action: EffectActionType.UNRESOLVED, value: 0 };

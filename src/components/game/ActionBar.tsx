@@ -19,6 +19,7 @@ interface ActionBarProps {
   onPass: () => void;
   onToggleHidden: () => void;
   hiddenMode: boolean;
+  selectedCardEffect?: string | null;
 }
 
 export function ActionBar({
@@ -33,6 +34,7 @@ export function ActionBar({
   onPass,
   onToggleHidden,
   hiddenMode,
+  selectedCardEffect,
 }: ActionBarProps) {
   const t = useTranslations('Play');
 
@@ -52,7 +54,7 @@ export function ActionBar({
   const guidance = getGuidanceMessage();
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border border-border bg-muted/30 px-3 py-2">
+    <div className="flex flex-col gap-1 rounded-lg border border-border bg-muted/30 px-3 py-1">
       {/* Phase Info Row */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -97,9 +99,19 @@ export function ActionBar({
         </div>
       )}
 
+      {/* Selected card effect */}
+      {selectedCardEffect && (
+        <div className="rounded-md border-l-2 border-orange-500 bg-muted/50 px-2 py-1">
+          <p className="text-[10px] leading-relaxed text-muted-foreground">
+            <span className="font-medium text-foreground">{t('game.effectLabel')}:</span>{' '}
+            {selectedCardEffect}
+          </p>
+        </div>
+      )}
+
       {/* Action Buttons */}
       {showActions && !pendingEffect && (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {/* Hidden mode toggle */}
           <Button
             variant={hiddenMode ? 'default' : 'outline'}

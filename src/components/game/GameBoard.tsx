@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import {
   GameActionType,
   GamePhase,
@@ -17,6 +17,11 @@ import { HandView } from './HandView';
 import { ActionBar } from './ActionBar';
 import { GameLog } from './GameLog';
 import { TargetSelector } from './TargetSelector';
+import { EffectToastContainer } from './EffectToastContainer';
+import { GameCardInspector } from './GameCardInspector';
+import { ThemeParticles } from './ThemeParticles';
+import { useGameTheme, themeBoardClass } from '@/hooks/useGameTheme';
+import type { DeployedCharacter, GameCard } from '@/lib/game/types';
 
 interface GameBoardProps {
   gameState: GameState;
@@ -43,10 +48,17 @@ export function GameBoard({
   onResolveTarget,
 }: GameBoardProps) {
   const t = useTranslations('Play');
+  const locale = useLocale();
+  const { theme } = useGameTheme();
 
   const [selectedCardInstanceId, setSelectedCardInstanceId] = useState<string | null>(null);
   const [hiddenMode, setHiddenMode] = useState(false);
   const [jutsuTargetMode, setJutsuTargetMode] = useState(false);
+
+  // Card inspector state
+  const [inspectedCard, setInspectedCard] = useState<GameCard | null>(null);
+  const [inspectedDeployed, setInspectedDeployed] = useState<DeployedCharacter | null>(null);
+  const [inspectorOpen, setInspectorOpen] = useState(false);
 
   // Round start banner
   const [roundBanner, setRoundBanner] = useState<number | null>(null);
@@ -117,6 +129,15 @@ export function GameBoard({
   const currentRoundMissionIndex = gameState.missions.findIndex(
     (m) => m.rank === currentRoundRank
   );
+
+  // Get selected card's effect text
+  const selectedCardEffect = useMemo((): string | null => {
+    if (!selectedCardInstanceId) return null;
+    const inst = gameState.player.hand.find((c) => c.instanceId === selectedCardInstanceId);
+    if (!inst) return null;
+    const effectText = locale === 'fr' ? inst.card.effectFr : inst.card.effectEn;
+    return effectText ?? null;
+  }, [selectedCardInstanceId, gameState.player.hand, locale]);
 
   // Check if player has any playable cards
   const hasPlayableCards = useMemo(() => {
@@ -216,6 +237,18 @@ export function GameBoard({
     setHiddenMode((prev) => !prev);
   }, []);
 
+  const handleInspectCharacter = useCallback((char: DeployedCharacter) => {
+    setInspectedCard(char.card);
+    setInspectedDeployed(char);
+    setInspectorOpen(true);
+  }, []);
+
+  const handleInspectCard = useCallback((card: GameCard) => {
+    setInspectedCard(card);
+    setInspectedDeployed(null);
+    setInspectorOpen(true);
+  }, []);
+
   // Keyboard shortcuts: Space=Pass, 1-5=select card, H=toggle hidden
   const canAct = isPlayerTurn && !isAIThinking && gameState.phase === GamePhase.ACTION && !gameState.pendingEffect;
 
@@ -253,23 +286,40 @@ export function GameBoard({
   }, [canAct, handlePass, handleToggleHidden, handleSelectCard, gameState.player.hand]);
 
   return (
-    <div className="relative flex h-full flex-col gap-2 sm:gap-3" data-tutorial="board">
-      {/* Round start banner overlay */}
+    <div className={`${themeBoardClass(theme)} relative flex h-full flex-col gap-1 sm:gap-1.5`} data-tutorial="board">
+      {/* Ambient theme particles */}
+      <ThemeParticles />
+      {/* Round start banner overlay — mission briefing style */}
       {roundBanner !== null && (
         <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center">
-          <div className="animate-fade-in-out rounded-xl bg-black/80 px-8 py-4 shadow-lg">
-            <p className="text-center text-lg font-bold text-white sm:text-xl">
+          <div className="animate-banner-unfurl relative overflow-hidden rounded-lg border border-orange-500/40 bg-gradient-to-r from-black/90 via-zinc-900/95 to-black/90 px-10 py-5 shadow-[0_0_30px_rgba(249,115,22,0.15)]">
+            {/* Top decorative line */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-500/60 to-transparent" />
+            {/* Bottom decorative line */}
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-500/60 to-transparent" />
+            {/* Left accent bar */}
+            <div className="absolute inset-y-2 left-0 w-1 rounded-r bg-gradient-to-b from-orange-500/0 via-orange-500/70 to-orange-500/0" />
+            {/* Right accent bar */}
+            <div className="absolute inset-y-2 right-0 w-1 rounded-l bg-gradient-to-b from-orange-500/0 via-orange-500/70 to-orange-500/0" />
+            <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-orange-400/70">
+              {t('game.missionBriefing')}
+            </p>
+            <p className="mt-1 text-center text-lg font-bold tracking-wide text-white sm:text-xl">
               {t('game.roundBegins', { round: roundBanner })}
             </p>
           </div>
         </div>
       )}
 
+      {/* Effect toasts */}
+      <EffectToastContainer effectLog={gameState.effectLog} />
+
       {/* AI action feedback banner */}
       {aiFeedback && (
         <div className="pointer-events-none absolute inset-x-0 top-12 z-30 flex justify-center">
-          <div className="animate-fade-in-out rounded-lg bg-red-500/90 px-4 py-1.5 shadow-md">
-            <p className="text-xs font-medium text-white">
+          <div className="animate-ai-feedback relative overflow-hidden rounded-md border border-red-500/30 bg-gradient-to-r from-red-950/90 via-red-900/90 to-red-950/90 px-5 py-2 shadow-[0_0_16px_rgba(239,68,68,0.2)]">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+            <p className="text-xs font-semibold tracking-wide text-red-200">
               {aiFeedback}
             </p>
           </div>
@@ -335,7 +385,7 @@ export function GameBoard({
       />
 
       {/* Mission Lanes — reversed so D is at the bottom, A is at the top */}
-      <div className="flex flex-col gap-1.5 sm:gap-2">
+      <div className={`flex flex-col gap-1.5 sm:gap-2 ${theme === 'chakra' ? 'theme-perspective theme-chakra-3d' : theme === 'scroll' ? 'theme-perspective theme-scroll-3d' : ''}`}>
         {[...gameState.missions].reverse().map((mission, reversedIdx) => {
           const actualIdx = gameState.missions.length - 1 - reversedIdx;
           const isActive = actualIdx === currentRoundMissionIndex;
@@ -351,6 +401,7 @@ export function GameBoard({
                 isLocked={isLocked}
                 isHighlighted={isHighlighted}
                 onMissionClick={handleMissionClick}
+                onInspectCharacter={handleInspectCharacter}
               />
             </div>
           );
@@ -370,6 +421,7 @@ export function GameBoard({
         onPass={handlePass}
         onToggleHidden={handleToggleHidden}
         hiddenMode={hiddenMode}
+        selectedCardEffect={selectedCardEffect}
       />
 
       {/* Player HUD */}
@@ -391,6 +443,7 @@ export function GameBoard({
           onSelectCard={handleSelectCard}
           disabled={!isPlayerTurn || isAIThinking || gameState.phase !== GamePhase.ACTION}
           gameState={gameState}
+          onInspectCard={handleInspectCard}
         />
       </div>
 
@@ -398,6 +451,16 @@ export function GameBoard({
       <GameLog
         actions={gameState.actionHistory}
         round={gameState.round}
+        effectLog={gameState.effectLog}
+      />
+
+      {/* Card Inspector Modal */}
+      <GameCardInspector
+        card={inspectedCard}
+        deployed={inspectedDeployed}
+        revealedInfo={gameState.revealedInfo}
+        open={inspectorOpen}
+        onOpenChange={setInspectorOpen}
       />
     </div>
   );

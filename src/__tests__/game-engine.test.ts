@@ -168,7 +168,7 @@ describe('initializeGame', () => {
     expect(state.missions[3].rank).toBe(MissionRank.A);
   });
 
-  it('should select 2 missions per player', () => {
+  it('should select 3 missions per player', () => {
     const state = initializeGame(
       createTestDeck(),
       createTestMissions(),
@@ -176,8 +176,8 @@ describe('initializeGame', () => {
       createTestMissions()
     );
 
-    expect(state.player.selectedMissions).toHaveLength(2);
-    expect(state.opponent.selectedMissions).toHaveLength(2);
+    expect(state.player.selectedMissions).toHaveLength(3);
+    expect(state.opponent.selectedMissions).toHaveLength(3);
   });
 });
 

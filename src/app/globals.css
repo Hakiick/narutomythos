@@ -211,3 +211,853 @@ body {
 .animate-delta-float {
   animation: delta-float 1.2s ease-out forwards;
 }
+
+@keyframes toast-enter {
+  0% { opacity: 0; transform: translateY(-16px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toast-exit {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-12px) scale(0.95); }
+}
+
+.animate-toast-enter {
+  animation: toast-enter 0.25s ease-out;
+}
+
+.animate-toast-exit {
+  animation: toast-exit 0.3s ease-in forwards;
+}
+
+@keyframes score-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-score-burst {
+  animation: score-burst 0.35s ease-out;
+}
+
+/* Rarity glow — Legendary gold shimmer */
+@keyframes gold-shimmer {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px rgba(250, 204, 21, 0.25), 0 0 3px 1px rgba(250, 204, 21, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(250, 204, 21, 0.45), 0 0 6px 2px rgba(250, 204, 21, 0.3);
+  }
+}
+
+.animate-gold-shimmer {
+  animation: gold-shimmer 2s ease-in-out infinite;
+}
+
+/* Naruto-themed utilities */
+.naruto-glow {
+  box-shadow: 0 0 12px 2px rgba(249, 115, 22, 0.3), 0 0 4px 1px rgba(249, 115, 22, 0.2);
+}
+
+.naruto-border {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.naruto-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.6), rgba(239, 68, 68, 0.3), rgba(249, 115, 22, 0.6));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.game-board-bg {
+  background:
+    /* Top warm glow — opponent side ambiance */
+    radial-gradient(ellipse 120% 40% at 50% 0%, rgba(239, 68, 68, 0.06) 0%, transparent 100%),
+    /* Center focal glow — mission area */
+    radial-gradient(ellipse 80% 30% at 50% 45%, rgba(249, 115, 22, 0.05) 0%, transparent 100%),
+    /* Bottom warm glow — player side */
+    radial-gradient(ellipse 100% 35% at 50% 100%, rgba(249, 115, 22, 0.04) 0%, transparent 100%),
+    /* Subtle diagonal accent streaks */
+    linear-gradient(135deg, rgba(249, 115, 22, 0.02) 0%, transparent 40%, transparent 60%, rgba(239, 68, 68, 0.02) 100%),
+    /* Base */
+    var(--color-background);
+  position: relative;
+}
+
+/* Seigaiha wave pattern overlay — traditional Japanese motif */
+.game-board-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28'%3E%3Cpath d='M56 26v2h-7.75c2.3-1.3 4.94-2 7.75-2zm-26 2a14 14 0 0 0-7.75-2h-0.5A14 14 0 0 0 14 28h-2A16 16 0 0 1 26 20a16 16 0 0 1 14 8h-2a14 14 0 0 0-7.75-2zM42 26a16 16 0 0 1 14 8h-2a14 14 0 0 0-12-6 14 14 0 0 0-12 6h-2a16 16 0 0 1 14-8zm-28 0a16 16 0 0 1 14 8H26a14 14 0 0 0-12-6 14 14 0 0 0-12 6H0a16 16 0 0 1 14-8zM56 12v2h-7.75c2.3-1.3 4.94-2 7.75-2zm-26 2a14 14 0 0 0-7.75-2h-0.5A14 14 0 0 0 14 14h-2a16 16 0 0 1 14-8 16 16 0 0 1 14 8h-2a14 14 0 0 0-7.75-2zM42 12a16 16 0 0 1 14 8h-2a14 14 0 0 0-12-6 14 14 0 0 0-12 6h-2a16 16 0 0 1 14-8zm-28 0a16 16 0 0 1 14 8H26a14 14 0 0 0-12-6 14 14 0 0 0-12 6H0a16 16 0 0 1 14-8z' fill='%23f97316' fill-opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 56px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle orange cloud / kumo accents at top */
+.game-board-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 25% 8% at 15% 6%, rgba(249, 115, 22, 0.04) 0%, transparent 100%),
+    radial-gradient(ellipse 30% 6% at 50% 3%, rgba(249, 115, 22, 0.035) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 7% at 80% 8%, rgba(249, 115, 22, 0.03) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Round banner entrance — dramatic scroll-unfurl */
+@keyframes banner-unfurl {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.3) scaleY(0.8);
+    filter: brightness(2);
+  }
+  30% {
+    opacity: 1;
+    transform: scaleX(1.02) scaleY(1);
+    filter: brightness(1.2);
+  }
+  50% {
+    transform: scaleX(1) scaleY(1);
+    filter: brightness(1);
+  }
+  85% {
+    opacity: 1;
+    transform: scaleX(1) scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.95) scaleY(0.95);
+  }
+}
+
+.animate-banner-unfurl {
+  animation: banner-unfurl 2.5s ease-in-out forwards;
+}
+
+/* AI feedback banner slide */
+@keyframes ai-feedback-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.animate-ai-feedback {
+  animation: ai-feedback-slide 3s ease-in-out forwards;
+}
+
+/* Mulligan card hover shimmer */
+@keyframes card-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.mulligan-card-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(249, 115, 22, 0.06) 45%,
+    rgba(249, 115, 22, 0.12) 50%,
+    rgba(249, 115, 22, 0.06) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: card-shimmer 3s ease-in-out infinite;
+}
+
+/* Mission rank glows — used when a mission lane is the active round */
+@keyframes rank-d-glow {
+  0%, 100% { box-shadow: 0 0 8px 1px rgba(148, 163, 184, 0.15); }
+  50% { box-shadow: 0 0 14px 3px rgba(148, 163, 184, 0.25); }
+}
+
+@keyframes rank-c-glow {
+  0%, 100% { box-shadow: 0 0 8px 1px rgba(217, 119, 6, 0.2); }
+  50% { box-shadow: 0 0 16px 4px rgba(217, 119, 6, 0.35); }
+}
+
+@keyframes rank-b-glow {
+  0%, 100% { box-shadow: 0 0 8px 1px rgba(148, 163, 184, 0.25); }
+  50% { box-shadow: 0 0 16px 4px rgba(148, 163, 184, 0.45); }
+}
+
+@keyframes rank-a-glow {
+  0%, 100% { box-shadow: 0 0 10px 2px rgba(234, 179, 8, 0.25); }
+  50% { box-shadow: 0 0 20px 6px rgba(234, 179, 8, 0.5); }
+}
+
+.rank-d-glow { animation: rank-d-glow 2.5s ease-in-out infinite; }
+.rank-c-glow { animation: rank-c-glow 2.2s ease-in-out infinite; }
+.rank-b-glow { animation: rank-b-glow 2s ease-in-out infinite; }
+.rank-a-glow { animation: rank-a-glow 1.8s ease-in-out infinite; }
+
+/* Game over — star burst entrance for mission point stars */
+@keyframes star-burst {
+  0% { opacity: 0; transform: scale(0) rotate(-30deg); }
+  60% { opacity: 1; transform: scale(1.3) rotate(10deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes star-shimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.4); }
+}
+
+@keyframes victory-pulse {
+  0%, 100% { box-shadow: 0 0 20px 4px rgba(249, 115, 22, 0.2), 0 0 40px 8px rgba(234, 179, 8, 0.1); }
+  50% { box-shadow: 0 0 30px 8px rgba(249, 115, 22, 0.35), 0 0 60px 16px rgba(234, 179, 8, 0.2); }
+}
+
+@keyframes defeat-pulse {
+  0%, 100% { box-shadow: 0 0 15px 3px rgba(239, 68, 68, 0.1); }
+  50% { box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.2); }
+}
+
+@keyframes score-count {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-star-burst { animation: star-burst 0.5s ease-out forwards; }
+.animate-star-shimmer { animation: star-shimmer 2s ease-in-out infinite; }
+.animate-victory-pulse { animation: victory-pulse 2s ease-in-out infinite; }
+.animate-defeat-pulse { animation: defeat-pulse 2.5s ease-in-out infinite; }
+.animate-score-count { animation: score-count 0.4s ease-out forwards; }
+
+/* =============================================
+   THEME A: Parchemin Ninja (Ninja Scroll)
+   ============================================= */
+.theme-scroll-bg {
+  background:
+    /* Ink wash splotches — scattered like sumi-e painting */
+    radial-gradient(ellipse 40% 30% at 15% 20%, rgba(139, 90, 43, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 25% at 80% 55%, rgba(139, 90, 43, 0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 45% 75%, rgba(100, 65, 30, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 25% 20% at 60% 15%, rgba(139, 90, 43, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 28% at 30% 45%, rgba(120, 80, 35, 0.1) 0%, transparent 70%),
+    /* Paper fiber texture — fine horizontal and vertical lines */
+    repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(180, 140, 60, 0.045) 11px, rgba(180, 140, 60, 0.045) 12px),
+    repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(180, 140, 60, 0.03) 15px, rgba(180, 140, 60, 0.03) 16px),
+    /* Aged paper grain — fine noise simulation */
+    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(212, 175, 55, 0.02) 3px, rgba(212, 175, 55, 0.02) 4px),
+    repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(100, 70, 30, 0.025) 5px, rgba(100, 70, 30, 0.025) 6px),
+    /* Deep vignette — burnt scroll edges */
+    radial-gradient(ellipse 85% 75% at 50% 50%, transparent 35%, rgba(10, 8, 3, 0.6) 100%),
+    /* Warm parchment base — richer brown tones */
+    linear-gradient(180deg, #1a1510 0%, #171210 30%, #15120d 60%, #18140e 100%);
+  position: relative;
+}
+/* Kanji overlay — shinobi characters with slow drift */
+.theme-scroll-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Ctext x='10' y='55' font-size='42' fill='%23d4af37' opacity='0.09' font-family='serif'%3E%E5%BF%8D%3C/text%3E%3Ctext x='100' y='90' font-size='36' fill='%23d4af37' opacity='0.07' font-family='serif'%3E%E8%A1%93%3C/text%3E%3Ctext x='50' y='150' font-size='30' fill='%23d4af37' opacity='0.06' font-family='serif'%3E%E7%81%AB%3C/text%3E%3Ctext x='140' y='170' font-size='38' fill='%23d4af37' opacity='0.08' font-family='serif'%3E%E5%BD%B1%3C/text%3E%3C/svg%3E");
+  animation: scroll-kanji-drift 80s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Scroll edge decorations — top and bottom roll bars */
+.theme-scroll-bg::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 100%;
+  background:
+    /* Top scroll bar */
+    linear-gradient(180deg, rgba(212, 175, 55, 0.55) 0%, rgba(180, 140, 55, 0.35) 2px, rgba(139, 90, 43, 0.18) 5px, transparent 10px),
+    /* Bottom scroll bar */
+    linear-gradient(0deg, rgba(212, 175, 55, 0.5) 0%, rgba(180, 140, 55, 0.3) 2px, rgba(139, 90, 43, 0.15) 5px, transparent 10px),
+    /* Left edge shadow — scroll curl */
+    linear-gradient(90deg, rgba(10, 8, 3, 0.5) 0%, rgba(139, 90, 43, 0.1) 1%, transparent 4%),
+    /* Right edge shadow — scroll curl */
+    linear-gradient(270deg, rgba(10, 8, 3, 0.5) 0%, rgba(139, 90, 43, 0.1) 1%, transparent 4%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure all children sit above decorative pseudo-elements */
+.theme-scroll-bg > *,
+.theme-chakra-bg > *,
+.theme-konoha-bg > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes scroll-kanji-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+/* Scroll lane active */
+.theme-scroll-lane-active {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  background: linear-gradient(135deg, rgba(26, 20, 8, 0.85), rgba(30, 24, 10, 0.7)) !important;
+  box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.08), 0 0 12px rgba(212, 175, 55, 0.15);
+}
+
+/* Scroll deploy effect */
+@keyframes scroll-ink-splash {
+  0% { transform: scale(0); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+@keyframes scroll-ink-ring {
+  0% { transform: scale(0.3); opacity: 0.6; border-width: 3px; }
+  100% { transform: scale(2); opacity: 0; border-width: 1px; }
+}
+.theme-scroll-deploy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+.theme-scroll-deploy::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 20, 8, 0.9) 0%, rgba(139, 90, 43, 0.4) 50%, transparent 70%);
+  animation: scroll-ink-splash 0.6s ease-out forwards;
+}
+.theme-scroll-deploy::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  animation: scroll-ink-ring 0.7s ease-out forwards;
+}
+
+/* Scroll victory / defeat */
+.theme-scroll-victory {
+  background: linear-gradient(180deg, rgba(26, 20, 8, 0.9), rgba(212, 175, 55, 0.05), rgba(0, 0, 0, 0.8));
+}
+.theme-scroll-defeat {
+  background: linear-gradient(180deg, rgba(80, 20, 10, 0.6), rgba(0, 0, 0, 0.8));
+}
+
+/* Scroll HUD active turn */
+.theme-scroll-hud-active {
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  box-shadow: 0 0 14px 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Scroll particles — ink drops */
+@keyframes scroll-particle-fall {
+  0% { transform: translateY(-10px) scale(0.8); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(calc(100vh + 10px)) scale(1.1); opacity: 0; }
+}
+.theme-scroll-particle {
+  position: absolute;
+  width: var(--size, 6px);
+  height: calc(var(--size, 6px) * 1.4);
+  background: radial-gradient(ellipse, rgba(26, 20, 8, 0.8) 0%, rgba(212, 175, 55, 0.15) 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: scroll-particle-fall var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  left: var(--x);
+  top: -10px;
+  pointer-events: none;
+  opacity: var(--opacity, 0.6);
+}
+
+/* =============================================
+   THEME B: Chakra Vortex (Dark Energy)
+   ============================================= */
+.theme-chakra-bg {
+  background:
+    /* Energy grid — hexagonal lattice pattern */
+    repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 55deg, rgba(6, 182, 212, 0.04) 55deg 65deg, transparent 65deg 120deg) 0 0 / 60px 60px,
+    /* Chakra nature energy bands — fire/water/wind/earth/lightning */
+    radial-gradient(ellipse 60% 20% at 20% 15%, rgba(239, 68, 68, 0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 18% at 70% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 55% 22% at 35% 55%, rgba(34, 197, 94, 0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 45% 16% at 80% 70%, rgba(180, 130, 50, 0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 20% at 25% 85%, rgba(147, 51, 234, 0.1) 0%, transparent 100%),
+    /* Tenketsu point grid — chakra pathway nodes */
+    radial-gradient(circle 2px at 20% 25%, rgba(6, 182, 212, 0.25) 0%, transparent 100%),
+    radial-gradient(circle 2px at 50% 50%, rgba(147, 51, 234, 0.22) 0%, transparent 100%),
+    radial-gradient(circle 2px at 80% 30%, rgba(249, 115, 22, 0.22) 0%, transparent 100%),
+    radial-gradient(circle 2px at 35% 70%, rgba(6, 182, 212, 0.2) 0%, transparent 100%),
+    radial-gradient(circle 2px at 65% 80%, rgba(147, 51, 234, 0.2) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 10% 45%, rgba(239, 68, 68, 0.18) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 90% 55%, rgba(34, 197, 94, 0.18) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 45% 15%, rgba(249, 115, 22, 0.16) 0%, transparent 100%),
+    /* Deep cosmic base — richer purple/blue */
+    radial-gradient(ellipse 120% 100% at 50% 50%, #0a0520 0%, #070418 40%, #050310 100%);
+  position: relative;
+  perspective: 900px;
+}
+/* Rotating vortex overlay — chakra spiral */
+.theme-chakra-bg::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    conic-gradient(from 0deg at 50% 50%,
+      rgba(6, 182, 212, 0.14) 0deg,
+      transparent 30deg,
+      rgba(147, 51, 234, 0.12) 90deg,
+      transparent 150deg,
+      rgba(249, 115, 22, 0.12) 210deg,
+      transparent 270deg,
+      rgba(34, 197, 94, 0.1) 310deg,
+      transparent 340deg,
+      rgba(6, 182, 212, 0.14) 360deg
+    );
+  animation: chakra-vortex-rotate 25s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes chakra-vortex-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Chakra energy pulse — color cycling overlay */
+.theme-chakra-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+  animation: chakra-nature-cycle 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes chakra-nature-cycle {
+  0%, 100% { background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 70%); }
+  20% { background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(239, 68, 68, 0.09) 0%, transparent 70%); }
+  40% { background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
+  60% { background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(180, 130, 50, 0.09) 0%, transparent 70%); }
+  80% { background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(147, 51, 234, 0.1) 0%, transparent 70%); }
+}
+
+/* Chakra 3D mission area */
+.theme-chakra-3d {
+  transform: rotateX(4deg);
+  transform-style: preserve-3d;
+}
+@media (max-width: 640px) {
+  .theme-chakra-3d { transform: rotateX(2deg); }
+}
+
+/* Chakra lane active */
+.theme-chakra-lane-active {
+  border-color: rgba(6, 182, 212, 0.55) !important;
+  background: rgba(6, 182, 212, 0.07) !important;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.2), inset 0 0 18px rgba(6, 182, 212, 0.05);
+  animation: chakra-lane-pulse 2s ease-in-out infinite;
+}
+@keyframes chakra-lane-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.15), inset 0 0 12px rgba(6, 182, 212, 0.04); }
+  50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 24px rgba(6, 182, 212, 0.08); }
+}
+
+/* Chakra deploy effect */
+@keyframes chakra-burst {
+  0% { transform: scale(0); opacity: 0.9; }
+  40% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes chakra-ring {
+  0% { transform: scale(0.2); opacity: 0.8; border-width: 3px; }
+  100% { transform: scale(2.5); opacity: 0; border-width: 1px; }
+}
+@keyframes chakra-line {
+  0% { transform: scaleX(0); opacity: 0.8; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+.theme-chakra-deploy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+.theme-chakra-deploy::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.6) 0%, rgba(147, 51, 234, 0.3) 50%, transparent 70%);
+  animation: chakra-burst 0.6s ease-out forwards;
+}
+.theme-chakra-deploy::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  border: 2px solid;
+  border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.6), rgba(147, 51, 234, 0.5), rgba(249, 115, 22, 0.4)) 1;
+  border-image: none;
+  border-color: rgba(6, 182, 212, 0.5);
+  animation: chakra-ring 0.7s ease-out forwards;
+}
+
+/* Chakra victory / defeat */
+.theme-chakra-victory {
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.15), rgba(5, 5, 16, 0.9));
+}
+.theme-chakra-defeat {
+  background: linear-gradient(180deg, rgba(147, 51, 234, 0.1), rgba(5, 5, 16, 0.9));
+}
+
+/* Chakra HUD active turn */
+.theme-chakra-hud-active {
+  border-color: rgba(6, 182, 212, 0.6) !important;
+  background: rgba(6, 182, 212, 0.08) !important;
+  box-shadow: 0 0 16px 3px rgba(6, 182, 212, 0.25);
+}
+
+/* Chakra particles — glowing orbs */
+@keyframes chakra-particle-float {
+  0% { transform: translateY(10px) scale(0.6); opacity: 0; }
+  15% { opacity: 0.8; }
+  85% { opacity: 0.6; }
+  100% { transform: translateY(calc(-100vh - 10px)) scale(1); opacity: 0; }
+}
+.theme-chakra-particle {
+  position: absolute;
+  width: var(--size, 8px);
+  height: var(--size, 8px);
+  border-radius: 50%;
+  background: var(--particle-color, rgba(6, 182, 212, 0.7));
+  box-shadow:
+    0 0 12px 4px var(--particle-color, rgba(6, 182, 212, 0.4)),
+    0 0 24px 8px var(--particle-color, rgba(6, 182, 212, 0.15));
+  animation: chakra-particle-float var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  left: var(--x);
+  bottom: -10px;
+  pointer-events: none;
+}
+
+/* =============================================
+   THEME C: Konoha Village (Battlefield)
+   ============================================= */
+.theme-konoha-bg {
+  background:
+    /* Stars — bright starfield across the sky */
+    radial-gradient(1.5px 1.5px at 5% 6%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 12% 14%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 18% 4%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+    radial-gradient(1px 1px at 25% 18%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 32% 9%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 22%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 48% 7%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 55% 16%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 62% 3%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+    radial-gradient(1px 1px at 70% 20%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 11%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 85% 5%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 92% 17%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 8% 11%, rgba(255, 255, 255, 0.4) 50%, transparent 100%),
+    radial-gradient(1px 1px at 22% 8%, rgba(255, 255, 255, 0.4) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 44% 13%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(1px 1px at 58% 20%, rgba(255, 255, 255, 0.4) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 73% 6%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(1px 1px at 89% 15%, rgba(255, 255, 255, 0.4) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 15% 2%, rgba(255, 255, 255, 0.35) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 52% 10%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(0.5px 0.5px at 67% 15%, rgba(255, 255, 255, 0.25) 50%, transparent 100%),
+    /* Moon — LARGE with very bright core and wide halo */
+    radial-gradient(circle 12px at 82% 7%, rgba(255, 255, 240, 0.9) 0%, rgba(255, 255, 230, 0.5) 60%, transparent 100%),
+    radial-gradient(circle 40px at 82% 7%, rgba(255, 255, 220, 0.15) 0%, transparent 100%),
+    radial-gradient(circle 80px at 82% 7%, rgba(200, 210, 255, 0.06) 0%, transparent 100%),
+    radial-gradient(circle 120px at 82% 7%, rgba(180, 200, 255, 0.03) 0%, transparent 100%),
+    /* Hokage monument silhouette — carved faces with more contrast */
+    radial-gradient(ellipse 8% 6% at 38% 36%, rgba(25, 32, 52, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 7% 6% at 44% 35%, rgba(28, 35, 55, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 7% 7% at 50% 34%, rgba(24, 30, 50, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 8% 6% at 56% 35%, rgba(26, 33, 54, 1) 0%, transparent 100%),
+    /* Hokage face highlights — subtle lighter areas on faces */
+    radial-gradient(ellipse 3% 2% at 39% 35%, rgba(35, 42, 65, 0.6) 0%, transparent 100%),
+    radial-gradient(ellipse 3% 2% at 45% 34%, rgba(35, 42, 65, 0.5) 0%, transparent 100%),
+    radial-gradient(ellipse 3% 2% at 51% 33%, rgba(35, 42, 65, 0.6) 0%, transparent 100%),
+    radial-gradient(ellipse 3% 2% at 57% 34%, rgba(35, 42, 65, 0.5) 0%, transparent 100%),
+    /* Mountain range — layered depth with more contrast */
+    radial-gradient(ellipse 35% 16% at 20% 38%, rgba(14, 22, 38, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 30% 20% at 47% 34%, rgba(18, 26, 44, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 40% 14% at 75% 40%, rgba(12, 20, 34, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 12% at 90% 36%, rgba(16, 24, 40, 1) 0%, transparent 100%),
+    radial-gradient(ellipse 25% 10% at 10% 42%, rgba(11, 18, 30, 1) 0%, transparent 100%),
+    /* Village rooftop silhouettes — varied heights */
+    linear-gradient(180deg, transparent 52%, rgba(18, 25, 42, 0.95) 52%, rgba(18, 25, 42, 1) 54%, transparent 54%),
+    linear-gradient(180deg, transparent 54%, rgba(22, 30, 48, 0.8) 54%, rgba(22, 30, 48, 0.85) 57%, transparent 57%),
+    /* Warm village light glow from below — signature golden warmth */
+    radial-gradient(ellipse 50% 20% at 40% 58%, rgba(249, 180, 60, 0.1) 0%, transparent 100%),
+    radial-gradient(ellipse 35% 15% at 65% 56%, rgba(249, 160, 40, 0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 25% 12% at 30% 60%, rgba(255, 200, 80, 0.06) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 10% at 75% 58%, rgba(255, 180, 50, 0.05) 0%, transparent 100%),
+    radial-gradient(ellipse 60% 25% at 50% 62%, rgba(249, 170, 50, 0.04) 0%, transparent 100%),
+    /* Tree clusters at edges — more visible */
+    radial-gradient(ellipse 15% 28% at 3% 62%, rgba(8, 40, 18, 0.8) 0%, transparent 100%),
+    radial-gradient(ellipse 12% 22% at 97% 58%, rgba(8, 40, 18, 0.75) 0%, transparent 100%),
+    radial-gradient(ellipse 10% 20% at 10% 55%, rgba(10, 42, 22, 0.5) 0%, transparent 100%),
+    radial-gradient(ellipse 8% 16% at 92% 52%, rgba(10, 38, 20, 0.4) 0%, transparent 100%),
+    radial-gradient(ellipse 6% 14% at 7% 48%, rgba(12, 45, 25, 0.35) 0%, transparent 100%),
+    /* Night sky gradient — deep blue to horizon */
+    linear-gradient(180deg, #060d1a 0%, #0a1525 20%, #0f1e35 40%, #142842 60%, #1a3050 80%, #1e3858 100%);
+  position: relative;
+}
+/* Mist/ground fog — drifting at bottom */
+.theme-konoha-bg::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 35%;
+  background:
+    radial-gradient(ellipse 60% 30% at 30% 80%, rgba(34, 197, 94, 0.07) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 25% at 70% 90%, rgba(34, 197, 94, 0.06) 0%, transparent 100%),
+    radial-gradient(ellipse 45% 20% at 50% 85%, rgba(180, 220, 200, 0.03) 0%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, rgba(34, 197, 94, 0.03) 40%, rgba(34, 197, 94, 0.07) 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: konoha-mist-drift 8s ease-in-out infinite alternate;
+}
+
+@keyframes konoha-mist-drift {
+  0% { opacity: 0.5; transform: translateX(-2%); }
+  100% { opacity: 0.85; transform: translateX(2%); }
+}
+
+/* Twinkling stars overlay */
+.theme-konoha-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(2px 2px at 10% 8%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
+    radial-gradient(2px 2px at 45% 5%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+    radial-gradient(2px 2px at 72% 12%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 15%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+    radial-gradient(2px 2px at 88% 9%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 3%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 20% 19%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+  animation: konoha-stars-twinkle 4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes konoha-stars-twinkle {
+  0% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.6; }
+}
+
+/* Day/night tint shift per round (applied via inline style) */
+.theme-konoha-round-1 { filter: hue-rotate(0deg) brightness(0.9); }
+.theme-konoha-round-2 { filter: hue-rotate(15deg) brightness(0.95); }
+.theme-konoha-round-3 { filter: hue-rotate(25deg) brightness(1.05); }
+.theme-konoha-round-4 { filter: hue-rotate(10deg) brightness(1); }
+
+/* Konoha lane active */
+.theme-konoha-lane-active {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  background: rgba(34, 197, 94, 0.07) !important;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.18);
+  animation: konoha-nature-pulse 2.5s ease-in-out infinite;
+}
+@keyframes konoha-nature-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.12); }
+  50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.25); }
+}
+
+/* Konoha deploy effect — leaf swirl */
+@keyframes konoha-leaf-burst {
+  0% { transform: scale(0) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.3) rotate(180deg); opacity: 0.5; }
+  100% { transform: scale(2) rotate(360deg); opacity: 0; }
+}
+@keyframes konoha-nature-ring {
+  0% { transform: scale(0.3); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.theme-konoha-deploy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+.theme-konoha-deploy::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.5) 0%, rgba(34, 197, 94, 0.2) 50%, transparent 70%);
+  border-radius: 50%;
+  animation: konoha-leaf-burst 0.7s ease-out forwards;
+}
+.theme-konoha-deploy::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 197, 94, 0.4);
+  animation: konoha-nature-ring 0.7s ease-out forwards;
+}
+
+/* Konoha victory / defeat */
+.theme-konoha-victory {
+  background: linear-gradient(180deg, rgba(34, 197, 94, 0.1), rgba(15, 27, 45, 0.9));
+}
+.theme-konoha-defeat {
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.08), rgba(15, 27, 45, 0.9));
+}
+
+/* Konoha HUD active turn */
+.theme-konoha-hud-active {
+  border-color: rgba(34, 197, 94, 0.55) !important;
+  background: rgba(34, 197, 94, 0.07) !important;
+  box-shadow: 0 0 14px 3px rgba(34, 197, 94, 0.2);
+}
+
+/* Konoha particles — falling leaves */
+@keyframes konoha-leaf-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  50% { transform: translateY(50vh) rotate(180deg) translateX(20px); }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(calc(100vh + 10px)) rotate(360deg) translateX(-10px); opacity: 0; }
+}
+.theme-konoha-particle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  /* Konoha leaf — proper pointed leaf with vein detail */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 0 C8 2.5 11 5 6 12 C1 5 4 2.5 6 0Z' fill='%2322c55e' opacity='0.65'/%3E%3Cline x1='6' y1='1' x2='6' y2='11' stroke='%23166534' stroke-width='0.4' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: konoha-leaf-fall var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  left: var(--x);
+  top: -12px;
+  pointer-events: none;
+  filter: hue-rotate(var(--hue, 0deg));
+}
+
+/* =============================================
+   3D Perspective utility
+   ============================================= */
+.theme-perspective {
+  perspective: 1000px;
+}
+.theme-scroll-3d {
+  transform: rotateX(2deg);
+  transform-style: preserve-3d;
+}
+
+/* =============================================
+   Mobile performance: reduce particles
+   ============================================= */
+@media (max-width: 640px) {
+  .theme-scroll-particle:nth-child(even),
+  .theme-chakra-particle:nth-child(even),
+  .theme-konoha-particle:nth-child(even) {
+    display: none;
+  }
+  .theme-chakra-bg::before {
+    will-change: transform;
+  }
+}
+
+/* =============================================
+   Theme selector in lobby
+   ============================================= */
+.theme-preview-scroll {
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 25%, rgba(139, 90, 43, 0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 85% 75% at 50% 50%, transparent 35%, rgba(10, 8, 3, 0.5) 100%),
+    linear-gradient(180deg, #1a1510 0%, #15120d 50%, #18140e 100%);
+  border-top: 2px solid rgba(212, 175, 55, 0.5);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+}
+.theme-preview-chakra {
+  background:
+    radial-gradient(circle 10px at 50% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 100%),
+    conic-gradient(from 0deg at 50% 50%,
+      rgba(6, 182, 212, 0.18) 0deg,
+      rgba(147, 51, 234, 0.15) 120deg,
+      rgba(249, 115, 22, 0.15) 240deg,
+      rgba(6, 182, 212, 0.18) 360deg
+    ),
+    radial-gradient(ellipse 120% 100% at 50% 50%, #0a0520 0%, #050310 100%);
+}
+.theme-preview-konoha {
+  background:
+    radial-gradient(circle 8px at 80% 15%, rgba(255, 255, 240, 0.7) 0%, rgba(255, 255, 220, 0.2) 60%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 20% 15%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 30% 25%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
+    radial-gradient(ellipse 40% 15% at 50% 65%, rgba(249, 180, 60, 0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 30% 15% at 50% 50%, rgba(18, 26, 44, 1) 0%, transparent 100%),
+    linear-gradient(180deg, #060d1a 0%, #0f1e35 50%, #1a3050 100%);
+}

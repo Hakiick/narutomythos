@@ -17,16 +17,17 @@ interface GameSummaryProps {
   gameState: GameState;
 }
 
-const missionRankConfig: Record<MissionRank, { color: string; label: string }> = {
-  [MissionRank.D]: { color: 'text-gray-400', label: 'game.missionD' },
-  [MissionRank.C]: { color: 'text-blue-400', label: 'game.missionC' },
-  [MissionRank.B]: { color: 'text-purple-400', label: 'game.missionB' },
-  [MissionRank.A]: { color: 'text-amber-400', label: 'game.missionA' },
+const missionRankConfig: Record<MissionRank, { color: string; borderColor: string; label: string }> = {
+  [MissionRank.D]: { color: 'text-slate-400', borderColor: 'border-slate-600/50', label: 'game.missionD' },
+  [MissionRank.C]: { color: 'text-amber-400', borderColor: 'border-amber-700/50', label: 'game.missionC' },
+  [MissionRank.B]: { color: 'text-slate-300', borderColor: 'border-slate-500/50', label: 'game.missionB' },
+  [MissionRank.A]: { color: 'text-yellow-400', borderColor: 'border-yellow-600/50', label: 'game.missionA' },
 };
 
 function getMissionRoundBreakdown(mission: MissionSlot) {
-  const playerPower = calculateMissionPower(getMissionCharacters(mission, 'player'));
-  const opponentPower = calculateMissionPower(getMissionCharacters(mission, 'opponent'));
+  // Use evaluation-time snapshot if available, otherwise recalculate from current state
+  const playerPower = mission.playerPowerAtEval ?? calculateMissionPower(getMissionCharacters(mission, 'player'));
+  const opponentPower = mission.opponentPowerAtEval ?? calculateMissionPower(getMissionCharacters(mission, 'opponent'));
   return { playerPower, opponentPower, winner: mission.winner };
 }
 
@@ -87,7 +88,7 @@ export function GameSummary({ gameState }: GameSummaryProps) {
                   key={mission.rank}
                   className="flex items-center justify-between rounded-lg border border-border bg-card p-3 text-sm"
                 >
-                  <Badge variant="outline" className={cn('text-xs', config.color)}>
+                  <Badge variant="outline" className={cn('text-xs', config.color, config.borderColor)}>
                     {t(config.label)}
                   </Badge>
                   <div className="flex items-center gap-2">

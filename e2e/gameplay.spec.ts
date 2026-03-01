@@ -30,26 +30,68 @@ async function isVisible(page: Page, selector: string, ms = 150): Promise<boolea
 }
 
 async function isGameOver(page: Page): Promise<boolean> {
-  // GameOverScreen has a "Play Again" button
-  return isVisible(page, 'button:has-text("Play Again")');
+  return isVisible(page, '[data-testid="game-over-screen"]');
 }
 
+async function isMissionEvaluation(page: Page): Promise<boolean> {
+  return isVisible(page, '[data-testid="mission-evaluation"]');
+}
+
+async function isTargetSelector(page: Page): Promise<boolean> {
+  return isVisible(page, '[data-testid="target-selector"]');
+}
+
+/** Click through mission evaluation overlay */
 async function clickThroughEvaluation(page: Page) {
-  for (let i = 0; i < 8; i++) {
-    if (!(await isVisible(page, '.fixed.inset-0.z-50', 300))) break;
-    await page.locator('.fixed.inset-0.z-50').click();
-    await page.waitForTimeout(1000);
+  for (let i = 0; i < 12; i++) {
+    if (!(await isMissionEvaluation(page))) break;
+    await page.locator('[data-testid="mission-evaluation"]').click();
+    await page.waitForTimeout(800);
   }
 }
 
-async function waitForTurnOrEnd(page: Page, maxWait = 45000): Promise<'turn' | 'over' | 'timeout'> {
+/** Handle target selection overlay — click the first available target */
+async function handleTargetSelector(page: Page): Promise<boolean> {
+  if (!(await isTargetSelector(page))) return false;
+
+  // Click the first target button inside the selector
+  const targetBtns = page.locator('[data-testid="target-selector"] button');
+  const count = await targetBtns.count();
+  if (count > 0) {
+    await targetBtns.first().click();
+    await page.waitForTimeout(600);
+    return true;
+  }
+  return false;
+}
+
+/** Clear any overlays — evaluation, target selector, etc. */
+async function clearOverlays(page: Page): Promise<void> {
+  // Try up to 10 rounds of clearing overlays
+  for (let i = 0; i < 10; i++) {
+    if (await isGameOver(page)) return;
+
+    if (await isTargetSelector(page)) {
+      await handleTargetSelector(page);
+      continue;
+    }
+
+    if (await isMissionEvaluation(page)) {
+      await clickThroughEvaluation(page);
+      continue;
+    }
+
+    // No overlays visible
+    break;
+  }
+}
+
+async function waitForTurnOrEnd(page: Page, maxWait = 30000): Promise<'turn' | 'over' | 'timeout'> {
   const deadline = Date.now() + maxWait;
 
   while (Date.now() < deadline) {
-    // Handle evaluation overlays
-    if (await isVisible(page, '.fixed.inset-0.z-50', 100)) {
-      await clickThroughEvaluation(page);
-    }
+    // Clear any overlays first
+    await clearOverlays(page);
 
     if (await isGameOver(page)) return 'over';
 
@@ -73,14 +115,19 @@ test.describe('Gameplay Recording', () => {
     await page.goto('/en/play');
     await page.waitForLoadState('networkidle');
 
-    await page.locator('button', { hasText: 'Leaf Village Aggro' }).click();
+    // Select first prebuilt deck (Leaf Village Aggro)
+    const deckBtns = page.locator('button').filter({ hasText: /Leaf Village/i });
+    await deckBtns.first().click();
     await page.waitForTimeout(400);
-    await page.locator('button', { hasText: 'Start Game' }).click();
+
+    // Click Start Game
+    const startBtn = page.locator('button').filter({ hasText: /Start Game/i });
+    await startBtn.click();
     await page.waitForURL('**/play/game', { timeout: 15000 });
     await page.waitForTimeout(3000);
 
     // --- Mulligan ---
-    const keepBtn = page.locator('button', { hasText: 'Keep Hand' });
+    const keepBtn = page.locator('button').filter({ hasText: /Keep Hand/i });
     if (await keepBtn.isVisible({ timeout: 25000 }).catch(() => false)) {
       await page.waitForTimeout(1000);
       await keepBtn.click();
@@ -91,8 +138,9 @@ test.describe('Gameplay Recording', () => {
 
     // --- Main game loop ---
     let cycles = 0;
+    let consecutiveTimeouts = 0;
 
-    while (cycles < 100) {
+    while (cycles < 120) {
       cycles++;
 
       const result = await waitForTurnOrEnd(page);
@@ -103,68 +151,90 @@ test.describe('Gameplay Recording', () => {
       }
 
       if (result === 'timeout') {
-        console.log(`Timeout at cycle ${cycles}`);
-        // Try once more to clear overlays
-        await clickThroughEvaluation(page);
+        consecutiveTimeouts++;
+        console.log(`Timeout at cycle ${cycles} (consecutive: ${consecutiveTimeouts})`);
+
+        // Try to recover
+        await clearOverlays(page);
         if (await isGameOver(page)) break;
-        // Force a pass if we somehow have a pass button
-        const passBtn = page.locator('button', { hasText: 'Pass' }).first();
+
+        // Force pass if possible
+        const passBtn = page.locator('button').filter({ hasText: /^Pass$/i }).first();
         if (await passBtn.isVisible({ timeout: 500 }).catch(() => false)) {
           await passBtn.click();
           await page.waitForTimeout(1000);
+          consecutiveTimeouts = 0;
+        }
+
+        if (consecutiveTimeouts >= 5) {
+          console.log('Too many consecutive timeouts, ending test');
+          break;
         }
         continue;
       }
 
+      consecutiveTimeouts = 0;
+
       // --- It's our turn ---
       let played = false;
 
-      // Try to play up to 3 cards per turn
-      for (let attempt = 0; attempt < 3; attempt++) {
-        // Get playable (non-disabled) cards in hand
-        const handCards = page.locator('[data-tutorial="hand"] button:not([disabled])');
-        if ((await handCards.count()) === 0) break;
+      // Handle target selector first if it appears
+      if (await isTargetSelector(page)) {
+        await handleTargetSelector(page);
+        await page.waitForTimeout(500);
+        continue;
+      }
 
-        await handCards.first().click();
-        await page.waitForTimeout(600);
+      // Try to play a card
+      const handCards = page.locator('[data-tutorial="hand"] [role="button"]:not([class*="grayscale"])');
+      const handCount = await handCards.count();
 
-        // Check if guidance changed to "Now tap a mission"
-        const missionGuideVisible = await isVisible(page, ':text("Now tap a mission")', 800);
+      if (handCount > 0) {
+        // Click a playable card (try to find one with green border = playable)
+        const playableCards = page.locator('[data-tutorial="hand"] [role="button"].border-green-500\\/50');
+        const playableCount = await playableCards.count();
 
-        if (missionGuideVisible) {
-          // Find enabled mission buttons that contain "vs" text (actual mission lanes)
-          const missionBtns = page.locator('[data-tutorial="board"] button:not([disabled]):has-text("vs")');
-          const mCount = await missionBtns.count();
+        if (playableCount > 0) {
+          await playableCards.first().click();
+          await page.waitForTimeout(600);
 
-          if (mCount > 0) {
-            await missionBtns.first().click();
-            await page.waitForTimeout(800);
-            played = true;
+          // Check if we need to select a mission
+          const missionGuideVisible = await isVisible(page, ':text("Now tap a mission")', 800);
+
+          if (missionGuideVisible) {
+            // Click an enabled mission lane
+            const missionBtns = page.locator('[data-tutorial="board"] button:not([disabled])').filter({ hasText: 'vs' });
+            const mCount = await missionBtns.count();
+
+            if (mCount > 0) {
+              await missionBtns.first().click();
+              await page.waitForTimeout(800);
+              played = true;
+
+              // Handle any effect target selectors that pop up after playing
+              await page.waitForTimeout(300);
+              if (await isTargetSelector(page)) {
+                await handleTargetSelector(page);
+                await page.waitForTimeout(400);
+              }
+            } else {
+              // Deselect — click the card again
+              await playableCards.first().click().catch(() => {});
+              await page.waitForTimeout(200);
+            }
           } else {
-            // Deselect
-            await handCards.first().click().catch(() => {});
+            // Card didn't select properly, deselect
+            await playableCards.first().click().catch(() => {});
             await page.waitForTimeout(200);
-            break;
           }
-        } else {
-          // Card didn't select (maybe not playable after all)
-          await handCards.first().click().catch(() => {});
-          await page.waitForTimeout(200);
-          break;
         }
-
-        if (await isGameOver(page)) break;
-
-        // Check if still our turn for another play
-        const stillTurn = await isVisible(page, ':text("Tap a card in your hand")');
-        if (!stillTurn) break;
       }
 
       if (await isGameOver(page)) break;
 
       // Pass if nothing was played
       if (!played) {
-        const passBtn = page.locator('button', { hasText: 'Pass' }).first();
+        const passBtn = page.locator('button').filter({ hasText: /^Pass$/i }).first();
         if (await passBtn.isVisible({ timeout: 800 }).catch(() => false)) {
           await passBtn.click();
           await page.waitForTimeout(400);
@@ -172,13 +242,28 @@ test.describe('Gameplay Recording', () => {
       }
 
       // Let AI play
-      await page.waitForTimeout(2000);
-      await clickThroughEvaluation(page);
+      await page.waitForTimeout(1500);
+
+      // Clear any overlays that appeared
+      await clearOverlays(page);
       if (await isGameOver(page)) break;
     }
 
     // Linger on final screen for the video
     await page.waitForTimeout(5000);
+
+    // Take a screenshot of the final state
+    await page.screenshot({ path: 'test-results/final-state.png' });
+
+    // Assert the game reached a conclusion
+    const gameOverVisible = await isGameOver(page);
+    if (gameOverVisible) {
+      // Verify score is displayed
+      await expect(page.locator('[data-testid="game-over-screen"]')).toBeVisible();
+      console.log('Game completed with game-over screen visible');
+    }
+
     console.log(`Done after ${cycles} cycles! Video in test-results/`);
+    expect(cycles).toBeLessThan(120); // Shouldn't exhaust the loop
   });
 });

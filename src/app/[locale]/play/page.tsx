@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { GameLobby } from '@/components/game/GameLobby';
+import { GameThemeProvider } from '@/hooks/useGameTheme';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -11,5 +12,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default function PlayPage() {
-  return <GameLobby />;
+  return (
+    <GameThemeProvider>
+      <GameLobby />
+    </GameThemeProvider>
+  );
 }
