@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import type { GameCardInstance } from '@/lib/game/types';
 import { useGameTheme, themeBoardClass } from '@/hooks/useGameTheme';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 
 const typeIcons: Record<string, typeof Sword> = {
   CHARACTER: Sword,
@@ -57,7 +58,7 @@ export function MulliganView({ hand, onKeep, onMulligan, mulliganDone }: Mulliga
           const name = locale === 'fr' ? inst.card.nameFr : inst.card.nameEn;
           const displayName = name.split(' \u2014 ')[0];
           const isCharacter = inst.card.type === 'CHARACTER';
-          const imageUrl = inst.card.imageUrl;
+          const imageUrl = getImageUrl(inst.card.imageUrl);
           const TypeIcon = typeIcons[inst.card.type] ?? Sword;
           const typeIconColor = typeIconColors[inst.card.type] ?? 'text-orange-400/60';
           const borderColor = typeBorderColors[inst.card.type] ?? 'border-orange-500/20';

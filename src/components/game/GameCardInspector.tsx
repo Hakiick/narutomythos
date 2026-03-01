@@ -16,6 +16,7 @@ import { parseEffects } from '@/lib/game/effects/parser';
 import { EffectTrigger, EffectTiming } from '@/lib/game/effects/types';
 import type { GameCard, DeployedCharacter, RevealedInfo } from '@/lib/game/types';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 
 interface GameCardInspectorProps {
   card: GameCard | null;
@@ -112,7 +113,7 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
           )}>
             {card.imageUrl ? (
               <Image
-                src={card.imageUrl}
+                src={getImageUrl(card.imageUrl) ?? ''}
                 alt={fullName}
                 fill
                 sizes="100px"
