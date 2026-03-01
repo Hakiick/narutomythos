@@ -6,12 +6,12 @@ import { Zap, Shield, Sparkles, Sword, Scroll, Star, RotateCcw, BoltIcon, ArrowU
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet';
 import { parseEffects } from '@/lib/game/effects/parser';
 import { EffectTrigger, EffectTiming } from '@/lib/game/effects/types';
 import type { GameCard, DeployedCharacter, RevealedInfo } from '@/lib/game/types';
@@ -82,7 +82,7 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
   if (!card) return null;
 
   const fullName = locale === 'fr' ? card.nameFr : card.nameEn;
-  const effectText = locale === 'fr' ? card.effectFr : card.effectEn;
+  const effectText = (locale === 'fr' ? card.effectFr : card.effectEn) || card.effectEn;
   const totalPower = deployed
     ? card.power + deployed.powerTokens
     : card.power;
@@ -98,17 +98,17 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
     'cardTypeCharacter' | 'cardTypeMission' | 'cardTypeJutsu';
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-sm gap-3 p-4">
-        <DialogHeader>
-          <DialogTitle className="text-base">{t('game.inspectCard')}</DialogTitle>
-          <DialogDescription className="sr-only">{fullName}</DialogDescription>
-        </DialogHeader>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="right" className="w-80 gap-3 overflow-y-auto p-4 sm:w-96">
+        <SheetHeader>
+          <SheetTitle className="text-base">{t('game.inspectCard')}</SheetTitle>
+          <SheetDescription className="sr-only">{fullName}</SheetDescription>
+        </SheetHeader>
 
-        <div className="flex gap-3">
-          {/* Card image with rarity glow — TCG ratio 5:7 (100x140) */}
+        <div className="flex flex-col items-center gap-3">
+          {/* Card image with rarity glow — larger (180x252) */}
           <div className={cn(
-            'relative h-[140px] w-[100px] flex-shrink-0 overflow-hidden rounded-lg border border-border',
+            'relative h-[252px] w-[180px] flex-shrink-0 overflow-hidden rounded-lg border border-border',
             rarityGlow[card.rarity] ?? ''
           )}>
             {card.imageUrl ? (
@@ -116,7 +116,7 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
                 src={getImageUrl(card.imageUrl) ?? ''}
                 alt={fullName}
                 fill
-                sizes="100px"
+                sizes="180px"
                 className="object-contain"
               />
             ) : (
@@ -142,10 +142,10 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
           </div>
 
           {/* Card info */}
-          <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <div className="flex w-full flex-col gap-2">
             {/* Name */}
-            <div>
-              <p className="truncate text-sm font-semibold">{baseName}</p>
+            <div className="text-center">
+              <p className="text-sm font-semibold">{baseName}</p>
               {subtitle && (
                 <p className="truncate text-[10px] text-muted-foreground">{subtitle}</p>
               )}
@@ -168,17 +168,17 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
               </span>
             </div>
 
-            {/* Stats */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                <Zap className="h-3.5 w-3.5 text-blue-400" />
-                <span className="text-xs font-bold text-blue-400">{card.chakra}</span>
+            {/* Stats in bordered boxes */}
+            <div className="flex items-center justify-center gap-3">
+              <div className="flex items-center gap-1.5 rounded-md border border-blue-500/30 bg-blue-500/10 px-2.5 py-1">
+                <Zap className="h-4 w-4 text-blue-400" />
+                <span className="text-sm font-bold text-blue-400">{card.chakra}</span>
               </div>
               {card.type === 'CHARACTER' && (
-                <div className="flex items-center gap-1">
-                  <Shield className="h-3.5 w-3.5 text-amber-400" />
+                <div className="flex items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-1">
+                  <Shield className="h-4 w-4 text-amber-400" />
                   <span className={cn(
-                    'text-xs font-bold',
+                    'text-sm font-bold',
                     deployed && deployed.powerTokens > 0 ? 'text-green-400' : 'text-amber-400'
                   )}>
                     {totalPower}
@@ -341,7 +341,7 @@ export function GameCardInspector({ card, deployed, revealedInfo, open, onOpenCh
             </p>
           </div>
         )}
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }

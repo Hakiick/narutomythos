@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Flame, Star, Layers, Trash2 } from 'lucide-react';
+import { Flame, Star, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { PlayerState, PlayerSide } from '@/lib/game/types';
 import { useGameTheme, type GameTheme } from '@/hooks/useGameTheme';
@@ -13,6 +13,8 @@ interface PlayerHUDProps {
   side: PlayerSide;
   isCurrentTurn: boolean;
   label: string;
+  variant?: 'default' | 'compact';
+  round?: number;
 }
 
 /** Renders a floating +N / -N delta that fades out */
@@ -34,7 +36,7 @@ function themeHudClass(theme: GameTheme): string {
   }
 }
 
-export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUDProps) {
+export function PlayerHUD({ playerState, side, isCurrentTurn, label, variant = 'default', round }: PlayerHUDProps) {
   const t = useTranslations('Play');
   const { theme } = useGameTheme();
 
@@ -78,21 +80,42 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUD
       className={cn(
         'flex items-center justify-between rounded-lg border px-3 py-1 transition-all',
         isCurrentTurn
-          ? cn('border-orange-500/50 bg-orange-500/5 naruto-glow', themeHudClass(theme))
+          ? cn('border-amber-500/50 bg-amber-500/5 naruto-glow', themeHudClass(theme))
           : 'border-border bg-muted/30'
       )}
     >
-      {/* Player Label */}
+      {/* Left: Player Label + Edge */}
       <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold">{label}</span>
-        {isCurrentTurn && (
+        <span className={cn('font-semibold', variant === 'compact' ? 'text-xs' : 'text-sm')}>{label}</span>
+        {playerState.hasEdge && (
+          <div className="animate-edge-flip" title={t('game.edge')}>
+            <Badge variant="secondary" className="bg-violet-500/10 px-1.5 py-0 text-[10px] text-violet-500">
+              {t('game.edge')}
+            </Badge>
+          </div>
+        )}
+        {isCurrentTurn && variant === 'default' && (
           <Badge variant="default" className="text-[10px]">
             {side === 'player' ? t('game.yourTurn') : t('game.aiTurn')}
           </Badge>
         )}
       </div>
 
-      {/* Stats Row */}
+      {/* Center: Round/Phase info (player side, compact) */}
+      {variant === 'compact' && side === 'player' && round && (
+        <div className="hidden items-center gap-1.5 sm:flex">
+          <span className="text-[10px] text-muted-foreground">
+            {t('game.turnOf', { turn: round })}
+          </span>
+          {isCurrentTurn && (
+            <Badge variant="default" className="text-[9px] px-1.5 py-0">
+              {t('game.actionPhase')}
+            </Badge>
+          )}
+        </div>
+      )}
+
+      {/* Right: Stats Row */}
       <div className="flex items-center gap-3">
         {/* Chakra */}
         <div className="relative flex items-center gap-1" title={t('game.chakra')}>
@@ -116,18 +139,13 @@ export function PlayerHUD({ playerState, side, isCurrentTurn, label }: PlayerHUD
           <DeltaIndicator delta={pointsDelta} color="text-yellow-400" />
         </div>
 
-        {/* Edge */}
-        {playerState.hasEdge && (
-          <div className="flex items-center gap-1 animate-edge-flip" title={t('game.edge')}>
-            <Badge variant="secondary" className="bg-violet-500/10 px-1.5 py-0 text-[10px] text-violet-500">
-              {t('game.edge')}
-            </Badge>
+        {/* Deck visual stack */}
+        <div className="relative flex items-center gap-1" title={t('game.deck')}>
+          <div className="relative h-5 w-4">
+            <div className="absolute inset-0 rounded-[2px] border border-muted-foreground/30 bg-muted/50" />
+            <div className="absolute inset-0 translate-x-[1px] -translate-y-[1px] rounded-[2px] border border-muted-foreground/20 bg-muted/30" />
+            <div className="absolute inset-0 translate-x-[2px] -translate-y-[2px] rounded-[2px] border border-muted-foreground/10 bg-muted/20" />
           </div>
-        )}
-
-        {/* Deck Count */}
-        <div className="flex items-center gap-1" title={t('game.deck')}>
-          <Layers className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="text-xs text-muted-foreground">
             {playerState.deck.length}
           </span>

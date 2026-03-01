@@ -6,7 +6,11 @@ import type { ApiResponse } from '@/types';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const rawParams = Object.fromEntries(searchParams);
+  const rawParams: Record<string, unknown> = Object.fromEntries(searchParams);
+  // Convert comma-separated array params
+  if (typeof rawParams.keywords === 'string') rawParams.keywords = rawParams.keywords.split(',').filter(Boolean);
+  if (typeof rawParams.effectTypes === 'string') rawParams.effectTypes = rawParams.effectTypes.split(',').filter(Boolean);
+  if (typeof rawParams.effectActions === 'string') rawParams.effectActions = rawParams.effectActions.split(',').filter(Boolean);
   const parsed = cardFiltersSchema.safeParse(rawParams);
 
   if (!parsed.success) {

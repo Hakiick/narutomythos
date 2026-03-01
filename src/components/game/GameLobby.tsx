@@ -4,11 +4,61 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
-import { Swords, Check, X, LogIn, GraduationCap, Palette } from 'lucide-react';
+import { Swords, Check, X, LogIn, GraduationCap, Palette, Shuffle, Zap, Target, Flame, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/navigation';
 import { useGameTheme, type GameTheme } from '@/hooks/useGameTheme';
+import { cn } from '@/lib/utils';
+
+type AIDifficulty = 'easy' | 'medium' | 'hard' | 'expert';
+
+const difficultyOptions: {
+  id: AIDifficulty;
+  nameKey: string;
+  descKey: string;
+  icon: typeof Zap;
+  color: string;
+  bgColor: string;
+  borderColor: string;
+}[] = [
+  {
+    id: 'easy',
+    nameKey: 'difficultyEasy',
+    descKey: 'difficultyEasyDesc',
+    icon: Zap,
+    color: 'text-green-400',
+    bgColor: 'bg-green-500/10',
+    borderColor: 'border-green-500/30',
+  },
+  {
+    id: 'medium',
+    nameKey: 'difficultyMedium',
+    descKey: 'difficultyMediumDesc',
+    icon: Target,
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10',
+    borderColor: 'border-amber-500/30',
+  },
+  {
+    id: 'hard',
+    nameKey: 'difficultyHard',
+    descKey: 'difficultyHardDesc',
+    icon: Flame,
+    color: 'text-red-400',
+    bgColor: 'bg-red-500/10',
+    borderColor: 'border-red-500/30',
+  },
+  {
+    id: 'expert',
+    nameKey: 'difficultyExpert',
+    descKey: 'difficultyExpertDesc',
+    icon: Crown,
+    color: 'text-purple-400',
+    bgColor: 'bg-purple-500/10',
+    borderColor: 'border-purple-500/30',
+  },
+];
 
 interface UserDeck {
   id: string;
@@ -75,6 +125,7 @@ export function GameLobby() {
   const [userDecks, setUserDecks] = useState<UserDeck[]>([]);
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
   const [selectedDeckType, setSelectedDeckType] = useState<'user' | 'prebuilt' | null>(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<AIDifficulty>('medium');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -114,6 +165,7 @@ export function GameLobby() {
       JSON.stringify({
         deckId: selectedDeckId,
         deckType: selectedDeckType,
+        difficulty: selectedDifficulty,
       })
     );
 
@@ -148,6 +200,42 @@ export function GameLobby() {
       </div>
 
       <div className="mx-auto max-w-3xl space-y-8">
+        {/* Difficulty Selector */}
+        <section>
+          <h2 className="mb-4 text-lg font-semibold">{t('selectDifficulty')}</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {difficultyOptions.map((diff) => {
+              const selected = selectedDifficulty === diff.id;
+              const DiffIcon = diff.icon;
+              return (
+                <button
+                  key={diff.id}
+                  type="button"
+                  onClick={() => setSelectedDifficulty(diff.id)}
+                  className={cn(
+                    'flex flex-col items-center gap-2 rounded-xl border p-3 text-center transition-all',
+                    diff.bgColor,
+                    selected
+                      ? `${diff.borderColor} ring-2 ring-amber-500/30`
+                      : `${diff.borderColor} hover:border-primary/50`
+                  )}
+                >
+                  <DiffIcon className={cn('h-5 w-5', diff.color)} />
+                  <span className={cn('text-sm font-semibold', diff.color)}>
+                    {t(diff.nameKey as 'difficultyEasy')}
+                  </span>
+                  <span className="text-[10px] leading-tight text-muted-foreground">
+                    {t(diff.descKey as 'difficultyEasyDesc')}
+                  </span>
+                  {selected && (
+                    <Check className="h-4 w-4 text-amber-400" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         {/* User Decks Section */}
         <section>
           <h2 className="mb-4 text-lg font-semibold">{t('yourDeck')}</h2>
@@ -230,7 +318,28 @@ export function GameLobby() {
         {/* Pre-built Decks Section */}
         <section>
           <h2 className="mb-4 text-lg font-semibold">{t('prebuiltDecks')}</h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Random Deck option */}
+            <button
+              type="button"
+              onClick={() => handleSelectPrebuilt('random')}
+              className={cn(
+                'flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition-colors bg-zinc-500/10 border-zinc-500/30',
+                isSelected('random', 'prebuilt')
+                  ? 'ring-2 ring-primary/20 border-zinc-400/50'
+                  : 'hover:border-primary/50'
+              )}
+            >
+              <div className="flex items-center gap-1.5">
+                <Shuffle className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-semibold text-zinc-300">
+                  {t('randomDeck')}
+                </span>
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {t('randomDeckDesc')}
+              </span>
+            </button>
             {prebuiltDecks.map((deck) => {
               const selected = isSelected(deck.id, 'prebuilt');
 
@@ -313,13 +422,8 @@ export function GameLobby() {
           </button>
         </section>
 
-        {/* Difficulty + Start */}
-        <section className="space-y-4">
-          <div className="flex items-center justify-between rounded-xl border border-border bg-muted/50 px-4 py-3">
-            <span className="text-sm font-medium">{t('aiDifficulty')}</span>
-            <Badge variant="secondary">{t('difficultyNormal')}</Badge>
-          </div>
-
+        {/* Start */}
+        <section>
           <Button
             size="lg"
             className="w-full"

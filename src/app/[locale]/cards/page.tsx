@@ -16,6 +16,7 @@ interface CardsPageProps {
     powerMax?: string;
     keywords?: string;
     effectTypes?: string;
+    effectActions?: string;
   }>;
 }
 
@@ -34,6 +35,7 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
     powerMax: sp.powerMax ? parseInt(sp.powerMax, 10) : undefined,
     keywords: sp.keywords ? sp.keywords.split(',').filter(Boolean) : undefined,
     effectTypes: sp.effectTypes ? sp.effectTypes.split(',').filter(Boolean) : undefined,
+    effectActions: sp.effectActions ? sp.effectActions.split(',').filter(Boolean) : undefined,
   };
 
   const [cards, groups, keywords] = await Promise.all([

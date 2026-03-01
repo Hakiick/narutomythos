@@ -11,16 +11,21 @@ import {
 } from '@/lib/game/types';
 import { getMissionRankForRound } from '@/lib/game/utils';
 import type { AIActionFeedback } from '@/hooks/useGameState';
+import { ScrollText } from 'lucide-react';
 import { PlayerHUD } from './PlayerHUD';
-import { MissionLane } from './MissionLane';
+import { Scoreboard } from './Scoreboard';
+import { MissionColumn } from './MissionColumn';
+import { OpponentHandView } from './OpponentHandView';
 import { HandView } from './HandView';
 import { ActionBar } from './ActionBar';
+import { EffectPreviewPanel } from './EffectPreviewPanel';
 import { GameLog } from './GameLog';
 import { TargetSelector } from './TargetSelector';
 import { EffectToastContainer } from './EffectToastContainer';
 import { GameCardInspector } from './GameCardInspector';
 import { ThemeParticles } from './ThemeParticles';
 import { useGameTheme, themeBoardClass } from '@/hooks/useGameTheme';
+import { cn } from '@/lib/utils';
 import type { DeployedCharacter, GameCard } from '@/lib/game/types';
 
 interface GameBoardProps {
@@ -67,6 +72,9 @@ export function GameBoard({
   // AI action feedback banner
   const [aiFeedback, setAIFeedback] = useState<string | null>(null);
   const aiFeedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Game log overlay toggle
+  const [showLog, setShowLog] = useState(false);
 
   // Detect round changes for banner
   useEffect(() => {
@@ -135,9 +143,16 @@ export function GameBoard({
     if (!selectedCardInstanceId) return null;
     const inst = gameState.player.hand.find((c) => c.instanceId === selectedCardInstanceId);
     if (!inst) return null;
-    const effectText = locale === 'fr' ? inst.card.effectFr : inst.card.effectEn;
+    const effectText = (locale === 'fr' ? inst.card.effectFr : inst.card.effectEn) || inst.card.effectEn;
     return effectText ?? null;
   }, [selectedCardInstanceId, gameState.player.hand, locale]);
+
+  // Get selected card object for effect preview
+  const selectedCard = useMemo((): GameCard | null => {
+    if (!selectedCardInstanceId) return null;
+    const inst = gameState.player.hand.find((c) => c.instanceId === selectedCardInstanceId);
+    return inst?.card ?? null;
+  }, [selectedCardInstanceId, gameState.player.hand]);
 
   // Check if player has any playable cards
   const hasPlayableCards = useMemo(() => {
@@ -237,6 +252,49 @@ export function GameBoard({
     setHiddenMode((prev) => !prev);
   }, []);
 
+  const handleCancel = useCallback(() => {
+    setSelectedCardInstanceId(null);
+    setJutsuTargetMode(false);
+    setHiddenMode(false);
+  }, []);
+
+  // REVEAL: flip a hidden character face-up by paying its cost
+  const handleRevealCharacter = useCallback(
+    (char: DeployedCharacter, missionIndex: number) => {
+      const revealAction = availableActions.find(
+        (a) =>
+          a.type === GameActionType.REVEAL &&
+          a.cardInstanceId === char.instanceId
+      );
+      if (!revealAction) return;
+
+      const action: GameAction = {
+        type: GameActionType.REVEAL,
+        side: 'player',
+        data: {
+          cardInstanceId: char.instanceId,
+          missionIndex,
+          description: revealAction.description,
+        },
+        timestamp: Date.now(),
+      };
+      onAction(action);
+      setSelectedCardInstanceId(null);
+    },
+    [availableActions, onAction]
+  );
+
+  // Set of instanceIds that can be revealed (for UI highlighting)
+  const revealableInstanceIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const a of availableActions) {
+      if (a.type === GameActionType.REVEAL && a.cardInstanceId) {
+        ids.add(a.cardInstanceId);
+      }
+    }
+    return ids;
+  }, [availableActions]);
+
   const handleInspectCharacter = useCallback((char: DeployedCharacter) => {
     setInspectedCard(char.card);
     setInspectedDeployed(char);
@@ -289,17 +347,14 @@ export function GameBoard({
     <div className={`${themeBoardClass(theme)} relative flex h-full flex-col gap-1 sm:gap-1.5`} data-tutorial="board">
       {/* Ambient theme particles */}
       <ThemeParticles />
-      {/* Round start banner overlay — mission briefing style */}
+
+      {/* Round start banner overlay */}
       {roundBanner !== null && (
         <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center">
           <div className="animate-banner-unfurl relative overflow-hidden rounded-lg border border-orange-500/40 bg-gradient-to-r from-black/90 via-zinc-900/95 to-black/90 px-10 py-5 shadow-[0_0_30px_rgba(249,115,22,0.15)]">
-            {/* Top decorative line */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-500/60 to-transparent" />
-            {/* Bottom decorative line */}
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-orange-500/60 to-transparent" />
-            {/* Left accent bar */}
             <div className="absolute inset-y-2 left-0 w-1 rounded-r bg-gradient-to-b from-orange-500/0 via-orange-500/70 to-orange-500/0" />
-            {/* Right accent bar */}
             <div className="absolute inset-y-2 right-0 w-1 rounded-l bg-gradient-to-b from-orange-500/0 via-orange-500/70 to-orange-500/0" />
             <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-orange-400/70">
               {t('game.missionBriefing')}
@@ -376,39 +431,76 @@ export function GameBoard({
         );
       })()}
 
-      {/* Opponent HUD */}
+      {/* Game Log toggle button (fixed top-right) */}
+      <button
+        type="button"
+        onClick={() => setShowLog((prev) => !prev)}
+        className="absolute right-2 top-2 z-20 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-muted/80 transition-colors hover:bg-muted"
+        title="Game Log"
+      >
+        <ScrollText className="h-3.5 w-3.5 text-muted-foreground" />
+      </button>
+
+      {/* Game Log slide-in overlay */}
+      {showLog && (
+        <div className="animate-log-slide-in absolute inset-y-0 right-0 z-20 w-72 overflow-y-auto border-l border-border bg-card/95 p-3 backdrop-blur-sm sm:w-80">
+          <GameLog
+            actions={gameState.actionHistory}
+            round={gameState.round}
+            effectLog={gameState.effectLog}
+          />
+        </div>
+      )}
+
+      {/* Opponent HUD — compact */}
       <PlayerHUD
         playerState={gameState.opponent}
         side="opponent"
         isCurrentTurn={gameState.turn === 'opponent'}
         label={t('game.opponent')}
+        variant="compact"
       />
 
-      {/* Mission Lanes — reversed so D is at the bottom, A is at the top */}
-      <div className={`flex flex-col gap-1.5 sm:gap-2 ${theme === 'chakra' ? 'theme-perspective theme-chakra-3d' : theme === 'scroll' ? 'theme-perspective theme-scroll-3d' : ''}`}>
-        {[...gameState.missions].reverse().map((mission, reversedIdx) => {
-          const actualIdx = gameState.missions.length - 1 - reversedIdx;
-          const isActive = actualIdx === currentRoundMissionIndex;
+      {/* Scoreboard — prominent score display */}
+      <Scoreboard
+        player={gameState.player}
+        opponent={gameState.opponent}
+        round={gameState.round}
+      />
+
+      {/* Opponent Hand — face-down cards */}
+      <OpponentHandView cardCount={gameState.opponent.hand.length} />
+
+      {/* Mission Columns — horizontal D→A (left→right) */}
+      <div className={cn(
+        'flex flex-1 gap-1.5 overflow-x-auto sm:gap-2',
+        theme === 'chakra' ? 'theme-perspective theme-chakra-3d' : theme === 'scroll' ? 'theme-perspective theme-scroll-3d' : ''
+      )}>
+        {gameState.missions.map((mission, idx) => {
+          const isActive = idx === currentRoundMissionIndex;
           const isLocked = !mission.missionCard;
-          const isHighlighted = highlightedMissions.includes(actualIdx);
+          const isHighlighted = highlightedMissions.includes(idx);
 
           return (
-            <div key={mission.rank} data-tutorial={isActive ? 'mission-active' : undefined}>
-              <MissionLane
+            <div key={mission.rank} className="flex flex-1" data-tutorial={isActive ? 'mission-active' : undefined}>
+              <MissionColumn
                 mission={mission}
-                missionIndex={actualIdx}
+                missionIndex={idx}
                 isActive={isActive}
                 isLocked={isLocked}
                 isHighlighted={isHighlighted}
                 onMissionClick={handleMissionClick}
                 onInspectCharacter={handleInspectCharacter}
+                onInspectMission={handleInspectCard}
+                onRevealCharacter={handleRevealCharacter}
+                revealableInstanceIds={revealableInstanceIds}
               />
             </div>
           );
         })}
       </div>
 
-      {/* Action Bar */}
+      {/* Action Bar — with cancel */}
       <ActionBar
         gamePhase={gameState.phase}
         round={gameState.round}
@@ -422,19 +514,18 @@ export function GameBoard({
         onToggleHidden={handleToggleHidden}
         hiddenMode={hiddenMode}
         selectedCardEffect={selectedCardEffect}
+        onCancel={selectedCardInstanceId ? handleCancel : undefined}
       />
 
-      {/* Player HUD */}
-      <div data-tutorial="chakra">
-        <PlayerHUD
-          playerState={gameState.player}
-          side="player"
-          isCurrentTurn={gameState.turn === 'player'}
-          label={t('game.player')}
+      {/* Effect preview when a card is selected */}
+      {selectedCard && selectedCard.effectEn && (
+        <EffectPreviewPanel
+          card={selectedCard}
+          onInspect={() => handleInspectCard(selectedCard)}
         />
-      </div>
+      )}
 
-      {/* Player Hand */}
+      {/* Player Hand — fan layout */}
       <div data-tutorial="hand">
         <HandView
           hand={gameState.player.hand}
@@ -447,14 +538,19 @@ export function GameBoard({
         />
       </div>
 
-      {/* Game Log */}
-      <GameLog
-        actions={gameState.actionHistory}
-        round={gameState.round}
-        effectLog={gameState.effectLog}
-      />
+      {/* Player HUD — compact with round */}
+      <div data-tutorial="chakra">
+        <PlayerHUD
+          playerState={gameState.player}
+          side="player"
+          isCurrentTurn={gameState.turn === 'player'}
+          label={t('game.player')}
+          variant="compact"
+          round={gameState.round}
+        />
+      </div>
 
-      {/* Card Inspector Modal */}
+      {/* Card Inspector — Sheet side panel */}
       <GameCardInspector
         card={inspectedCard}
         deployed={inspectedDeployed}

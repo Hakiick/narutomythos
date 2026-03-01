@@ -1,10 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Hand, EyeOff, Loader2, Info } from 'lucide-react';
+import { Hand, EyeOff, Loader2, Info, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { GamePhase, GameActionType, type PendingEffect } from '@/lib/game/types';
+import { GamePhase, type GameActionType, type PendingEffect } from '@/lib/game/types';
 import { cn } from '@/lib/utils';
 
 interface ActionBarProps {
@@ -20,14 +19,15 @@ interface ActionBarProps {
   onToggleHidden: () => void;
   hiddenMode: boolean;
   selectedCardEffect?: string | null;
+  onCancel?: () => void;
 }
 
 export function ActionBar({
   gamePhase,
-  round,
+  round: _round,
   isPlayerTurn,
   isAIThinking,
-  selectedAction,
+  selectedAction: _selectedAction,
   selectedCardId,
   hasPlayableCards,
   pendingEffect,
@@ -35,6 +35,7 @@ export function ActionBar({
   onToggleHidden,
   hiddenMode,
   selectedCardEffect,
+  onCancel,
 }: ActionBarProps) {
   const t = useTranslations('Play');
 
@@ -54,64 +55,49 @@ export function ActionBar({
   const guidance = getGuidanceMessage();
 
   return (
-    <div className="flex flex-col gap-1 rounded-lg border border-border bg-muted/30 px-3 py-1">
-      {/* Phase Info Row */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-[10px]">
-            {t('game.round', { round })}
-          </Badge>
-          {gamePhase === GamePhase.ACTION && (
-            <span className="text-xs text-muted-foreground">
-              {t('game.actionPhase')}
+    <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 px-3 py-1.5">
+      {/* Left: Guidance */}
+      <div className="flex min-w-0 flex-1 items-center gap-1.5">
+        {isAIThinking ? (
+          <>
+            <Loader2 className="h-3.5 w-3.5 flex-shrink-0 animate-spin text-muted-foreground" />
+            <span className="truncate text-xs text-muted-foreground">
+              {t('game.aiThinking')}
             </span>
-          )}
-        </div>
+          </>
+        ) : guidance ? (
+          <>
+            <Info className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
+            <span className="truncate text-xs font-medium text-primary">
+              {guidance}
+            </span>
+          </>
+        ) : null}
 
-        {/* Turn indicator */}
-        <div className="flex items-center gap-1.5">
-          {isAIThinking ? (
-            <div className="flex items-center gap-1.5">
-              <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">
-                {t('game.aiThinking')}
-              </span>
-            </div>
-          ) : isPlayerTurn ? (
-            <Badge variant="default" className="text-[10px]">
-              {t('game.yourTurn')}
-            </Badge>
-          ) : (
-            <span className="text-xs text-muted-foreground">
-              {t('game.aiTurn')}
-            </span>
-          )}
-        </div>
+        {/* Selected card effect (compact inline) */}
+        {selectedCardEffect && !isAIThinking && (
+          <span className="hidden truncate text-[10px] text-muted-foreground sm:inline">
+            &mdash; {selectedCardEffect.split('\n')[0]}
+          </span>
+        )}
       </div>
 
-      {/* Guidance message */}
-      {guidance && (
-        <div className="flex items-center gap-1.5 rounded-md bg-primary/5 px-2 py-1.5">
-          <Info className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
-          <span className="text-xs font-medium text-primary">
-            {guidance}
-          </span>
-        </div>
-      )}
-
-      {/* Selected card effect */}
-      {selectedCardEffect && (
-        <div className="rounded-md border-l-2 border-orange-500 bg-muted/50 px-2 py-1">
-          <p className="text-[10px] leading-relaxed text-muted-foreground">
-            <span className="font-medium text-foreground">{t('game.effectLabel')}:</span>{' '}
-            {selectedCardEffect}
-          </p>
-        </div>
-      )}
-
-      {/* Action Buttons */}
+      {/* Right: Action Buttons */}
       {showActions && !pendingEffect && (
-        <div className="flex items-center gap-1">
+        <div className="flex flex-shrink-0 items-center gap-1">
+          {/* Cancel button when card selected */}
+          {selectedCardId && onCancel && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onCancel}
+              className="text-xs text-muted-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+              {t('game.cancelAction')}
+            </Button>
+          )}
+
           {/* Hidden mode toggle */}
           <Button
             variant={hiddenMode ? 'default' : 'outline'}
@@ -124,7 +110,7 @@ export function ActionBar({
             )}
           >
             <EyeOff className="h-3.5 w-3.5" />
-            {t('game.playHidden')}
+            <span className="hidden sm:inline">{t('game.playHidden')}</span>
           </Button>
 
           {/* Pass button */}
@@ -133,21 +119,11 @@ export function ActionBar({
             size="sm"
             onClick={onPass}
             data-tutorial="pass-button"
-            className="ml-auto text-xs"
+            className="text-xs"
           >
             <Hand className="h-3.5 w-3.5" />
             {t('game.pass')}
           </Button>
-
-          {/* Selected action indicator */}
-          {selectedAction && selectedAction !== GameActionType.PASS && (
-            <Badge variant="secondary" className="text-[10px]">
-              {selectedAction === GameActionType.PLAY_CHARACTER && t('game.playCharacter')}
-              {selectedAction === GameActionType.PLAY_HIDDEN && t('game.playHidden')}
-              {selectedAction === GameActionType.UPGRADE && t('game.upgrade')}
-              {selectedAction === GameActionType.REVEAL && t('game.reveal')}
-            </Badge>
-          )}
         </div>
       )}
     </div>

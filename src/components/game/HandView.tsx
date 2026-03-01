@@ -78,44 +78,100 @@ export function HandView({
     return null;
   };
 
+  // Fan layout calculations
+  const cardCount = hand.length;
+  const maxRotation = 15; // degrees
+  const isMobileFew = cardCount <= 3; // Simple row on mobile with few cards
+
   return (
     <div className="w-full">
       <div className="mb-1 flex items-center justify-between px-1">
         <span className="text-xs font-medium text-muted-foreground">
-          {t('game.hand')} ({hand.length})
+          {t('game.hand')} ({cardCount})
         </span>
       </div>
 
-      <div
-        className={cn(
-          'flex gap-2 overflow-x-auto pb-2',
-          disabled && 'opacity-60'
-        )}
-      >
-        {hand.map((inst) => (
-          <HandCard
-            key={inst.instanceId}
-            inst={inst}
-            playable={isPlayable(inst.instanceId)}
-            selected={selectedCardId === inst.instanceId}
-            unplayableReason={getUnplayableReason(inst)}
-            disabled={disabled}
-            onSelect={() => {
-              if (!disabled && isPlayable(inst.instanceId)) {
-                onSelectCard(inst.instanceId);
-              }
-            }}
-            onInspect={onInspectCard ? () => onInspectCard(inst.card) : undefined}
-            locale={locale}
-          />
-        ))}
+      {isMobileFew ? (
+        /* Simple centered row for ≤3 cards */
+        <div
+          className={cn(
+            'flex items-end justify-center gap-2 pb-2',
+            disabled && 'opacity-60'
+          )}
+        >
+          {hand.map((inst) => (
+            <HandCard
+              key={inst.instanceId}
+              inst={inst}
+              playable={isPlayable(inst.instanceId)}
+              selected={selectedCardId === inst.instanceId}
+              unplayableReason={getUnplayableReason(inst)}
+              disabled={disabled}
+              onSelect={() => {
+                if (!disabled && isPlayable(inst.instanceId)) {
+                  onSelectCard(inst.instanceId);
+                }
+              }}
+              onInspect={onInspectCard ? () => onInspectCard(inst.card) : undefined}
+              locale={locale}
+            />
+          ))}
+          {cardCount === 0 && (
+            <p className="w-full py-4 text-center text-xs text-muted-foreground">
+              &mdash;
+            </p>
+          )}
+        </div>
+      ) : (
+        /* Fan layout for 4+ cards */
+        <div
+          className={cn(
+            'relative mx-auto h-[140px] sm:h-[175px]',
+            disabled && 'opacity-60'
+          )}
+          style={{ maxWidth: `${Math.min(cardCount * 70, 600)}px` }}
+        >
+          {hand.map((inst, i) => {
+            const isSelected = selectedCardId === inst.instanceId;
+            const mid = (cardCount - 1) / 2;
+            const normalizedPos = (i - mid) / Math.max(mid, 1);
+            const rotation = normalizedPos * maxRotation;
+            const arcY = Math.abs(normalizedPos) * 20;
+            const leftPercent = cardCount > 1
+              ? (i / (cardCount - 1)) * 80 + 10
+              : 50;
 
-        {hand.length === 0 && (
-          <p className="w-full py-4 text-center text-xs text-muted-foreground">
-            &mdash;
-          </p>
-        )}
-      </div>
+            return (
+              <div
+                key={inst.instanceId}
+                className="absolute transition-all duration-300 ease-out"
+                style={{
+                  left: `${leftPercent}%`,
+                  bottom: isSelected ? '40px' : `${10 - arcY}px`,
+                  transform: `translateX(-50%) rotate(${isSelected ? 0 : rotation}deg)`,
+                  zIndex: isSelected ? 50 : i + 1,
+                }}
+              >
+                <HandCard
+                  inst={inst}
+                  playable={isPlayable(inst.instanceId)}
+                  selected={isSelected}
+                  unplayableReason={getUnplayableReason(inst)}
+                  disabled={disabled}
+                  onSelect={() => {
+                    if (!disabled && isPlayable(inst.instanceId)) {
+                      onSelectCard(inst.instanceId);
+                    }
+                  }}
+                  onInspect={onInspectCard ? () => onInspectCard(inst.card) : undefined}
+                  locale={locale}
+                  large
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -171,6 +227,7 @@ interface HandCardProps {
   onSelect: () => void;
   onInspect?: () => void;
   locale: string;
+  large?: boolean;
 }
 
 function HandCard({
@@ -182,6 +239,7 @@ function HandCard({
   onSelect,
   onInspect,
   locale,
+  large,
 }: HandCardProps) {
   const name = locale === 'fr' ? inst.card.nameFr : inst.card.nameEn;
   const displayName = name.split(' \u2014 ')[0];
@@ -211,9 +269,11 @@ function HandCard({
       tabIndex={0}
       className={cn(
         'relative flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all duration-200',
-        // TCG card ratio 5:7 — 72x100 / 82x115
-        'w-[72px] h-[100px] sm:w-[82px] sm:h-[115px]',
-        selected && cn(borders.active, '-translate-y-3 shadow-lg shadow-primary/30 scale-105'),
+        // TCG card ratio 5:7
+        large
+          ? 'w-[90px] h-[126px] sm:w-[110px] sm:h-[154px]'
+          : 'w-[72px] h-[100px] sm:w-[82px] sm:h-[115px]',
+        selected && cn(borders.active, 'gold-glow scale-105'),
         playable && !selected && cn(borders.playable, 'hover:-translate-y-1 cursor-pointer'),
         !playable && cn(borders.default, 'cursor-default grayscale-[40%]'),
         disabled && 'pointer-events-none',
@@ -301,7 +361,7 @@ function HandCard({
 
           {/* Effect preview */}
           {(() => {
-            const effectText = locale === 'fr' ? inst.card.effectFr : inst.card.effectEn;
+            const effectText = (locale === 'fr' ? inst.card.effectFr : inst.card.effectEn) || inst.card.effectEn;
             if (!effectText) return null;
             const firstLine = effectText.split('\n')[0];
             const cleaned = firstLine.replace(/^(MAIN|UPGRADE|AMBUSH|SCORE)\s*[⚡✖]\s*/, '');

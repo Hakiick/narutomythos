@@ -160,5 +160,5 @@ export interface PendingEffect {
   value: number;
   step?: 'SELECT_CHARACTER' | 'SELECT_DESTINATION' | 'SELECT_MISSION';
   moveData?: { characterInstanceId: string; fromMissionIndex: number };
-  playCharacterData?: { cardInstanceId: string; costReduction: number };
+  playCharacterData?: { cardInstanceId: string; costReduction: number; fromDiscard?: boolean };
 }

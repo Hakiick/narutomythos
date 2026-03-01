@@ -14,6 +14,23 @@ import { cn } from '@/lib/utils';
 
 const EFFECT_TYPES = ['MAIN', 'UPGRADE', 'AMBUSH', 'SCORE'] as const;
 
+const EFFECT_ACTIONS = [
+  { key: 'POWERUP', label: 'actionPowerup' },
+  { key: 'DEFEAT', label: 'actionDefeat' },
+  { key: 'HIDE', label: 'actionHide' },
+  { key: 'DRAW', label: 'actionDraw' },
+  { key: 'MOVE', label: 'actionMove' },
+  { key: 'GAIN_CHAKRA', label: 'actionGainChakra' },
+  { key: 'STEAL_CHAKRA', label: 'actionStealChakra' },
+  { key: 'PROTECTION', label: 'actionProtection' },
+  { key: 'POWER_BOOST', label: 'actionPowerBoost' },
+  { key: 'DISCARD', label: 'actionDiscard' },
+  { key: 'LOOK_AT', label: 'actionLookAt' },
+  { key: 'TAKE_CONTROL', label: 'actionTakeControl' },
+  { key: 'RETURN_TO_HAND', label: 'actionReturnToHand' },
+  { key: 'PLAY_FROM_DISCARD', label: 'actionPlayFromDiscard' },
+] as const;
+
 interface CardFiltersProps {
   groups: string[];
   keywords: string[];
@@ -68,6 +85,7 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
 
   const currentKeywords = searchParams.get('keywords')?.split(',').filter(Boolean) || [];
   const currentEffectTypes = searchParams.get('effectTypes')?.split(',').filter(Boolean) || [];
+  const currentEffectActions = searchParams.get('effectActions')?.split(',').filter(Boolean) || [];
 
   const hasFilters =
     searchParams.has('type') ||
@@ -79,7 +97,8 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
     searchParams.has('powerMin') ||
     searchParams.has('powerMax') ||
     searchParams.has('keywords') ||
-    searchParams.has('effectTypes');
+    searchParams.has('effectTypes') ||
+    searchParams.has('effectActions');
 
   const hasAdvancedFilters =
     searchParams.has('chakraMin') ||
@@ -87,7 +106,8 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
     searchParams.has('powerMin') ||
     searchParams.has('powerMax') ||
     searchParams.has('keywords') ||
-    searchParams.has('effectTypes');
+    searchParams.has('effectTypes') ||
+    searchParams.has('effectActions');
 
   return (
     <div className="flex flex-col gap-4">
@@ -256,7 +276,7 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
             </div>
           )}
 
-          {/* Row 3: Effect Types */}
+          {/* Row 3: Effect Triggers */}
           <div>
             <Label className="mb-1.5 text-xs">{t('effectType')}</Label>
             <div className="flex flex-wrap gap-1.5">
@@ -276,6 +296,31 @@ export function CardFilters({ groups, keywords }: CardFiltersProps) {
                     }}
                   >
                     {t(labelKey)}
+                  </Badge>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Row 4: Effect Actions */}
+          <div>
+            <Label className="mb-1.5 text-xs">{t('effectAction')}</Label>
+            <div className="flex flex-wrap gap-1.5">
+              {EFFECT_ACTIONS.map(({ key, label }) => {
+                const isSelected = currentEffectActions.includes(key);
+                return (
+                  <Badge
+                    key={key}
+                    variant={isSelected ? 'default' : 'outline'}
+                    className="cursor-pointer text-xs"
+                    onClick={() => {
+                      const next = isSelected
+                        ? currentEffectActions.filter((a) => a !== key)
+                        : [...currentEffectActions, key];
+                      updateArrayFilter('effectActions', next);
+                    }}
+                  >
+                    {t(label)}
                   </Badge>
                 );
               })}

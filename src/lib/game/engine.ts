@@ -982,18 +982,25 @@ export function executeEndPhase(state: GameState): GameState {
   newState = updatePlayerState(newState, 'opponent', { chakra: 0 });
 
   // Remove power tokens and continuous effects from all characters
+  // Exception: characters with RETAIN_POWER keep their power tokens
   const clearedMissions = newState.missions.map((mission) => ({
     ...mission,
-    playerCharacters: mission.playerCharacters.map((c) => ({
-      ...c,
-      powerTokens: 0,
-      continuousEffects: [],
-    })),
-    opponentCharacters: mission.opponentCharacters.map((c) => ({
-      ...c,
-      powerTokens: 0,
-      continuousEffects: [],
-    })),
+    playerCharacters: mission.playerCharacters.map((c) => {
+      const retainsPower = c.continuousEffects.some((ce) => ce.type === 'RETAIN_POWER');
+      return {
+        ...c,
+        powerTokens: retainsPower ? c.powerTokens : 0,
+        continuousEffects: [],
+      };
+    }),
+    opponentCharacters: mission.opponentCharacters.map((c) => {
+      const retainsPower = c.continuousEffects.some((ce) => ce.type === 'RETAIN_POWER');
+      return {
+        ...c,
+        powerTokens: retainsPower ? c.powerTokens : 0,
+        continuousEffects: [],
+      };
+    }),
   }));
   newState = { ...newState, missions: clearedMissions };
 
@@ -1183,8 +1190,18 @@ export function revealHiddenCharacter(
     chakra: ps.chakra - revealCost,
   });
 
-  // Apply AMBUSH effects
+  // Apply MAIN effects (reveal triggers MAIN, just like face-up play)
   const effects = parseEffects(char.card.effectEn);
+  newState = applyEffects(
+    newState,
+    effects,
+    EffectTrigger.MAIN,
+    instanceId,
+    side,
+    missionIndex
+  );
+
+  // Apply AMBUSH effects (unique to reveal)
   newState = applyEffects(
     newState,
     effects,

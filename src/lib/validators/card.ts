@@ -12,6 +12,7 @@ export const cardFiltersSchema = z.object({
   powerMax: z.coerce.number().int().min(0).max(9).optional(),
   keywords: z.array(z.string()).optional(),
   effectTypes: z.array(z.enum(['MAIN', 'UPGRADE', 'AMBUSH', 'SCORE'])).optional(),
+  effectActions: z.array(z.string()).optional(),
 });
 
 export type CardFiltersInput = z.infer<typeof cardFiltersSchema>;

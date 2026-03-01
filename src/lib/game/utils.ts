@@ -119,7 +119,9 @@ export function calculateMissionPower(
   return characters.reduce((total, char) => {
     if (char.hidden) return total;
     const missionBonus = getMissionPowerBonus(char, missionCard?.effectEn);
-    return total + char.card.power + char.powerTokens + missionBonus;
+    // Individual character power cannot go below 0 (powerTokens can be negative from SET_POWER_ZERO/REDUCE_POWER)
+    const charPower = Math.max(0, char.card.power + char.powerTokens + missionBonus);
+    return total + charPower;
   }, 0);
 }
 

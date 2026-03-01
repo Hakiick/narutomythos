@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
-import { Shield, Sparkles, Zap } from 'lucide-react';
+import { Eye, Shield, Sparkles, Zap } from 'lucide-react';
 import Image from 'next/image';
 import type { DeployedCharacter } from '@/lib/game/types';
 import { useLongPress } from '@/hooks/useLongPress';
@@ -101,11 +101,24 @@ export function CharacterSlot({ character, isOwn, isSelectable, onClick, onInspe
           <span className="max-w-full truncate px-0.5 text-[9px] font-medium text-gray-300 sm:text-[10px]">
             {displayName}
           </span>
-          <div className="relative mt-0.5 flex h-4 w-4 items-center justify-center">
-            <div className="absolute inset-0 rounded-full border border-amber-500/40" />
-            <div className="h-1.5 w-1.5 rounded-full bg-amber-500/50" />
-          </div>
-          <span className="text-[8px] tracking-wide text-amber-500/60 uppercase">{t('game.hidden')}</span>
+          {isSelectable ? (
+            /* Reveal hint with cost */
+            <div className="mt-0.5 flex items-center gap-0.5 rounded-full bg-amber-500/20 px-1.5 py-0.5">
+              <Eye className="h-2.5 w-2.5 text-amber-400" />
+              <Zap className="h-2 w-2 text-blue-400" />
+              <span className="text-[8px] font-bold text-blue-400">
+                {Math.max(0, character.card.chakra - 1)}
+              </span>
+            </div>
+          ) : (
+            <>
+              <div className="relative mt-0.5 flex h-4 w-4 items-center justify-center">
+                <div className="absolute inset-0 rounded-full border border-amber-500/40" />
+                <div className="h-1.5 w-1.5 rounded-full bg-amber-500/50" />
+              </div>
+              <span className="text-[8px] tracking-wide text-amber-500/60 uppercase">{t('game.hidden')}</span>
+            </>
+          )}
         </div>
       </div>
     );
