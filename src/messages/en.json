@@ -520,7 +520,10 @@
       "revealedExpires": "Expires in {count} actions",
       "scoreLabel": "Score",
       "effectPreview": "Effect Preview",
-      "tapToInspect": "Tap for details"
+      "tapToInspect": "Tap for details",
+      "musicOn": "Music On",
+      "musicOff": "Music Off",
+      "musicTooltip": "Toggle background music"
     },
     "tutorial": {
       "welcome": "Welcome to Naruto Mythos TCG!",

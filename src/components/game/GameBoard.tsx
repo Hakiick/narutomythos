@@ -24,6 +24,7 @@ import { TargetSelector } from './TargetSelector';
 import { EffectToastContainer } from './EffectToastContainer';
 import { GameCardInspector } from './GameCardInspector';
 import { ThemeParticles } from './ThemeParticles';
+import { MusicPlayer } from './MusicPlayer';
 import { useGameTheme, themeBoardClass } from '@/hooks/useGameTheme';
 import { cn } from '@/lib/utils';
 import type { DeployedCharacter, GameCard } from '@/lib/game/types';
@@ -431,15 +432,18 @@ export function GameBoard({
         );
       })()}
 
-      {/* Game Log toggle button (fixed top-right) */}
-      <button
-        type="button"
-        onClick={() => setShowLog((prev) => !prev)}
-        className="absolute right-2 top-2 z-20 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-muted/80 transition-colors hover:bg-muted"
-        title="Game Log"
-      >
-        <ScrollText className="h-3.5 w-3.5 text-muted-foreground" />
-      </button>
+      {/* Top-right toolbar: Music + Game Log */}
+      <div className="absolute right-2 top-2 z-20 flex items-center gap-1.5">
+        <MusicPlayer />
+        <button
+          type="button"
+          onClick={() => setShowLog((prev) => !prev)}
+          className="flex h-7 w-7 items-center justify-center rounded-full border border-border bg-muted/80 transition-colors hover:bg-muted"
+          title="Game Log"
+        >
+          <ScrollText className="h-3.5 w-3.5 text-muted-foreground" />
+        </button>
+      </div>
 
       {/* Game Log slide-in overlay */}
       {showLog && (
