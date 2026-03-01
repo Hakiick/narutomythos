@@ -12,6 +12,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 import { rarityColors } from './CardItem';
 
 interface CardDetailDialogProps {
@@ -26,6 +27,7 @@ export function CardDetailDialog({ card, open, onOpenChange }: CardDetailDialogP
 
   const fullName = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
   const effect = (locale === 'fr' ? card.effectFr : card.effectEn) || card.effectEn;
+  const resolvedImageUrl = getImageUrl(card.imageUrl);
 
   const [mainName, subtitle] = fullName.includes(' — ')
     ? fullName.split(' — ', 2)
@@ -55,9 +57,9 @@ export function CardDetailDialog({ card, open, onOpenChange }: CardDetailDialogP
                 card.type === 'MISSION' ? 'aspect-[88/63]' : 'aspect-[63/88]'
               )}
             >
-              {card.imageUrl ? (
+              {resolvedImageUrl ? (
                 <Image
-                  src={card.imageUrl}
+                  src={resolvedImageUrl}
                   alt={fullName}
                   fill
                   sizes="(max-width: 768px) 80vw, 300px"

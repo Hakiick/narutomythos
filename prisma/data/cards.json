@@ -13,7 +13,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Powerup 2 another friendly Leaf Village character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/01_C_Hiruzen_Professor-1920w.webp",
+    "imageUrl": "cards/KS-001.webp",
     "set": "KS",
     "cardNumber": 1
   },
@@ -31,7 +31,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Play a Leaf Village character anywhere paying 1 less.\nUPGRADE ⚡ Powerup 2 the character played with the MAIN effect.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/02_UC_Hiruzen_Hokage-1920w.webp",
+    "imageUrl": "cards/KS-002.webp",
     "set": "KS",
     "cardNumber": 2
   },
@@ -49,7 +49,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ When any friendly character is defeated, gain 2 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/03_C_Tsunade_Master-1920w.webp",
+    "imageUrl": "cards/KS-003.webp",
     "set": "KS",
     "cardNumber": 3
   },
@@ -68,7 +68,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Defeated friendly characters go into your hand instead of your discard pile.\nUPGRADE ⚡ Choose one character in your discard pile and put them into your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/04_UC_Tsunade_Reserve-Seal-1920w.webp",
+    "imageUrl": "cards/KS-004.webp",
     "set": "KS",
     "cardNumber": 4
   },
@@ -84,7 +84,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Chakra +1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/05_C_Shizune_Assistant-1920w.webp",
+    "imageUrl": "cards/KS-005.webp",
     "set": "KS",
     "cardNumber": 5
   },
@@ -102,7 +102,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Move an enemy character with Power 3 or less in play.\nUPGRADE ⚡ Gain 2 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/06_UC_Shizune_Needle_Shot-1920w.webp",
+    "imageUrl": "cards/KS-006.webp",
     "set": "KS",
     "cardNumber": 6
   },
@@ -120,7 +120,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Play a Summon character anywhere, paying 1 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/07_C_Jiraiya_Toad_Sage-1920w.webp",
+    "imageUrl": "cards/KS-007.webp",
     "set": "KS",
     "cardNumber": 7
   },
@@ -139,7 +139,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Play a Summon character anywhere, paying 2 less.\nUPGRADE ⚡ Hide an enemy character with cost 3 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/08_UC_Jiraiya_Dark_Swamp-1920w.webp",
+    "imageUrl": "cards/KS-008.webp",
     "set": "KS",
     "cardNumber": 8
   },
@@ -157,7 +157,7 @@
     "group": "Leaf Village",
     "effectEn": null,
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/09_C_Naruto_Genin-1920w.webp",
+    "imageUrl": "cards/KS-009.webp",
     "set": "KS",
     "cardNumber": 9
   },
@@ -176,7 +176,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Move this character from this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/10_C_Naruto_Substitution-1920w.webp",
+    "imageUrl": "cards/KS-010.webp",
     "set": "KS",
     "cardNumber": 10
   },
@@ -194,7 +194,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ If there's another Team 7 character in this mission, draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/11_C_Sakura_Genin-1920w.webp",
+    "imageUrl": "cards/KS-011.webp",
     "set": "KS",
     "cardNumber": 11
   },
@@ -212,7 +212,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Chakra +1.\nUPGRADE ⚡ Draw 1 card. If you do so, you must discard 1 card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/12_UC_Sakura_Chakra_Prowess-1920w.webp",
+    "imageUrl": "cards/KS-012.webp",
     "set": "KS",
     "cardNumber": 12
   },
@@ -230,7 +230,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ This character has -1 Power for every other non-hidden friendly character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/13_C_Sasuke_Last-1920w.webp",
+    "imageUrl": "cards/KS-013.webp",
     "set": "KS",
     "cardNumber": 13
   },
@@ -249,7 +249,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Look at the opponent's hand.\nUPGRADE AMBUSH effect: In addition, discard 1 card. If you do so, choose 1 card in the opponent's hand and discard it.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/14_UC_Sasuke_Sharingan-1920w.webp",
+    "imageUrl": "cards/KS-014.webp",
     "set": "KS",
     "cardNumber": 14
   },
@@ -267,7 +267,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Other Team 7 characters in this mission have +1 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/15_C_Kakashi_Teacher-1920w.webp",
+    "imageUrl": "cards/KS-015.webp",
     "set": "KS",
     "cardNumber": 15
   },
@@ -285,7 +285,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Copy a non-upgrade instant effect (⚡) of an enemy character with cost 4 or less in play.\nUPGRADE MAIN effect: Instead, there's no cost limit.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/16_UC_Kakashi_Sharingan-1920w.webp",
+    "imageUrl": "cards/KS-016.webp",
     "set": "KS",
     "cardNumber": 16
   },
@@ -304,7 +304,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Powerup 3.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/17_C_Choji_Expansion-1920w.webp",
+    "imageUrl": "cards/KS-017.webp",
     "set": "KS",
     "cardNumber": 17
   },
@@ -323,7 +323,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ After you move this character, hide an enemy character in this mission with less Power than this character.\nUPGRADE ⚡ Move this character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/18_UC_Choji_Human_Boulder-1920w.webp",
+    "imageUrl": "cards/KS-018.webp",
     "set": "KS",
     "cardNumber": 18
   },
@@ -341,7 +341,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ If there's another Team 10 character in this mission, Powerup 1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/19_C_Ino_Genin-1920w.webp",
+    "imageUrl": "cards/KS-019.webp",
     "set": "KS",
     "cardNumber": 19
   },
@@ -360,7 +360,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Take control of an enemy character with cost 2 or less in this mission.\nUPGRADE MAIN effect: Instead, the cost limit is 3 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/20_UC_Ino_Mind_Transfer-1920w.webp",
+    "imageUrl": "cards/KS-020.webp",
     "set": "KS",
     "cardNumber": 20
   },
@@ -378,7 +378,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ If you have the Edge, draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/21_C_Shikamaru_Genin-1920w.webp",
+    "imageUrl": "cards/KS-021.webp",
     "set": "KS",
     "cardNumber": 21
   },
@@ -397,7 +397,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Move an enemy character played during the opponent's previous turn.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/22_UC_Shikamaru_Shadow_Possession-1920w.webp",
+    "imageUrl": "cards/KS-022.webp",
     "set": "KS",
     "cardNumber": 22
   },
@@ -415,7 +415,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Move another Team 10 character from this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/23_C_Asuma_Teacher-1920w.webp",
+    "imageUrl": "cards/KS-023.webp",
     "set": "KS",
     "cardNumber": 23
   },
@@ -433,7 +433,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Draw a card. Then, discard a card to Powerup 3.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/24_UC_Asuma_Trench_Knives-1920w.webp",
+    "imageUrl": "cards/KS-024.webp",
     "set": "KS",
     "cardNumber": 24
   },
@@ -451,7 +451,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ If Akamaru is in the same mission, Chakra +1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/25_C_Kiba_Genin-1920w.webp",
+    "imageUrl": "cards/KS-025.webp",
     "set": "KS",
     "cardNumber": 25
   },
@@ -470,7 +470,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Hide the non-hidden enemy character with the lowest cost in this mission.\nUPGRADE ⚡ Look at the 3 top cards of your deck, reveal and draw any Akamaru characters, then put back the other cards.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/26_UC_Kiba_All_Four-1920w.webp",
+    "imageUrl": "cards/KS-026.webp",
     "set": "KS",
     "cardNumber": 26
   },
@@ -488,7 +488,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ If there isn't a Kiba Inuzuka in this mission at the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/27_C_Akamaru_Hound-1920w.webp",
+    "imageUrl": "cards/KS-027.webp",
     "set": "KS",
     "cardNumber": 27
   },
@@ -507,7 +507,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ At the end of the round, you may return this card to your hand.\nAMBUSH ⚡ Powerup 2 a friendly Kiba Inuzuka in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/28_UC_Akamaru_Man_Beast_Clone-1920w.webp",
+    "imageUrl": "cards/KS-028.webp",
     "set": "KS",
     "cardNumber": 28
   },
@@ -526,7 +526,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade over Kiba Inuzuka.\nUPGRADE ⚡ Hide the non-hidden enemy character with the lowest cost in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/29_UC_Akamaru_Two-Headed_Wolf-1920w.webp",
+    "imageUrl": "cards/KS-029.webp",
     "set": "KS",
     "cardNumber": 29
   },
@@ -545,7 +545,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Remove up to 2 Power tokens from an enemy character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/30_C_Hinata_Gentle_fist-1920w.webp",
+    "imageUrl": "cards/KS-030.webp",
     "set": "KS",
     "cardNumber": 30
   },
@@ -564,7 +564,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ When a non-hidden enemy character is played in this mission, gain 1 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/31_UC_Hinata_Byakugan-1920w.webp",
+    "imageUrl": "cards/KS-031.webp",
     "set": "KS",
     "cardNumber": 31
   },
@@ -582,7 +582,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Each player draws a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/32_C_Shino_Parasitic_Insects-1920w.webp",
+    "imageUrl": "cards/KS-032.webp",
     "set": "KS",
     "cardNumber": 32
   },
@@ -601,7 +601,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Place the top card of your deck as a hidden character in this mission.\nUPGRADE ⚡ Look at all hidden characters in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/33_UC_Shino_Insect_Wall-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 33
   },
@@ -619,7 +619,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Other Team 8 characters cost 1 less (min. 1) to play in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/34_C_Kurenai_Teacher-1920w.webp",
+    "imageUrl": "cards/KS-034.webp",
     "set": "KS",
     "cardNumber": 34
   },
@@ -638,7 +638,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Enemy characters cannot move from this mission.\nUPGRADE ⚡ Defeat an enemy character with Power 1 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/35_UC_Kurenai_Tree_Bind-1920w.webp",
+    "imageUrl": "cards/KS-035.webp",
     "set": "KS",
     "cardNumber": 35
   },
@@ -657,7 +657,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Remove up to 2 Power tokens from an enemy character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/36_C_Neji_Gentle_fist-1920w.webp",
+    "imageUrl": "cards/KS-036.webp",
     "set": "KS",
     "cardNumber": 36
   },
@@ -676,7 +676,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ When a non-hidden enemy character is played in this mission, Powerup 1.\nUPGRADE ⚡ Remove all Power tokens from an enemy character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/37_UC_Neji_Palm_Rotation-1920w.webp",
+    "imageUrl": "cards/KS-037.webp",
     "set": "KS",
     "cardNumber": 37
   },
@@ -694,7 +694,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Powerup 1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/38_C_RockLee_Training-1920w.webp",
+    "imageUrl": "cards/KS-038.webp",
     "set": "KS",
     "cardNumber": 38
   },
@@ -713,7 +713,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ This character doesn't lose Power tokens at the end of the round.\nUPGRADE ⚡ Powerup 2.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/39_UC_RockLee_Primary_Lotus-1920w.webp",
+    "imageUrl": "cards/KS-039.webp",
     "set": "KS",
     "cardNumber": 39
   },
@@ -731,7 +731,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ You can play this character only in a mission where you are currently winning.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/40_C_Tenten_Genin-1920w.webp",
+    "imageUrl": "cards/KS-040.webp",
     "set": "KS",
     "cardNumber": 40
   },
@@ -749,7 +749,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat a hidden character in this mission.\nUPGRADE ⚡ Powerup 1 another Leaf Village character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/41_UC_Tenten_Weapon_Specialist-1920w.webp",
+    "imageUrl": "cards/KS-041.webp",
     "set": "KS",
     "cardNumber": 41
   },
@@ -767,7 +767,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Other Team Guy characters in this mission have +1 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/42_C_MightGuy_Teacher-1920w.webp",
+    "imageUrl": "cards/KS-042.webp",
     "set": "KS",
     "cardNumber": 42
   },
@@ -786,7 +786,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ This character doesn't lose Power tokens at the end of the round.\nUPGRADE ⚡ Powerup 3.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/43_UC_MightGuy_Ferocious_Fist-1920w.webp",
+    "imageUrl": "cards/KS-043.webp",
     "set": "KS",
     "cardNumber": 43
   },
@@ -804,7 +804,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ If you have at least one other friendly Leaf Village character in this mission, Chakra +1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/44_C_Anko_Proctor-1920w.webp",
+    "imageUrl": "cards/KS-044.webp",
     "set": "KS",
     "cardNumber": 44
   },
@@ -823,7 +823,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Hide an enemy character with Power 2 or less in this mission.\nUPGRADE ⚡ Defeat a hidden character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/45_UC_Anko_Shadow_Snake-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 45
   },
@@ -841,7 +841,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ If there is a friendly non-hidden character with less Power than this character in this mission, draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/46_C_Ebisu_Trainer-1920w.webp",
+    "imageUrl": "cards/KS-046.webp",
     "set": "KS",
     "cardNumber": 46
   },
@@ -857,7 +857,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Move a Naruto Uzumaki character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/47_C_Iruka_Instructor-1920w.webp",
+    "imageUrl": "cards/KS-047.webp",
     "set": "KS",
     "cardNumber": 47
   },
@@ -875,7 +875,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ If this character would be defeated, hide it instead.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/48_C_Hayate_Shinobi-1920w.webp",
+    "imageUrl": "cards/KS-048.webp",
     "set": "KS",
     "cardNumber": 48
   },
@@ -893,7 +893,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ If a friendly Leaf Village character in this mission would be hidden or defeated by enemy effects, you can defeat this character instead.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/49_C_Genma_Elite_Guard-1920w.webp",
+    "imageUrl": "cards/KS-049.webp",
     "set": "KS",
     "cardNumber": 49
   },
@@ -912,7 +912,7 @@
     "group": "Sound Village",
     "effectEn": "AMBUSH ⚡ Look at a hidden enemy character in this mission. If it costs 3 or less, take control of that character and move it to your side.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/50_C_Orochimaru_Undercover-1920w.webp",
+    "imageUrl": "cards/KS-050.webp",
     "set": "KS",
     "cardNumber": 50
   },
@@ -930,7 +930,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ✖ If you lost this mission during the Mission Evaluation phase, move this character to another mission.\nUPGRADE ⚡ Defeat a hidden enemy character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/51_UC_Orochimaru_Substitution-1920w.webp",
+    "imageUrl": "cards/KS-051.webp",
     "set": "KS",
     "cardNumber": 51
   },
@@ -948,7 +948,7 @@
     "group": "Sound Village",
     "effectEn": "AMBUSH ⚡ Draw the top card of the opponent's deck and put it hidden in any mission under your control.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/52_C_Kabuto-Infiltrator-1920w.webp",
+    "imageUrl": "cards/KS-052.webp",
     "set": "KS",
     "cardNumber": 52
   },
@@ -966,7 +966,7 @@
     "group": "Sound Village",
     "effectEn": "UPGRADE ⚡ Discard a card.\nMAIN ⚡ Play the character at the top of your discard pile paying 3 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/53_UC_Kabuto_Yin_Healing-1920w.webp",
+    "imageUrl": "cards/KS-053.webp",
     "set": "KS",
     "cardNumber": 53
   },
@@ -984,7 +984,7 @@
     "group": "Sound Village",
     "effectEn": "UPGRADE ⚡ Powerup 1.\nMAIN ⚡ Hide all other characters in this mission with less Power than this character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/54_UC_Kabuto_Nirvana_Temple-1920w.webp",
+    "imageUrl": "cards/KS-054.webp",
     "set": "KS",
     "cardNumber": 54
   },
@@ -1002,7 +1002,7 @@
     "group": "Sound Village",
     "effectEn": "AMBUSH ⚡ Discard a card to hide a character in play with cost 3 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/55_C_Kimimaro_Camelia_Dance-1920w.webp",
+    "imageUrl": "cards/KS-055.webp",
     "set": "KS",
     "cardNumber": 55
   },
@@ -1020,7 +1020,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ✖ If this character is affected by an enemy effect, the opponent must pay 1 Chakra, if able.\nUPGRADE ⚡ Discard a card to hide a character in play with cost 4 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/56_UC_Kimimaro_Shikotsumyaku-1920w.webp",
+    "imageUrl": "cards/KS-056.webp",
     "set": "KS",
     "cardNumber": 56
   },
@@ -1038,7 +1038,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Powerup X. X is the number of missions where you have at least one friendly Sound Four character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/57_C_Jiroubou_Bearer-1920w.webp",
+    "imageUrl": "cards/KS-057.webp",
     "set": "KS",
     "cardNumber": 57
   },
@@ -1057,7 +1057,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Powerup 1 to all other friendly Sound Four characters in this mission.\nUPGRADE ⚡ Apply the MAIN effect to Sound Four characters in the other missions.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/58_UC_Jirobo_Earth_Dome-1920w.webp",
+    "imageUrl": "cards/KS-058.webp",
     "set": "KS",
     "cardNumber": 58
   },
@@ -1075,7 +1075,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Move X friendly character(s). X is the number of missions where you have at least one friendly Sound Four character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/59_C_Kidomaru_Bearer-1920w.webp",
+    "imageUrl": "cards/KS-059.webp",
     "set": "KS",
     "cardNumber": 59
   },
@@ -1094,7 +1094,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Move a character from this mission.\nAMBUSH ⚡ Defeat an enemy character with Power 1 or less in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/60_UC_Kidomaru_Spider_Web-1920w.webp",
+    "imageUrl": "cards/KS-060.webp",
     "set": "KS",
     "cardNumber": 60
   },
@@ -1112,7 +1112,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Draw X card(s). X is the number of missions where you have at least one friendly Sound Four character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/61_C_Sakon_Bearer-1920w.webp",
+    "imageUrl": "cards/KS-061.webp",
     "set": "KS",
     "cardNumber": 61
   },
@@ -1131,7 +1131,7 @@
     "group": "Sound Village",
     "effectEn": "AMBUSH ⚡ Copy an instant effect (⚡) of another friendly Sound Four character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/62_UC_Sakon_Black_Seal-1920w.webp",
+    "imageUrl": "cards/KS-062.webp",
     "set": "KS",
     "cardNumber": 62
   },
@@ -1150,7 +1150,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade over any Sound Village character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/63_UC_Ukon_Molecular_Possession-1920w.webp",
+    "imageUrl": "cards/KS-063.webp",
     "set": "KS",
     "cardNumber": 63
   },
@@ -1168,7 +1168,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ✖ Chakra +X. X is the number of missions where you have at least one friendly Sound Four character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/64_C_Tayuya_Bearer-1920w.webp",
+    "imageUrl": "cards/KS-064.webp",
     "set": "KS",
     "cardNumber": 64
   },
@@ -1187,7 +1187,7 @@
     "group": "Sound Village",
     "effectEn": "AMBUSH ⚡ Powerup 2 a friendly Sound Village character in play.\nUPGRADE ⚡ Look at the 3 top cards of your deck, reveal and draw any Summon characters, then put back the other cards.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/65_UC_Tayuya_Demon_Flute-1920w.webp",
+    "imageUrl": "cards/KS-065.webp",
     "set": "KS",
     "cardNumber": 65
   },
@@ -1205,7 +1205,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ If you have a Sound Four character in this mission, steal 1 Chakra from the opponent.\nMAIN ✖ At the end of the round, you must take back this character in hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/66_UC_Rage_Ogres_Summoning-1920w.webp",
+    "imageUrl": "cards/KS-066.webp",
     "set": "KS",
     "cardNumber": 66
   },
@@ -1223,7 +1223,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ The strongest enemy character in this mission loses all Power tokens and has its Power set to 0.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/67_UC_Rashomon_Summoning-1920w.webp",
+    "imageUrl": "cards/KS-067.webp",
     "set": "KS",
     "cardNumber": 67
   },
@@ -1241,7 +1241,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Look at a hidden character in play.\nAMBUSH ⚡ Defeat a hidden character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/68_C_Dosu_Superhuman-1920w.webp",
+    "imageUrl": "cards/KS-068.webp",
     "set": "KS",
     "cardNumber": 68
   },
@@ -1260,7 +1260,7 @@
     "group": "Sound Village",
     "effectEn": "UPGRADE ⚡ Look at a hidden character in play.\nMAIN ⚡ Choose a hidden enemy character in play. Opponent must either play them paying 2 more, or defeat them.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/69_UC_Dosu_Echo_Speaker-1920w.webp",
+    "imageUrl": "cards/KS-069.webp",
     "set": "KS",
     "cardNumber": 69
   },
@@ -1278,7 +1278,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Opponent gains 1 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/70_C_Zaku_Shinobi-1920w.webp",
+    "imageUrl": "cards/KS-070.webp",
     "set": "KS",
     "cardNumber": 70
   },
@@ -1296,7 +1296,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ If you have less non-hidden characters than the opponent in this mission, move an enemy character from this mission.\nUPGRADE ⚡ Powerup 2.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/71_UC_Zaku_Slicing-1920w.webp",
+    "imageUrl": "cards/KS-071.webp",
     "set": "KS",
     "cardNumber": 71
   },
@@ -1314,7 +1314,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Opponent draws a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/72_C_Kin_Kunoichi-1920w.webp",
+    "imageUrl": "cards/KS-072.webp",
     "set": "KS",
     "cardNumber": 72
   },
@@ -1333,7 +1333,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Discard a card to hide an enemy character with Power 4 or less.\nUPGRADE ⚡ Place the top card of your deck as a hidden character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/73_UC_KinTsuchi_Bell_Sound-1920w.webp",
+    "imageUrl": "cards/KS-073.webp",
     "set": "KS",
     "cardNumber": 73
   },
@@ -1351,7 +1351,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Powerup X where X is the number of friendly hidden characters in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/74_C_Gaara_Jinchuriki-1920w.webp",
+    "imageUrl": "cards/KS-074.webp",
     "set": "KS",
     "cardNumber": 74
   },
@@ -1370,7 +1370,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ If this character would be moved or defeated by enemy effects, instead hide them.\nMAIN ✖ You can play this character while hidden paying 2 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/75_C_Gaara_Sand_Shield-1920w.webp",
+    "imageUrl": "cards/KS-075.webp",
     "set": "KS",
     "cardNumber": 75
   },
@@ -1388,7 +1388,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade over Gaara.\nMAIN ✖ Can't be hidden or defeated by enemy effects.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/76_UC_One-Tail_Partial_Trasformation-1920w.webp",
+    "imageUrl": "cards/KS-076.webp",
     "set": "KS",
     "cardNumber": 76
   },
@@ -1406,7 +1406,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ If there's at least one non-hidden enemy character in this mission, Chakra +1.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/77_C_Kankurou_Chakra_Threads-1920w.webp",
+    "imageUrl": "cards/KS-077.webp",
     "set": "KS",
     "cardNumber": 77
   },
@@ -1425,7 +1425,7 @@
     "group": "Sand Village",
     "effectEn": "AMBUSH ⚡ Move any character with Power 4 or less.\nUPGRADE ⚡ Play a friendly character while hidden, paying 1 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/78_UC_Kankurou_Puppet_Master_Jutsu-1920w.webp",
+    "imageUrl": "cards/KS-078.webp",
     "set": "KS",
     "cardNumber": 78
   },
@@ -1443,7 +1443,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ If you have the Edge, this character has +2 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/79_C_Temari_Kunoichi-1920w.webp",
+    "imageUrl": "cards/KS-079.webp",
     "set": "KS",
     "cardNumber": 79
   },
@@ -1462,7 +1462,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Move another friendly Sand Village character.\nUPGRADE ⚡ Move this character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/80_UC_Temari_Sandstorm-1920w.webp",
+    "imageUrl": "cards/KS-080.webp",
     "set": "KS",
     "cardNumber": 80
   },
@@ -1480,7 +1480,7 @@
     "group": "Sand Village",
     "effectEn": "SCORE ⚡ Draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/81_C_Baki_Council_Agent-1920w.webp",
+    "imageUrl": "cards/KS-081.webp",
     "set": "KS",
     "cardNumber": 81
   },
@@ -1499,7 +1499,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 2 or less in this mission.\nUPGRADE ⚡ Draw a card if you have the Edge.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/82_UC_Baki_Blade_of_Wind-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 82
   },
@@ -1515,7 +1515,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Play a Sand Village character from your discard pile while hidden, paying 1 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/83_C_Chiyo_Puppet_Master-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 83
   },
@@ -1531,7 +1531,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ This character has +2 Power if there's a friendly Gaara in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/84_C_Yashamaru_Careteaker-1920w.webp",
+    "imageUrl": "cards/KS-084.webp",
     "set": "KS",
     "cardNumber": 84
   },
@@ -1549,7 +1549,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ When this character is defeated, defeat an enemy character with Power 2 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/85_UC_Yashamaru_Paper_Bomb-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 85
   },
@@ -1567,7 +1567,7 @@
     "group": "Independent",
     "effectEn": null,
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/86_C_Zabuza_Kubikiribocho-1920w.webp",
+    "imageUrl": "cards/KS-086.webp",
     "set": "KS",
     "cardNumber": 86
   },
@@ -1586,7 +1586,7 @@
     "group": "Independent",
     "effectEn": "AMBUSH ⚡ Look at all hidden characters in this mission. Defeat one hidden enemy character with cost 2 or less.\nUPGRADE ⚡ Powerup 2.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/87_UC_Zabuza_Silent_Killing-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 87
   },
@@ -1604,7 +1604,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ Draw 1 card. If you do so, you must put 1 card from your hand on top of your deck.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/88_C_Haku_Orphan-1920w.webp",
+    "imageUrl": "cards/KS-088.webp",
     "set": "KS",
     "cardNumber": 88
   },
@@ -1623,7 +1623,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ Discard the top card of your opponent's deck. Powerup X where X is the cost of the discarded card.\nUPGRADE MAIN effect: Instead, discard the top card from your deck.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/89_UC_Haku_Crystal_Ice_Mirrors-1920w.webp",
+    "imageUrl": "cards/KS-089.webp",
     "set": "KS",
     "cardNumber": 89
   },
@@ -1641,7 +1641,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ✖ If there is a Sasuke Uchiha in this mission, you can play this character while hidden paying 3 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/90_C_Itachi_Akatsuki-1920w.webp",
+    "imageUrl": "cards/KS-090.webp",
     "set": "KS",
     "cardNumber": 90
   },
@@ -1660,7 +1660,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ⚡ Choose an enemy character in this mission. That character has -3 Power until the end of the round.\nUPGRADE ⚡ Hide that character if its Power is 0 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/91_UC_Itachi_Tsukuyomi-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 91
   },
@@ -1678,7 +1678,7 @@
     "group": "Akatsuki",
     "effectEn": "AMBUSH ⚡ Remove up to 2 Power tokens from an enemy character in this mission and put them on this character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/92_C_Kisame_Rogue_Ninja-1920w.webp",
+    "imageUrl": "cards/KS-092.webp",
     "set": "KS",
     "cardNumber": 92
   },
@@ -1697,7 +1697,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ⚡ Steal 1 Chakra from the opponent. Powerup 1.\nUPGRADE ⚡ The opponent must discard a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/93_UC_Kisame_Samehada-1920w.webp",
+    "imageUrl": "cards/KS-093.webp",
     "set": "KS",
     "cardNumber": 93
   },
@@ -1715,7 +1715,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/94_C_Gamabunta_Chief_Toad-1920w.webp",
+    "imageUrl": "cards/KS-094.webp",
     "set": "KS",
     "cardNumber": 94
   },
@@ -1733,7 +1733,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ If there's a friendly character in this mission, draw a card.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/95_C_Gamahiro_Armed_Toad-1920w.webp",
+    "imageUrl": "cards/KS-095.webp",
     "set": "KS",
     "cardNumber": 95
   },
@@ -1751,7 +1751,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ Pay 1 less to play this character if there's a friendly Naruto Uzumaki in this mission.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/96_C_Gamakichi_Eldest_Son-1920w.webp",
+    "imageUrl": "cards/KS-096.webp",
     "set": "KS",
     "cardNumber": 96
   },
@@ -1769,7 +1769,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/97_C_Gamatatsu_Youngest_Son-1920w.webp",
+    "imageUrl": "cards/KS-097.webp",
     "set": "KS",
     "cardNumber": 97
   },
@@ -1787,7 +1787,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ If there is a friendly Tsunade in play, Powerup 2.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/98_C_Katsuyu_Giant_Slug-1920w.webp",
+    "imageUrl": "cards/KS-098.webp",
     "set": "KS",
     "cardNumber": 98
   },
@@ -1805,7 +1805,7 @@
     "group": "Independent",
     "effectEn": "SCORE ⚡ Move this character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/99_C_Pakkun_Hound-1920w.webp",
+    "imageUrl": "cards/KS-099.webp",
     "set": "KS",
     "cardNumber": 99
   },
@@ -1823,7 +1823,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ When this character moves to a different mission, look at a hidden character in that mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/100_C_Ninja_Hound-1920w.webp",
+    "imageUrl": "cards/KS-100.webp",
     "set": "KS",
     "cardNumber": 100
   },
@@ -1841,7 +1841,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ If there's a friendly Tsunade or Shizune in this mission, this character has +1 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/101_C_TonTon_Pig-1920w.webp",
+    "imageUrl": "cards/KS-101.webp",
     "set": "KS",
     "cardNumber": 101
   },
@@ -1859,7 +1859,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ If there is a friendly Orochimaru in play, Powerup 1.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/102_C_Manda_Giant_Snake-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 102
   },
@@ -1877,7 +1877,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ If there is a friendly Hiruzen Sarutobi in play, Powerup 2.\nMAIN ✖ At the end of the round, you must return this character to your hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/103_C_Enma_Monkey_King-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 103
   },
@@ -1895,7 +1895,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Spend any amount of additional Chakra. Powerup X, where X is the amount of additional Chakra spent.\nUPGRADE ⚡ Powerup X.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/104_R_Tsunade_Hokage-1920w.webp",
+    "imageUrl": "cards/KS-104.webp",
     "set": "KS",
     "cardNumber": 104
   },
@@ -1914,7 +1914,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Play a Summon character anywhere, paying 3 less.\nUPGRADE ⚡ Move any enemy character from this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/105_R_Jiraiya_Summoning_Jutsu-1920w.webp",
+    "imageUrl": "cards/KS-105.webp",
     "set": "KS",
     "cardNumber": 105
   },
@@ -1933,7 +1933,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Take control of an enemy character with cost 3 or less in this mission.\nUPGRADE ⚡ Instead, the cost limit is 5 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/106_R_Orochimaru_Forbidden_Jutsu-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 106
   },
@@ -1952,7 +1952,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 4 or less in this mission.\nUPGRADE MAIN effect: Instead, the Power limit is 6 or less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/107_R_Kakashi_Kamui-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 107
   },
@@ -1971,7 +1971,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Hide an enemy character with Power 3 or less in this mission.\nUPGRADE MAIN effect: Powerup X where X is the Power of the enemy character that is being hidden.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/108_M_Naruto-1920w.webp",
+    "imageUrl": "cards/KS-108.webp",
     "set": "KS",
     "cardNumber": 108
   },
@@ -1989,7 +1989,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Choose one of your Leaf Village characters in your discard pile and play it anywhere, paying its cost.\nUPGRADE MAIN effect: Instead, play the card paying 2 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/109_R_ART_Sakura_Medical-1920w.webp",
+    "imageUrl": "cards/KS-109.webp",
     "set": "KS",
     "cardNumber": 109
   },
@@ -2008,7 +2008,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ Powerup 3. Then, defeat an enemy character with Power equal to or less than this character's current Power tokens.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/110_M_Sasuke_Chidori-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 110
   },
@@ -2027,7 +2027,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ The opponent cannot play characters while hidden in this mission.\nUPGRADE ⚡ Hide an enemy character with Power 3 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/111_R_Shikamaru_Shadow_Strangle-1920w.webp",
+    "imageUrl": "cards/KS-111.webp",
     "set": "KS",
     "cardNumber": 111
   },
@@ -2046,7 +2046,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Friendly characters in this mission cannot be hidden or defeated by enemy effects.\nUPGRADE ⚡ Powerup 2 a friendly Team 8 character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/112_R_Hinata_Protective_Trigrams-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 112
   },
@@ -2065,7 +2065,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Remove all Power tokens from an enemy character in this mission.\nUPGRADE ⚡ In addition, remove all Power tokens from another enemy character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/113_R_Neji_64_Palms-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 113
   },
@@ -2084,7 +2084,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Powerup 4.\nUPGRADE ⚡ Move an enemy character from this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/114_R_Choji_Super_Expansion-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 114
   },
@@ -2103,7 +2103,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Take control of an enemy character with cost 3 or less in this mission.\nUPGRADE ⚡ Draw 2 cards, then discard 1 card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/115_R_Ino_Mind_Destruction-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 115
   },
@@ -2122,7 +2122,7 @@
     "group": "Leaf Village",
     "effectEn": "AMBUSH ⚡ Powerup 3.\nUPGRADE ⚡ After this character moves to a mission, defeat an enemy character with Power 2 or less in that mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/116_R_MightGuy_Dynamic_Entry-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 116
   },
@@ -2141,7 +2141,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ At the end of the round, you must move this character to another mission, if able.\nUPGRADE ⚡ Discard the top card of your deck: Powerup X where X is the cost of the discarded card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/117_R_ART_RockLee_Loopy_Fist-1920w.webp",
+    "imageUrl": "cards/KS-117.webp",
     "set": "KS",
     "cardNumber": 117
   },
@@ -2160,7 +2160,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat all hidden enemy characters in this mission.\nUPGRADE ⚡ Draw a card for each character defeated by the MAIN effect.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/118_R_Tenten_Twin_Rising_Dragons-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 118
   },
@@ -2179,7 +2179,7 @@
     "group": "Sand Village",
     "effectEn": "UPGRADE ⚡ Move any character in play.\nMAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/119_R_Kankuro_Iron_Maiden-1920w.webp",
+    "imageUrl": "cards/KS-119.webp",
     "set": "KS",
     "cardNumber": 119
   },
@@ -2198,7 +2198,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Defeat up to 1 enemy character with Power 1 or less in every mission.\nUPGRADE ⚡ Powerup X, where X is the number of characters defeated by the MAIN effect.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/120_R_Gaara_Sand_Coffin-1920w.webp",
+    "imageUrl": "cards/KS-120.webp",
     "set": "KS",
     "cardNumber": 120
   },
@@ -2217,7 +2217,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Move any friendly character in play.\nUPGRADE ⚡ Move any character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/121_R_Temari_Wind_Scythe-1920w.webp",
+    "imageUrl": "cards/KS-121.webp",
     "set": "KS",
     "cardNumber": 121
   },
@@ -2236,7 +2236,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ In addition, hide another enemy character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/122_R_Zabuza_Demon_Mist-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 122
   },
@@ -2255,7 +2255,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ If there is a friendly Zabuza in play, Powerup 3.\nUPGRADE ⚡ Hide an enemy character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/123_R_Haku_Precious_Person-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 123
   },
@@ -2274,7 +2274,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Play the top card of your discard pile anywhere, paying 2 less.\nUPGRADE ⚡ Place the top 2 cards of your deck as hidden characters in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/124_R_Kabuto_Sage_Mode-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 124
   },
@@ -2293,7 +2293,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 4 or less in this mission.\nUPGRADE ⚡ Powerup 2. This character cannot be hidden by enemy effects this round.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/125_R_Kimimaro_Clematis-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 125
   },
@@ -2312,7 +2312,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Hide an enemy character with Power 4 or less in this mission.\nUPGRADE MAIN effect: Instead, defeat that character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/126_AR_Gaara_Fight_Myself-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 126
   },
@@ -2331,7 +2331,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Place 2 cards from the top of your deck as hidden characters in this mission.\nUPGRADE ⚡ In addition, Powerup 1 for each hidden friendly character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/127_AR_Naruto_Shadow_Clone-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 127
   },
@@ -2350,7 +2350,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 3 or less in this mission.\nUPGRADE ⚡ Gain 1 Chakra for each character you defeat.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/128_AR_Sasuke_Avenger-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 128
   },
@@ -2368,7 +2368,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ Other friendly Team 7 characters in play have +1 Power.\nUPGRADE ⚡ Move a friendly Team 7 character from another mission to this mission. Powerup 2 that character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/129_AR_Kakashi_Rules-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 129
   },
@@ -2387,7 +2387,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Copy any non-upgrade effect of a character in play.\nUPGRADE ⚡ Take control of a hidden enemy character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/130_AR_Orochimaru_All_Jutsu-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 130
   },
@@ -2406,7 +2406,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Powerup 1 every friendly Leaf Village character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/131_SecretV_GOLD_Tsunade_Hokage-1920w.webp",
+    "imageUrl": "cards/KS-131.webp",
     "set": "KS",
     "cardNumber": 131
   },
@@ -2425,7 +2425,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Play a Summon character anywhere, paying 5 less.\nUPGRADE ⚡ The opponent must choose characters to be defeated until they only have up to 2 assigned in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/132_Secret_GOLD_Jiraiya_Toad_Mouth-1920w.webp",
+    "imageUrl": "cards/KS-132.webp",
     "set": "KS",
     "cardNumber": 132
   },
@@ -2444,7 +2444,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Hide an enemy character with Power 5 or less in this mission and another enemy character with Power 2 or less in play.\nUPGRADE MAIN effect: Instead, defeat both of them.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/133_SecretV_GOLD_Naruto_Rasengan-1920w.webp",
+    "imageUrl": "cards/KS-133.webp",
     "set": "KS",
     "cardNumber": 133
   },
@@ -2463,7 +2463,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade over Naruto Uzumaki.\nUPGRADE ⚡ Defeat an enemy character with Power 5 or less in this mission. If you do, this character has -2 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/134_SecretV_GOLD_Naruto_Nine_Tails_Cloak-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 134
   },
@@ -2481,7 +2481,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Look at the top 3 cards of your deck. Play one character anywhere and discard the other cards.\nUPGRADE MAIN effect: Instead, play the card paying 4 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/135_Secret_GOLD_Sakura_Recovery_Team-1920w.webp",
+    "imageUrl": "cards/KS-135.webp",
     "set": "KS",
     "cardNumber": 135
   },
@@ -2500,7 +2500,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ✖ When a character is defeated, gain 1 Chakra.\nUPGRADE ⚡ You must choose a friendly non-hidden character and any enemy character in this mission and defeat them, if able.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/136_SecretV_GOLD_Sasuke_Heaven_Curse_Mark-1920w.webp",
+    "imageUrl": "cards/KS-136.webp",
     "set": "KS",
     "cardNumber": 136
   },
@@ -2519,7 +2519,7 @@
     "group": "Leaf Village",
     "effectEn": "UPGRADE ⚡ Move this character.\nMAIN ⚡ Hide an upgraded character in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/137_SecretV_GOLD_Kakashi_Lightning_Blade-1920w.webp",
+    "imageUrl": "cards/KS-137.webp",
     "set": "KS",
     "cardNumber": 137
   },
@@ -2538,7 +2538,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade to any character that is not a Summon nor Orochimaru.\nUPGRADE ⚡ Gain 2 Mission points if the character you upgraded from had Power 6 or more.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/138_Secret_GOLD_Orochimaru_Transference_Ritual-1920w.webp",
+    "imageUrl": "cards/KS-138.webp",
     "set": "KS",
     "cardNumber": 138
   },
@@ -2557,7 +2557,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ✖ You can play this character as an upgrade over Gaara.\nUPGRADE ⚡ Defeat all enemy characters with Power 3 or less in this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/139_M_Gaara_One_Tail_Awakening-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 139
   },
@@ -2576,7 +2576,7 @@
     "group": "Independent",
     "effectEn": "MAIN ✖ When this character is defeated, defeat all enemy characters with Power 4 or less in this mission.\nUPGRADE ⚡ Powerup 3.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/140_M_Zabuza_See_You_Hell-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 140
   },
@@ -2595,7 +2595,7 @@
     "group": "Independent",
     "effectEn": "MAIN ⚡ Discard the top 3 cards of the opponent's deck. Powerup X where X is the number of characters discarded.\nUPGRADE ⚡ If there is a friendly Zabuza in play, draw 2 cards.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/141_M_Haku_Precious_Person-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 141
   },
@@ -2614,7 +2614,7 @@
     "group": "Sound Village",
     "effectEn": "MAIN ⚡ Play the character at the top of your discard pile anywhere paying 4 less.\nUPGRADE ⚡ Gain 2 Chakra. Draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/142_M_Kabuto_True_Allegiance-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 142
   },
@@ -2632,7 +2632,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ⚡ Move a friendly character to this mission.\nAMBUSH ⚡ Move an enemy character to this mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/143_M_Special_Itachi_Hunting-1920w.webp",
+    "imageUrl": "cards/KS-143.webp",
     "set": "KS",
     "cardNumber": 143
   },
@@ -2650,7 +2650,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ⚡ Steal 1 Chakra from the opponent pool.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/144_M_Special_Kisame_Chakra_absorb-1920w.webp",
+    "imageUrl": "cards/KS-144.webp",
     "set": "KS",
     "cardNumber": 144
   },
@@ -2668,7 +2668,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Target a friendly Naruto Uzumaki in play. Powerup 4 that character.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/145_R_Rasengan-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 145
   },
@@ -2686,7 +2686,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Target a friendly Sasuke Uchiha or Kakashi Hatake in play. Defeat an enemy character with Power 3 or less in that mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/146_R_Chidori-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 146
   },
@@ -2704,7 +2704,7 @@
     "group": null,
     "effectEn": "MAIN ⚡ Play a Summon character from your hand anywhere, paying 2 less.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/147_UC_Summoning_Jutsu-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 147
   },
@@ -2722,7 +2722,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Place 2 cards from the top of your deck as hidden characters in any mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/148_C_Shadow_Clone_Jutsu-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 148
   },
@@ -2740,7 +2740,7 @@
     "group": "Sand Village",
     "effectEn": "MAIN ⚡ Target a friendly Gaara in play. Defeat an enemy character with Power 4 or less in that mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/149_R_Sand_Burial-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 149
   },
@@ -2759,7 +2759,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Defeat an enemy character with Power 6 or less in this mission.\nUPGRADE ⚡ Powerup 2 every friendly character in play. Draw 2 cards.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/150_SecretV_GOLD_Naruto_Sage_Six_Paths-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 150
   },
@@ -2778,7 +2778,7 @@
     "group": "Leaf Village",
     "effectEn": "MAIN ⚡ Choose an enemy character in this mission. Set that character's Power to 0.\nUPGRADE ⚡ Defeat that character. Gain 1 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/151_SecretV_GOLD_Sasuke_Eternal_Mangekyou-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 151
   },
@@ -2797,7 +2797,7 @@
     "group": "Akatsuki",
     "effectEn": "MAIN ✖ Can't be hidden or defeated by enemy effects.\nUPGRADE ⚡ Defeat all enemy characters with Power 4 or less in this mission. Gain 2 Chakra.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/152_SecretV_GOLD_Madara_Ghost_Uchiha-1920w.webp",
+    "imageUrl": null,
     "set": "KS",
     "cardNumber": 152
   },
@@ -2813,7 +2813,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Powerup 2 a character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M1_Call-for-support-1920w.webp",
+    "imageUrl": "cards/KS-M01.webp",
     "set": "KS",
     "cardNumber": 1001
   },
@@ -2829,7 +2829,7 @@
     "group": null,
     "effectEn": "✖ All non-hidden characters in this mission have +1 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M2_Chunin-exam-1920w.webp",
+    "imageUrl": "cards/KS-M02.webp",
     "set": "KS",
     "cardNumber": 1002
   },
@@ -2845,7 +2845,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Opponent discards a card from hand.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M3_Find-the-traitor-1920w.webp",
+    "imageUrl": "cards/KS-M03.webp",
     "set": "KS",
     "cardNumber": 1003
   },
@@ -2861,7 +2861,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Defeat an enemy hidden character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M4_Assassination-1920w.webp",
+    "imageUrl": "cards/KS-M04.webp",
     "set": "KS",
     "cardNumber": 1004
   },
@@ -2877,7 +2877,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ You must return one friendly non-hidden character in this mission to your hand, if able.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M5_Bring-it-back-1920w.webp",
+    "imageUrl": "cards/KS-M05.webp",
     "set": "KS",
     "cardNumber": 1005
   },
@@ -2893,7 +2893,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Draw a card.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M6_Free-a-friend-1920w.webp",
+    "imageUrl": "cards/KS-M06.webp",
     "set": "KS",
     "cardNumber": 1006
   },
@@ -2909,7 +2909,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Move a friendly hidden character in play.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M7_I-have-to-go-1920w.webp",
+    "imageUrl": "cards/KS-M07.webp",
     "set": "KS",
     "cardNumber": 1007
   },
@@ -2925,7 +2925,7 @@
     "group": null,
     "effectEn": "SCORE ⚡ Place a card from your hand as a hidden character to any mission.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M8_Set-a-trap-1920w.webp",
+    "imageUrl": "cards/KS-M08.webp",
     "set": "KS",
     "cardNumber": 1008
   },
@@ -2941,7 +2941,7 @@
     "group": null,
     "effectEn": "✖ Characters with 4 Power or more in this mission have +1 Power.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M9_Guard-a-VIP-1920w.webp",
+    "imageUrl": "cards/KS-M09.webp",
     "set": "KS",
     "cardNumber": 1009
   },
@@ -2957,7 +2957,7 @@
     "group": null,
     "effectEn": "✖ Chakra +1 for both players.",
     "effectFr": null,
-    "imageUrl": "https://lirp.cdn-website.com/99e556bf/dms3rep/multi/opt/M10_Chakra-improvement-1920w.webp",
+    "imageUrl": "cards/KS-M10.webp",
     "set": "KS",
     "cardNumber": 1010
   }

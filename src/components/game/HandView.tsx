@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { GameActionType, type AvailableAction, type GameCardInstance, type GameState } from '@/lib/game/types';
 import { getCharacterBaseName, hasCharacterWithName } from '@/lib/game/utils';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 
 interface HandViewProps {
   hand: GameCardInstance[];
@@ -91,7 +92,7 @@ export function HandView({
           const name = locale === 'fr' ? inst.card.nameFr : inst.card.nameEn;
           const isCharacter = inst.card.type === 'CHARACTER';
           const unplayableReason = getUnplayableReason(inst);
-          const imageUrl = inst.card.imageUrl;
+          const imageUrl = getImageUrl(inst.card.imageUrl);
 
           return (
             <button

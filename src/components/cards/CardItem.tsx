@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import type { Card } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 import { CardDetailDialog } from './CardDetailDialog';
 
 interface CardItemProps {
@@ -28,6 +29,7 @@ export function CardItem({ card }: CardItemProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const name = (locale === 'fr' ? card.nameFr : card.nameEn) || card.nameEn;
+  const resolvedImageUrl = getImageUrl(card.imageUrl);
 
   return (
     <>
@@ -61,9 +63,9 @@ export function CardItem({ card }: CardItemProps) {
           'relative mb-3 overflow-hidden rounded-lg bg-secondary',
           card.type === 'MISSION' ? 'aspect-[88/63]' : 'aspect-[63/88]'
         )}>
-          {card.imageUrl ? (
+          {resolvedImageUrl ? (
             <Image
-              src={card.imageUrl}
+              src={resolvedImageUrl}
               alt={name}
               fill
               sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 22vw, 16vw"

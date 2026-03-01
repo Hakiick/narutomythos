@@ -12,5 +12,52 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  minio:
+    image: minio/minio:latest
+    container_name: narutomythos-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: narutomythos
+      MINIO_ROOT_PASSWORD: narutomythos-secret
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 3;
+      mc alias set local http://minio:9000 narutomythos narutomythos-secret;
+      mc mb --ignore-existing local/narutomythos;
+      mc anonymous set download local/narutomythos;
+      exit 0;
+      "
+
+  app:
+    build: .
+    container_name: narutomythos-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://narutomythos:narutomythos@postgres:5432/narutomythos
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: dev-secret-change-in-production-narutomythos-2026
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: narutomythos
+      MINIO_SECRET_KEY: narutomythos-secret
+      MINIO_BUCKET: narutomythos
+      NEXT_PUBLIC_STORAGE_URL: http://localhost:9000/narutomythos
+    depends_on:
+      - postgres
+      - minio
+
 volumes:
   postgres_data:
+  minio_data:

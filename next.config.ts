@@ -4,6 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   serverExternalPackages: ['onnxruntime-web'],
   images: {
     remotePatterns: [
@@ -11,6 +12,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'lirp.cdn-website.com',
         pathname: '/99e556bf/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '9000',
+        pathname: '/narutomythos/**',
       },
     ],
   },

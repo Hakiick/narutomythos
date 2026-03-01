@@ -6,6 +6,7 @@ import { HelpCircle, Shield } from 'lucide-react';
 import Image from 'next/image';
 import type { DeployedCharacter } from '@/lib/game/types';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 
 interface CharacterSlotProps {
   character: DeployedCharacter;
@@ -20,7 +21,7 @@ export function CharacterSlot({ character, isOwn, isSelectable, onClick }: Chara
   const name = locale === 'fr' ? character.card.nameFr : character.card.nameEn;
   const displayName = name.split(' \u2014 ')[0];
   const totalPower = character.card.power + character.powerTokens;
-  const imageUrl = character.card.imageUrl;
+  const imageUrl = getImageUrl(character.card.imageUrl);
 
   if (character.hidden && !isOwn) {
     // Opponent's hidden card — show card back

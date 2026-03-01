@@ -6,6 +6,7 @@ import type { DeckCardWithCard } from '@/lib/services/deck-service';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getImageUrl } from '@/lib/storage';
 import { Minus, Plus, X } from 'lucide-react';
 
 const rarityColors: Record<string, string> = {
@@ -47,6 +48,7 @@ export function DeckCardList({ cards, onRemoveCard, onUpdateQuantity, readonly =
       <div className="space-y-2">
         {cards.map((dc) => {
           const name = (locale === 'fr' ? dc.card.nameFr : dc.card.nameEn) || dc.card.nameEn;
+          const resolvedImageUrl = getImageUrl(dc.card.imageUrl);
           const typeLabel =
             dc.card.type === 'CHARACTER' ? tCards('character') :
             dc.card.type === 'MISSION' ? tCards('mission') :
@@ -58,10 +60,10 @@ export function DeckCardList({ cards, onRemoveCard, onUpdateQuantity, readonly =
               className="flex items-center gap-2 rounded-lg border border-border bg-card p-2 text-sm"
             >
               {/* Card thumbnail */}
-              {dc.card.imageUrl && (
+              {resolvedImageUrl && (
                 <div className="relative h-10 w-7 shrink-0 overflow-hidden rounded">
                   <Image
-                    src={dc.card.imageUrl}
+                    src={resolvedImageUrl}
                     alt={name}
                     fill
                     sizes="28px"
