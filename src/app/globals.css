@@ -1144,6 +1144,73 @@ body {
 }
 .animate-uzumaki-spin { animation: uzumaki-spin 60s linear infinite; }
 
+/* Homepage hero — Rasengan glow on Naruto's card art
+   The Rasengan orb: ~57% left, ~29% top of the card (12% diameter).
+   Blue energy swirls: right side of art area, 40-85% width, 8-48% top.
+   High brightness+saturate enhances the card's blue areas. Screen blend
+   makes dark areas invisible, so only blue energy glows through. */
+@keyframes rasengan-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    filter: brightness(3) saturate(4)
+      drop-shadow(0 0 8px rgba(80, 160, 255, 0.6));
+  }
+  50% {
+    opacity: 0.85;
+    filter: brightness(5) saturate(5)
+      drop-shadow(0 0 16px rgba(80, 160, 255, 0.9));
+  }
+}
+.animate-rasengan-card {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: rasengan-pulse 3s ease-in-out infinite;
+  mix-blend-mode: screen;
+  /* Tight circle on the Rasengan orb + ellipse for the blue energy swirls.
+     Keeps the mask above ~50% top to avoid the card text area. */
+  mask-image:
+    radial-gradient(circle 9% at 57% 29%, black 0%, transparent 100%),
+    radial-gradient(ellipse 35% 25% at 60% 22%, rgba(0,0,0,0.45) 0%, transparent 70%);
+  mask-composite: add;
+  -webkit-mask-image:
+    radial-gradient(circle 9% at 57% 29%, black 0%, transparent 100%),
+    radial-gradient(ellipse 35% 25% at 60% 22%, rgba(0,0,0,0.45) 0%, transparent 70%);
+  -webkit-mask-composite: source-over;
+}
+
+/* Homepage hero — Chidori lightning flicker on Sasuke's card art
+   Lightning branches from hands (~50%, ~38%) to upper-left (~22%,18%),
+   right (~80%,25%), and across forehead (~50%,12%).
+   High brightness+saturate makes cyan lightning pop. Screen blend
+   makes dark areas invisible; flicker animation mimics electricity. */
+@keyframes chidori-crackle {
+  0%, 100% { opacity: 0.4; filter: brightness(2.5) saturate(4) sepia(1) hue-rotate(190deg) drop-shadow(0 0 5px rgba(60, 180, 255, 0.5)); }
+  6% { opacity: 0.85; filter: brightness(5.5) saturate(5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 14px rgba(60, 180, 255, 1)); }
+  10% { opacity: 0.35; filter: brightness(2.2) saturate(3.5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 4px rgba(60, 180, 255, 0.4)); }
+  18% { opacity: 0.9; filter: brightness(6) saturate(5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 18px rgba(60, 180, 255, 1)); }
+  22% { opacity: 0.3; filter: brightness(2) saturate(3) sepia(1) hue-rotate(190deg) drop-shadow(0 0 3px rgba(60, 180, 255, 0.35)); }
+  38% { opacity: 0.75; filter: brightness(4.5) saturate(5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 12px rgba(60, 180, 255, 0.9)); }
+  42% { opacity: 0.35; filter: brightness(2.2) saturate(3.5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 4px rgba(60, 180, 255, 0.4)); }
+  56% { opacity: 0.8; filter: brightness(5) saturate(5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 14px rgba(60, 180, 255, 0.95)); }
+  60% { opacity: 0.35; filter: brightness(2.2) saturate(3.5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 4px rgba(60, 180, 255, 0.4)); }
+  72% { opacity: 0.7; filter: brightness(4.5) saturate(5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 10px rgba(60, 180, 255, 0.8)); }
+  76% { opacity: 0.35; filter: brightness(2.2) saturate(3.5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 4px rgba(60, 180, 255, 0.4)); }
+  88% { opacity: 0.6; filter: brightness(3.5) saturate(4.5) sepia(1) hue-rotate(190deg) drop-shadow(0 0 8px rgba(60, 180, 255, 0.7)); }
+  92% { opacity: 0.3; filter: brightness(2) saturate(3) sepia(1) hue-rotate(190deg) drop-shadow(0 0 3px rgba(60, 180, 255, 0.35)); }
+}
+.animate-chidori-card {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: chidori-crackle 2.5s ease-in-out infinite;
+  mix-blend-mode: screen;
+  /* Single art-area mask — sepia+hue-rotate already isolates blue,
+     screen blend hides dark areas. Just clip to art zone (top ~52%). */
+  mask-image: radial-gradient(ellipse 85% 48% at 50% 25%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 48% at 50% 25%, black 0%, transparent 70%);
+}
+
 .theme-preview-konoha {
   background:
     radial-gradient(circle 8px at 80% 15%, rgba(255, 255, 240, 0.7) 0%, rgba(255, 255, 220, 0.2) 60%, transparent 100%),

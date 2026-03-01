@@ -153,27 +153,57 @@ export default function HomePage() {
 
         {/* Card art — floating behind hero content */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Left card — tilted, faded */}
-          <div className="absolute -left-8 bottom-4 sm:left-4 sm:bottom-8 w-[140px] sm:w-[180px] opacity-[0.12] -rotate-12 blur-[0.5px]">
-            <Image
-              src={`/storage/cards/${heroCards[0].id}.webp`}
-              alt={heroCards[0].alt}
-              width={180}
-              height={252}
-              className="rounded-lg"
-              priority
-            />
+          {/* Left card — Naruto Rasengan with animated blue energy */}
+          <div className="absolute -left-8 bottom-4 sm:left-4 sm:bottom-8 w-[140px] sm:w-[180px] -rotate-12">
+            <div className="relative">
+              <div className="opacity-[0.12] blur-[0.5px]">
+                <Image
+                  src={`/storage/cards/${heroCards[0].id}.webp`}
+                  alt={heroCards[0].alt}
+                  width={180}
+                  height={252}
+                  className="rounded-lg"
+                  priority
+                />
+              </div>
+              {/* Rasengan glow — same card masked to the blue energy area */}
+              <div className="animate-rasengan-card overflow-hidden rounded-lg">
+                <Image
+                  src={`/storage/cards/${heroCards[0].id}.webp`}
+                  alt=""
+                  width={180}
+                  height={252}
+                  className="rounded-lg"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
           </div>
-          {/* Right card — tilted, faded */}
-          <div className="absolute -right-8 bottom-4 sm:right-4 sm:bottom-8 w-[140px] sm:w-[180px] opacity-[0.12] rotate-12 blur-[0.5px]">
-            <Image
-              src={`/storage/cards/${heroCards[1].id}.webp`}
-              alt={heroCards[1].alt}
-              width={180}
-              height={252}
-              className="rounded-lg"
-              priority
-            />
+          {/* Right card — Sasuke Chidori with animated lightning */}
+          <div className="absolute -right-8 bottom-4 sm:right-4 sm:bottom-8 w-[140px] sm:w-[180px] rotate-12">
+            <div className="relative">
+              <div className="opacity-[0.12] blur-[0.5px]">
+                <Image
+                  src={`/storage/cards/${heroCards[1].id}.webp`}
+                  alt={heroCards[1].alt}
+                  width={180}
+                  height={252}
+                  className="rounded-lg"
+                  priority
+                />
+              </div>
+              {/* Chidori crackle — same card masked to the lightning area */}
+              <div className="animate-chidori-card overflow-hidden rounded-lg">
+                <Image
+                  src={`/storage/cards/${heroCards[1].id}.webp`}
+                  alt=""
+                  width={180}
+                  height={252}
+                  className="rounded-lg"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
           </div>
           {/* Center card — behind title, subtle */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] sm:w-[240px] opacity-[0.06] blur-[1px]">
