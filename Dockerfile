@@ -13,6 +13,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
+ENV MINIO_ENDPOINT="http://minio:9000"
+ENV MINIO_BUCKET="narutomythos"
+ENV NEXT_PUBLIC_STORAGE_URL="/storage"
 RUN pnpm build
 
 # Stage 3 — Production runner

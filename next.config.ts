@@ -3,6 +3,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
+const minioEndpoint = process.env.MINIO_ENDPOINT ?? 'http://localhost:9000';
+const minioBucket = process.env.MINIO_BUCKET ?? 'narutomythos';
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   serverExternalPackages: ['onnxruntime-web'],
@@ -20,6 +23,14 @@ const nextConfig: NextConfig = {
         pathname: '/narutomythos/**',
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/storage/:path*',
+        destination: `${minioEndpoint}/${minioBucket}/:path*`,
+      },
+    ];
   },
   async headers() {
     return [

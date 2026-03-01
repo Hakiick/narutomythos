@@ -53,7 +53,7 @@ services:
       MINIO_ACCESS_KEY: narutomythos
       MINIO_SECRET_KEY: narutomythos-secret
       MINIO_BUCKET: narutomythos
-      NEXT_PUBLIC_STORAGE_URL: http://localhost:9000/narutomythos
+      NEXT_PUBLIC_STORAGE_URL: /storage
     depends_on:
       - postgres
       - minio
